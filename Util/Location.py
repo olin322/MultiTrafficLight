@@ -1,3 +1,5 @@
+# from Location import distance
+
 class Location:
 
 	def __init__(x: float, y: float):
@@ -6,6 +8,6 @@ class Location:
 
 	# Parameters: 
 	# location - The other point to compute the distance with
-	def distance(self, location: Location) -> float:
-		# returns Euclidean distance from this location to another one
-		return sqrt(sqr(location.x - this.x) + sqr(location.y - this.y))
+	# def distance(self, location: Location) -> float:
+	# 	# returns Euclidean distance from this location to another one
+	# 	return ((location.x - this.x)**2 + (location.y - this.y)**2)**0.5

@@ -1,7 +1,8 @@
 import Util.Location
+import Actor
 
 
-class world:
+class World:
     def __init__(self, delta_t: float):
         this.actor = []
 

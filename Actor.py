@@ -1,4 +1,4 @@
-import Util.Location
+from Util.Location import Location
 
 
 class Actor:
