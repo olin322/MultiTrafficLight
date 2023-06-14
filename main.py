@@ -5,23 +5,38 @@ import random
 import matplotlib.animation as animation
 import math
 
-# world = World(0.02)
-# for i in range(100):
-# 	world.tick()
+### Currently the simulation runs in 1-D space/x-axis
+### CONSTANTS
+# speed_limit = 60km/h
+DESTINATION = 10000 # 10KM
+world = World(0.02)
+ego_vehicle = Vehicle(0.0, 1500.0, 7.9, 7.9, world.get_delta_t())
+World.spawn_vehicle(ego_vehicle)
+while(ego_vehicle.getLocation() < DESTINATION):
+	world.tick()
+print(world.get_simulation_time())
 
-ydata = []
-xdata = []
-fig, ax = plt.subplots()
+### Animation
+# ydata = []
+# xdata = []
+# fig, ax = plt.subplots()
 
-def animate(i):
-	xdata.append(i)
-	ydata.append(random.randint(0,9))
-	line, = ax.plot(xdata, ydata, 'ro')
-	line.set_ydata(ydata)
-	return line,
+# def animate(i):
+# 	xdata.append(random.randint(0,9))
+# 	ydata.append(random.randint(0,9))
+# 	x_min = min(xdata)
+# 	x_max = max(xdata)
+# 	y_min = min(ydata)
+# 	y_max = max(ydata)
+# 	# fig, ax = plt.subplots()
+# 	ax.set_xlim(x_min - 1, x_max + 1)
+# 	ax.set_ylim(y_min - 1, y_max + 1)
+# 	line, = ax.plot(xdata, ydata, 'ro')
+# 	line.set_ydata(ydata)
+# 	return line,
 
-ani = animation.FuncAnimation(fig, animate, interval=1000, blit=True, save_count = 50)
-plt.show()
+# ani = animation.FuncAnimation(fig, animate, interval=1000, blit=True, save_count = 50)
+# plt.show()
 
 
 # fig, ax = plt.subplots()
@@ -44,6 +59,20 @@ plt.show()
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+##############################################################################
 
 # import numpy as np
 # import matplotlib.pyplot as plt
