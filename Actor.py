@@ -3,11 +3,11 @@
 
 # class Actor:
 # 	def __init__(self, spawn_point:Location):
-# 		this.location = spawn_point
+# 		self.location = spawn_point
 
 class Actor:
-	def __init__(self, spawn_point: float):
-		this.spawn_point = spawn_point
+	def __init__(self, location: float):
+		self.location = location
 
 	def tick() -> None:
 		return None

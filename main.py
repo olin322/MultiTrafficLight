@@ -1,5 +1,6 @@
 from World import World
 from Actor import Actor
+from Vehicle import Vehicle
 import matplotlib.pyplot as plt
 import random
 import matplotlib.animation as animation
@@ -11,7 +12,7 @@ import math
 DESTINATION = 10000 # 10KM
 world = World(0.02)
 ego_vehicle = Vehicle(0.0, 1500.0, 7.9, 7.9, world.get_delta_t())
-World.spawn_vehicle(ego_vehicle)
+world.spawn_vehicle(ego_vehicle)
 while(ego_vehicle.getLocation() < DESTINATION):
 	world.tick()
 print(world.get_simulation_time())
