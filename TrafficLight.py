@@ -17,17 +17,17 @@ class TrafficLight(Actor):
 		self.delta_t = delta_t
 		self.countdown = int(math.ceil(timer))
 
-	def setLocation(self, location: float) -> None:
+	def setLocation(location: float) -> None:
 		self.location = location
 		return None
 
-	def setSPAT(self, phase: str, timer: float) -> None:
+	def setSPAT(phase: str, timer: float) -> None:
 		self.phase = phase
 		self.timer = timer
 		self.countdown = math.ceil(timer)
 		return None
 
-	def tick(self):
+	def tick():
 		if(timer > 0):
 			timer -= delta_t
 		self.countdown = math.ceil(timer)
@@ -46,11 +46,11 @@ class TrafficLight(Actor):
 				self.timer = random.randint(60, 90)
 		return None
 
-	def getLocation(self) -> float:
+	def getLocation() -> float:
 		return self.location
 
-	def getPhase(self) -> str:
+	def getPhase() -> str:
 		return self.phase
 
-	def getCountdown(self) -> int:
+	def getCountdown() -> int:
 		return self.countdown

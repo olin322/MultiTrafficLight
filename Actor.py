@@ -3,7 +3,7 @@
 
 # class Actor:
 # 	def __init__(self, spawn_point:Location):
-# 		this.location = spawn_point
+# 		self.location = spawn_point
 
 class Actor:
 	def __init__(self, location: float):

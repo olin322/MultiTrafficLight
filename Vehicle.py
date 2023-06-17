@@ -25,10 +25,14 @@ class Vehicle(Actor):
 
 	def tick(self, nextLight: TrafficLight) -> None:
 		if(RLVW(nextLight)):
-			deaccelerate()
+			self.deaccelerate()
 		elif (self.speed < self.speedLimit):
-			speed += min(max_acceleration * delta_t, self.speedLimit)
-			location += speed * delta_t
+			self.accelerate()
+		return None
+
+	def accelerate(self) -> None:
+		speed += min(max_acceleration * delta_t, self.speedLimit)
+		location += speed * delta_t
 		return None
 
 	def deaccelerate(self) -> None:
@@ -38,12 +42,12 @@ class Vehicle(Actor):
 
 	# return true if red light warning should be issued
 	# 
-	def RLVW(self, nextLight: TrafficLight) -> bool:
+	def RLVW(nextLight: TrafficLight) -> bool:
 		if(nextLight.getPhase() == "red"):
-			if(nextLight.getLocation - self.location < self.speed * nextLight.getCountdown):
+			if(nextLight.getLocation() - self.location < self.speed * nextLight.getCountdown()):
 				return True
-		elif(nextLight.getPhase == "green"):
-			if(nextLight.getLocation - self.location > self.speed * nextLight.getCountdown):
+		elif(nextLight.getPhase() == "green"):
+			if(nextLight.getLocation() - self.location > self.speed * nextLight.getCountdown()):
 				return True
 		else:
 			return False
