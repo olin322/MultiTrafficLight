@@ -1,10 +1,9 @@
-# from Location import distance
 
 class Location:
 
-	def __init__(x: float, y: float):
+	def __init__(x: float):
 		this.x = x;
-		this.y = y;
+		
 
 	# Parameters: 
 	# location - The other point to compute the distance with

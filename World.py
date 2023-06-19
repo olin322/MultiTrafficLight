@@ -1,7 +1,8 @@
-# import Util.Location
-from Actor import Actor
-from Vehicle import Vehicle
-from TrafficLight import TrafficLight
+import Util.Location
+import Actor
+import Vehicle
+import TrafficLight
+from Util.Utils import getClassName
 
 class World:
     def __init__(self, delta_t: float):
@@ -11,14 +12,15 @@ class World:
 
     def tick(self) -> None:
         for actor in self.actors:
-            if(type(actor) == "Vehicle"):
-                nextLight = find_next_light
+            print(type(actor))
+            if(getClassName(str(type(actor)))  == "Vehicle"):
+                nextLight = self.find_next_light()
                 if(nextLight):
-                    actor.tick(find_next_light())
+                    actor.tick(self.find_next_light())
                 else:
                     actor.accelerate()
             else:
-                pass
+                actor.tick()
         self.simulation_time += self.delta_t
         return None
 
@@ -26,8 +28,11 @@ class World:
         self.actors.append(vehicle)
         return None
 
-    def set_traffic_lights(self):
-        return None
+    def add_traffic_light(self, trafficLight: TrafficLight) -> bool:
+        if(getClassName(str(type(trafficLight))) != "TrafficLight"):
+            return False
+        self.actors.append(trafficLight)
+        return True
 
     def get_delta_t(self) -> float:
         return self.delta_t
@@ -35,7 +40,7 @@ class World:
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
-    def find_next_light() -> TrafficLight:
+    def find_next_light(self) -> TrafficLight:
         if(len(self.actors) < 2):
             return None
         vehicle = None
