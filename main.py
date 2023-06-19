@@ -1,7 +1,7 @@
-import World
 from World import World
 from Actor import Actor
 from Vehicle import Vehicle
+from TrafficLight import TrafficLight
 import matplotlib.pyplot as plt
 import random
 import matplotlib.animation as animation
@@ -10,11 +10,16 @@ import math
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
-DESTINATION = 100 # m
+DESTINATION = 1000 # m
 world = World(0.02)
 ego_vehicle = Vehicle(0.0, 1500.0, 7.9, 7.9, world.get_delta_t())
 world.spawn_vehicle(ego_vehicle)
-while(ego_vehicle.getLocation() < DESTINATION):
+trafficLight_1 = TrafficLight(500, "Green", 70, world.get_delta_t())
+world.add_traffic_light(trafficLight_1)
+while((ego_vehicle.getLocation() >= 0) & 
+	(ego_vehicle.getLocation() < DESTINATION)):
+	print(ego_vehicle.getSpeed())
+	print(trafficLight_1.getCountdown(), " ", trafficLight_1.getPhase())
 	world.tick()
 print("simulation time = ", world.get_simulation_time())
 

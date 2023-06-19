@@ -11,30 +11,27 @@ class TrafficLight(Actor):
 	# 
 	def __init__(self, location: float, phase: str, \
 				timer: float, delta_t: float):
-		Actor.__init__(location)
+		super().__init__(location)
 		self.phase = phase
 		self.timer = timer
 		self.delta_t = delta_t
 		self.countdown = int(math.ceil(timer))
+		self.timer_repeat = timer
 
-	def setLocation(location: float) -> None:
-		self.location = location
-		return None
-
-	def setSPAT(phase: str, timer: float) -> None:
-		self.phase = phase
-		self.timer = timer
-		self.countdown = math.ceil(timer)
-		return None
-
-	def tick():
-		if(timer > 0):
-			timer -= delta_t
-		self.countdown = math.ceil(timer)
-		updatePhase()
 	
-	def updatePhase() -> None:
-		if(countdown == 0):
+
+	def tick(self):
+		if(self.timer > 0):
+			self.timer -= self.delta_t
+		self.countdown = math.ceil(self.timer)
+		self.updatePhase()
+	
+	def reset(self):
+		self.timer = self.timer_repeat
+		self.countdown = int(math.ceil(self.timer))
+
+	def updatePhase(self) -> None:
+		if(self.countdown == 0):
 			if(self.phase == "green"):
 				self.phase = "yello"
 				self.timer = 3 # 黄灯固定3秒
@@ -45,12 +42,24 @@ class TrafficLight(Actor):
 				self.phase = "green"
 				self.timer = random.randint(60, 90)
 		return None
+	
 
-	def getLocation() -> float:
+	def setLocation(self, location: float) -> None:
+		self.location = location
+		return None
+
+	def setSPAT(self, phase: str, timer: float) -> None:
+		self.phase = phase
+		self.timer = timer
+		self.countdown = math.ceil(timer)
+		return None
+
+
+	def getLocation(self) -> float:
 		return self.location
 
-	def getPhase() -> str:
+	def getPhase(self) -> str:
 		return self.phase
 
-	def getCountdown() -> int:
+	def getCountdown(self) -> int:
 		return self.countdown

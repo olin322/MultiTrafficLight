@@ -24,7 +24,7 @@ class Vehicle(Actor):
 
 
 	def tick(self, nextLight: TrafficLight) -> None:
-		if(RLVW(nextLight)):
+		if(self.RLVW(nextLight)):
 			self.deaccelerate()
 		elif (self.speed < self.speedLimit):
 			self.accelerate()
@@ -36,13 +36,13 @@ class Vehicle(Actor):
 		return None
 
 	def deaccelerate(self) -> None:
-		self.speed -= max(self.max_deacceleration * delta_t, 0)
-		self.location += speed * delta_t
+		self.speed -= max(self.max_deacceleration * self.delta_t, 0)
+		self.location += self.speed * self.delta_t
 		return None
 
 	# return true if continue driving at current speed will pass red light
 	# 
-	def RLVW(nextLight: TrafficLight) -> bool:
+	def RLVW(self, nextLight: TrafficLight) -> bool:
 		if(nextLight.getPhase() == "red"):
 			if(nextLight.getLocation() - self.location < self.speed * nextLight.getCountdown()):
 				return True
@@ -54,4 +54,7 @@ class Vehicle(Actor):
 
 	def getLocation(self) -> float:
 		print(self.location)
+		return self.location
+
+	def getSpeed(self) -> float:
 		return self.location
