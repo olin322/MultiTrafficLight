@@ -1,3 +1,4 @@
+import World
 from World import World
 from Actor import Actor
 from Vehicle import Vehicle
@@ -9,13 +10,13 @@ import math
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
-DESTINATION = 10000 # 10KM
+DESTINATION = 100 # m
 world = World(0.02)
 ego_vehicle = Vehicle(0.0, 1500.0, 7.9, 7.9, world.get_delta_t())
 world.spawn_vehicle(ego_vehicle)
 while(ego_vehicle.getLocation() < DESTINATION):
 	world.tick()
-print(world.get_simulation_time())
+print("simulation time = ", world.get_simulation_time())
 
 ### Animation
 # ydata = []

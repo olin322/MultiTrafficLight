@@ -1,7 +1,8 @@
-# import Util.Location
-from Actor import Actor
-from Vehicle import Vehicle
-from TrafficLight import TrafficLight
+import Util.Location
+import Actor
+import Vehicle
+import TrafficLight
+from Util.Utils import getClassName
 
 class World:
     def __init__(self, delta_t: float):
@@ -11,8 +12,9 @@ class World:
 
     def tick(self) -> None:
         for actor in self.actors:
-            if(type(actor) == "Vehicle"):
-                nextLight = find_next_light
+            print(type(actor))
+            if(getClassName(str(type(actor)))  == "Vehicle"):
+                nextLight = self.find_next_light()
                 if(nextLight):
                     actor.tick(find_next_light())
                 else:
@@ -35,7 +37,7 @@ class World:
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
-    def find_next_light() -> TrafficLight:
+    def find_next_light(self) -> TrafficLight:
         if(len(self.actors) < 2):
             return None
         vehicle = None

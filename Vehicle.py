@@ -31,16 +31,16 @@ class Vehicle(Actor):
 		return None
 
 	def accelerate(self) -> None:
-		speed += min(max_acceleration * delta_t, self.speedLimit)
-		location += speed * delta_t
+		self.speed += min(self.max_acceleration * self.delta_t, self.speedLimit)
+		self.location += self.speed * self.delta_t
 		return None
 
 	def deaccelerate(self) -> None:
-		self.speed -= max_deacceleration * delta_t
+		self.speed -= max(self.max_deacceleration * delta_t, 0)
 		self.location += speed * delta_t
 		return None
 
-	# return true if red light warning should be issued
+	# return true if continue driving at current speed will pass red light
 	# 
 	def RLVW(nextLight: TrafficLight) -> bool:
 		if(nextLight.getPhase() == "red"):
@@ -53,4 +53,5 @@ class Vehicle(Actor):
 			return False
 
 	def getLocation(self) -> float:
+		print(self.location)
 		return self.location
