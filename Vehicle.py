@@ -8,12 +8,13 @@ from TrafficLight import TrafficLight
 
 ### 参考GB/T 33577，我国驾驶员的平均反应时间在0.3 s～2 s之间，
 ### 驾驶员制动平均减速度为3.6m/s^2～7.9 m/s^2
+
 class Vehicle(Actor):
 	def __init__(self, location: float, mass: float, \
 				max_acceleration: float, max_deacceleration: float, \
-				delta_t: float, speed = 0.0, \
+				delta_t: float, speed = 10.0, \
 				speedLimit = 16.6667):
-		Actor.__init__(self, location)
+		super().__init__(location)
 		self.mass = mass
 		self.max_acceleration = max_acceleration
 		self.max_deacceleration = max_deacceleration
@@ -24,37 +25,43 @@ class Vehicle(Actor):
 
 
 	def tick(self, nextLight: TrafficLight) -> None:
-		if(self.RLVW(nextLight)):
+		if(self.willPassRedLight(nextLight)):
 			self.deaccelerate()
-		elif (self.speed < self.speedLimit):
+		# elif (self.speed < self.speedLimit):
+		else:
 			self.accelerate()
 		return None
 
 	def accelerate(self) -> None:
-		self.speed += min(self.max_acceleration * self.delta_t, self.speedLimit)
-		self.location += self.speed * self.delta_t
+		self.speed = min(self.speed + self.max_acceleration * self.delta_t, self.speedLimit)
+		self.location = self.location + self.speed * self.delta_t
 		return None
 
 	def deaccelerate(self) -> None:
-		self.speed -= max(self.max_deacceleration * self.delta_t, 0)
+		if(self.speed - self.max_deacceleration * self.delta_t > 0):
+			self.speed -= self.max_deacceleration * self.delta_t
+		else:
+			self.speed = 0
 		self.location += self.speed * self.delta_t
 		return None
 
 	# return true if continue driving at current speed will pass red light
-	# 
-	def RLVW(self, nextLight: TrafficLight) -> bool:
+	#
+	def willPassRedLight(self, nextLight: TrafficLight) -> bool:
 		if(nextLight.getPhase() == "red"):
-			if(nextLight.getLocation() - self.location < self.speed * nextLight.getCountdown()):
+			if((nextLight.getLocation() - self.location) < (self.speed * nextLight.getCountdown())):
 				return True
 		elif(nextLight.getPhase() == "green"):
-			if(nextLight.getLocation() - self.location > self.speed * nextLight.getCountdown()):
+			if((nextLight.getLocation() - self.location) > (self.speed * nextLight.getCountdown())):
 				return True
+		elif(nextLight.getPhase() == "yellow"):
+			return True
 		else:
 			return False
 
 	def getLocation(self) -> float:
-		print(self.location)
+		# print(self.location)
 		return self.location
 
 	def getSpeed(self) -> float:
-		return self.location
+		return self.speed

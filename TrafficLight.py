@@ -26,21 +26,27 @@ class TrafficLight(Actor):
 		self.countdown = math.ceil(self.timer)
 		self.updatePhase()
 	
+
 	def reset(self):
 		self.timer = self.timer_repeat
 		self.countdown = int(math.ceil(self.timer))
 
+	## TO-DO:
+	## resolve the issue during phase transition
+	## next light status = 1yellow
+	## next light status = 1red
+	## next light status = 70red
 	def updatePhase(self) -> None:
-		if(self.countdown == 0):
+		if((self.timer - self.delta_t) <= 0.0001):
 			if(self.phase == "green"):
-				self.phase = "yello"
+				self.phase = "yellow"
 				self.timer = 3 # 黄灯固定3秒
-			elif(self.phase == "yello"):
+			elif(self.phase == "yellow"):
 				self.phase = "red"
-				self.timer = random.randint(60, 90)
+				self.timer = self.timer_repeat
 			else:
 				self.phase = "green"
-				self.timer = random.randint(60, 90)
+				self.timer = self.timer_repeat
 		return None
 	
 

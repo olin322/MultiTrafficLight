@@ -12,7 +12,6 @@ class World:
 
     def tick(self) -> None:
         for actor in self.actors:
-            print(type(actor))
             if(getClassName(str(type(actor)))  == "Vehicle"):
                 nextLight = self.find_next_light()
                 if(nextLight):
@@ -46,18 +45,13 @@ class World:
         vehicle = None
         closest = None
         for actor in self.actors:
-            if(type(actor) == "Vehicle"):
+            if(getClassName(str(type(actor))) == "Vehicle"):
                 vehicle = actor
-                break
-        if(type(self.actors[0]) == "TrafficLight"):
-            closest = self.actors[0]
-        else:
-            closest = self.actors[1]
-        for actor in self.actors:
-            if(type(actor) == "TrafficLight"):
-                if((closest.location - vehicle.location) < 0):
-                    closest = actor
-                else:
-                    if((actor.location - vehicle.location) < (closest.location - vehicle.location)):
+            if(getClassName(str(type(actor))) == "TrafficLight"):
+                if(actor.getLocation() > vehicle.getLocation()):
+                    if(closest):
+                        if(actor.getLocation() < vehicle.getLocation()):
+                            closest = actor
+                    else:
                         closest = actor
         return closest
