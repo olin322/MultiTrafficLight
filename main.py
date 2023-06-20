@@ -6,22 +6,85 @@ import matplotlib.pyplot as plt
 import random
 import matplotlib.animation as animation
 import math
+from datetime import date
+from datetime import datetime
 
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
-DESTINATION = 1000 # m
+
+
+# hyper parameter
+frame = 0
+DESTINATION = 10000 # m
+
+num = 1
+
 world = World(0.02)
-ego_vehicle = Vehicle(0.0, 1500.0, 7.9, 7.9, world.get_delta_t())
-world.spawn_vehicle(ego_vehicle)
-trafficLight_1 = TrafficLight(500, "Green", 70, world.get_delta_t())
-world.add_traffic_light(trafficLight_1)
-while((ego_vehicle.getLocation() >= 0) & 
-	(ego_vehicle.getLocation() < DESTINATION)):
-	print(ego_vehicle.getSpeed())
-	print(trafficLight_1.getCountdown(), " ", trafficLight_1.getPhase())
-	world.tick()
-print("simulation time = ", world.get_simulation_time())
+ego_vehicle = Vehicle(0.0, 1500.0, 2.9, 7.9, world.get_delta_t())
+trafficLight_1 = TrafficLight(1000, "green", 70, world.get_delta_t())
+
+def main():	
+	global frame, num
+		
+	world.spawn_vehicle(ego_vehicle)
+	world.add_traffic_light(trafficLight_1)
+	# debug
+	log_data = ""
+	log_name = get_debug_log_name()
+	while((ego_vehicle.getLocation() >= 0) & 
+			(ego_vehicle.getLocation() < DESTINATION)):
+		print(frame)
+		frame += 1
+		log_debug_data(log_name)
+		world.tick()
+
+		# print("simulation time = ", world.get_simulation_time())
+
+		# print("speed = ", ego_vehicle.getSpeed())
+		# print("light count down: ", trafficLight_1.getCountdown(), " ", trafficLight_1.getPhase())
+
+def log_debug_data(log_name: str) -> None:
+	log_data = get_debug_log_data()
+	f = open(log_name, 'a')
+	f.write(log_data)
+	f.close
+	return None
+
+def get_debug_log_name() -> str:
+	today = date.today()
+	now = datetime.now()
+	current_time = now.strftime("%H:%M:%S")
+	return("./debug_log/"+str(today)+str(current_time)+".txt")
+
+def get_debug_log_data() -> str:
+	log_data = "frame = " + str(frame) + "\t"\
+		   + " simulation time = " + roundup(str(round(world.get_simulation_time(), 7)), 7) + "\t"\
+		   + " ego_vehicle speed = " + roundup(str(round(ego_vehicle.getSpeed(), 7)), 7) + "\t"\
+		   + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 10)), 10) + "\t"\
+		   + " next light status = " + str(trafficLight_1.getCountdown())\
+		   + trafficLight_1.getPhase() + "\n"
+	return log_data
+
+def roundup(s: str, l: int) -> str:
+	while(len(s) < l):
+		s += '0'
+	return s
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Animation
 # ydata = []
