@@ -12,7 +12,7 @@ class World:
 
     def tick(self) -> None:
         for actor in self.actors:
-            if(getClassName(str(type(actor)))  == "Vehicle"):
+            if (getClassName(str(type(actor)))  == "Vehicle"):
                 nextLight = self.find_next_light()
                 if(nextLight):
                     actor.tick(self.find_next_light())
@@ -28,7 +28,7 @@ class World:
         return None
 
     def add_traffic_light(self, trafficLight: TrafficLight) -> bool:
-        if(getClassName(str(type(trafficLight))) != "TrafficLight"):
+        if (getClassName(str(type(trafficLight))) != "TrafficLight"):
             return False
         self.actors.append(trafficLight)
         return True
@@ -40,17 +40,17 @@ class World:
         return self.simulation_time
 
     def find_next_light(self) -> TrafficLight:
-        if(len(self.actors) < 2):
+        if (len(self.actors) < 2):
             return None
         vehicle = None
         closest = None
         for actor in self.actors:
-            if(getClassName(str(type(actor))) == "Vehicle"):
+            if (getClassName(str(type(actor))) == "Vehicle"):
                 vehicle = actor
-            if(getClassName(str(type(actor))) == "TrafficLight"):
-                if(actor.getLocation() > vehicle.getLocation()):
-                    if(closest):
-                        if(actor.getLocation() < vehicle.getLocation()):
+            if (getClassName(str(type(actor))) == "TrafficLight"):
+                if (actor.getLocation() > vehicle.getLocation()):
+                    if (closest):
+                        if (actor.getLocation() < vehicle.getLocation()):
                             closest = actor
                     else:
                         closest = actor

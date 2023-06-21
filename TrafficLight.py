@@ -21,7 +21,7 @@ class TrafficLight(Actor):
 	
 
 	def tick(self):
-		if(self.timer > 0):
+		if (self.timer > 0):
 			self.timer -= self.delta_t
 		self.countdown = math.ceil(self.timer)
 		self.updatePhase()
@@ -37,11 +37,11 @@ class TrafficLight(Actor):
 	## next light status = 1red
 	## next light status = 70red
 	def updatePhase(self) -> None:
-		if((self.timer - self.delta_t) <= 0.0001):
-			if(self.phase == "green"):
+		if ((self.timer - self.delta_t) <= 0.0001):
+			if (self.phase == "green"):
 				self.phase = "yellow"
 				self.timer = 3 # 黄灯固定3秒
-			elif(self.phase == "yellow"):
+			elif (self.phase == "yellow"):
 				self.phase = "red"
 				self.timer = self.timer_repeat
 			else:

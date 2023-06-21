@@ -9,10 +9,13 @@ from TrafficLight import TrafficLight
 ### 参考GB/T 33577，我国驾驶员的平均反应时间在0.3 s～2 s之间，
 ### 驾驶员制动平均减速度为3.6m/s^2～7.9 m/s^2
 
+###
+DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 10 # m
+
 class Vehicle(Actor):
 	def __init__(self, location: float, mass: float, \
 				max_acceleration: float, max_deacceleration: float, \
-				delta_t: float, speed = 10.0, \
+				delta_t: float, speed = 0.0, \
 				speedLimit = 16.6667):
 		super().__init__(location)
 		self.mass = mass
@@ -25,11 +28,19 @@ class Vehicle(Actor):
 
 
 	def tick(self, nextLight: TrafficLight) -> None:
-		if(self.willPassRedLight(nextLight)):
-			self.deaccelerate()
-		# elif (self.speed < self.speedLimit):
-		else:
+		if (self.location < (nextLight.getLocation() - self.min_distance_to_brake())):
 			self.accelerate()
+		else:
+			if (nextLight.getPhase() == "green"):
+				if ((nextLight.getLocation() - self.location) / self.speed >= nextLight.getCountdown()):
+					self.deaccelerate()
+				else:
+					self.accelerate()
+			elif (nextLight.getPhase() == "red"):
+				if ((nextLight.getLocation() - self.location) < self.min_distance_to_brake()):
+					if ((nextLight.getLocation() - self.location) / self.speed) < nextLight.getCountdown():
+						self.deaccelerate()
+		self.accelerate()
 		return None
 
 	def accelerate(self) -> None:
@@ -38,26 +49,39 @@ class Vehicle(Actor):
 		return None
 
 	def deaccelerate(self) -> None:
-		if(self.speed - self.max_deacceleration * self.delta_t > 0):
+		if (self.speed - self.max_deacceleration * self.delta_t > 0):
 			self.speed -= self.max_deacceleration * self.delta_t
 		else:
 			self.speed = 0
 		self.location += self.speed * self.delta_t
 		return None
 
+
+	def willPassGreenLight(self, nextLight: TrafficLight) -> bool:
+		if (nextLight.getPhase() == "green"):
+			t = (self.speedLimit - self.speed) / self.max_acceleration
+			d = self.speed * t + (self.max_acceleration * t ** 2) / 2
+			if (((nextLight.getLocation() - self.location - d) / self.speedLimit) < nextLight.getCountdown()):
+				return True
+		return False
+
 	# return true if continue driving at current speed will pass red light
 	#
 	def willPassRedLight(self, nextLight: TrafficLight) -> bool:
-		if(nextLight.getPhase() == "red"):
-			if((nextLight.getLocation() - self.location) < (self.speed * nextLight.getCountdown())):
+		if (nextLight.getPhase() == "red"):
+			if ((nextLight.getLocation() - self.location) < (self.speed * nextLight.getCountdown())):
 				return True
-		elif(nextLight.getPhase() == "green"):
-			if((nextLight.getLocation() - self.location) > (self.speed * nextLight.getCountdown())):
+		elif (nextLight.getPhase() == "green"):
+			if ((nextLight.getLocation() - self.location) > (self.speed * nextLight.getCountdown())):
 				return True
-		elif(nextLight.getPhase() == "yellow"):
+		elif (nextLight.getPhase() == "yellow"):
 			return True
 		else:
 			return False
+
+	def min_distance_to_brake(self) -> float:
+		return((self.speed ** 2) / (2 * self.max_deacceleration) + DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT)
+
 
 	def getLocation(self) -> float:
 		# print(self.location)
