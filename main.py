@@ -8,6 +8,7 @@ import matplotlib.animation as animation
 import math
 from datetime import date
 from datetime import datetime
+from datetime import timedelta
 
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
@@ -16,23 +17,25 @@ from datetime import datetime
 
 # hyper parameter
 frame = 0
-DESTINATION = 10000 # m
+DESTINATION = 3000 # m
 
 num = 1
 
 world = World(0.02)
 ego_vehicle = Vehicle(0.0, 1500.0, 2.9, 7.9, world.get_delta_t())
-trafficLight_1 = TrafficLight(1000, "green", 70, world.get_delta_t())
+trafficLight_1 = TrafficLight(1000, "green", 50, world.get_delta_t())
+trafficLight_2 = TrafficLight(2000, "green", 30, world.get_delta_t())
 
 def main():	
 	global frame, num
 		
 	world.spawn_vehicle(ego_vehicle)
 	world.add_traffic_light(trafficLight_1)
+	world.add_traffic_light(trafficLight_2)
 	# debug
 	log_data = ""
 	log_name = get_debug_log_name()
-	while((ego_vehicle.getLocation() >= 0) & 
+	while ((ego_vehicle.getLocation() >= 0) & 
 			(ego_vehicle.getLocation() < DESTINATION)):
 		print(frame)
 		frame += 1
@@ -53,17 +56,20 @@ def log_debug_data(log_name: str) -> None:
 
 def get_debug_log_name() -> str:
 	today = date.today()
-	now = datetime.now()
-	current_time = now.strftime("%H:%M:%S")
-	return("./debug_log/"+str(today)+str(current_time)+".txt")
+	current_time = datetime.now().strftime("%H:%M:%S")
+	return("./debug_log/"+str(today)+"-"+str(current_time)+".txt")
 
 def get_debug_log_data() -> str:
-	log_data = "frame = " + str(frame) + "\t"\
-		   + " simulation time = " + roundup(str(round(world.get_simulation_time(), 7)), 7) + "\t"\
-		   + " ego_vehicle speed = " + roundup(str(round(ego_vehicle.getSpeed(), 7)), 7) + "\t"\
-		   + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 10)), 10) + "\t"\
-		   + " next light status = " + str(trafficLight_1.getCountdown())\
-		   + trafficLight_1.getPhase() + "\n"
+	log_data = "real world time stamp: " + str(datetime.utcnow() + timedelta(hours=8))\
+			+ "\tframe = " + str(frame) + "\t"\
+		    + " simulation time = " + roundup(str(round(world.get_simulation_time(), 7)), 7) + "\t"\
+		    + " ego_vehicle speed = " + roundup(str(round(ego_vehicle.getSpeed(), 7)), 7) + "\t"\
+		    + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 9)), 9) + "\t"
+	if(world.find_next_light()):
+	    log_data += " next light status = " + str(world.find_next_light().getCountdown())\
+	    		+ world.find_next_light().getPhase() + "\n"
+	else:
+		log_data += "vehicle passed all traffic lights\n"		
 	return log_data
 
 def roundup(s: str, l: int) -> str:
@@ -82,7 +88,7 @@ main()
 
 
 
-
+############################################################################
 
 
 
