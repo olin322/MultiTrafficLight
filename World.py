@@ -49,8 +49,8 @@ class World:
                 vehicle = actor
             if (getClassName(str(type(actor))) == "TrafficLight"):
                 if (actor.getLocation() > vehicle.getLocation()):
-                    if (closest):
-                        if (actor.getLocation() < vehicle.getLocation()):
+                    if (closest != None):
+                        if (actor.getLocation() < closest.getLocation()):
                             closest = actor
                     else:
                         closest = actor

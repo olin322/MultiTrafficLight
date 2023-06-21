@@ -32,25 +32,32 @@ class Vehicle(Actor):
 			self.accelerate()
 		else:
 			if (nextLight.getPhase() == "green"):
-				if ((nextLight.getLocation() - self.location) / self.speed >= nextLight.getCountdown()):
+				if (((nextLight.getLocation() - self.location) / self.speed) >= nextLight.getCountdown()):
 					self.deaccelerate()
 				else:
 					self.accelerate()
 			elif (nextLight.getPhase() == "red"):
-				if ((nextLight.getLocation() - self.location) < self.min_distance_to_brake()):
-					if ((nextLight.getLocation() - self.location) / self.speed) < nextLight.getCountdown():
-						self.deaccelerate()
-		self.accelerate()
+				if (((nextLight.getLocation() - self.location) / self.speed) > nextLight.getCountdown()):
+					self.moveAtCurrentSpeed()
+				else:
+					self.deaccelerate()
+			else:
+				self.deaccelerate()
+		# self.accelerate()
+		return None
+
+	def moveAtCurrentSpeed(self) -> None:
+		self.location += self.speed * self.delta_t
 		return None
 
 	def accelerate(self) -> None:
 		self.speed = min(self.speed + self.max_acceleration * self.delta_t, self.speedLimit)
-		self.location = self.location + self.speed * self.delta_t
+		self.location += self.speed * self.delta_t
 		return None
 
 	def deaccelerate(self) -> None:
 		if (self.speed - self.max_deacceleration * self.delta_t > 0):
-			self.speed -= self.max_deacceleration * self.delta_t
+			self.speed = self.speed - self.max_deacceleration * self.delta_t
 		else:
 			self.speed = 0
 		self.location += self.speed * self.delta_t

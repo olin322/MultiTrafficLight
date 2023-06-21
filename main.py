@@ -64,9 +64,12 @@ def get_debug_log_data() -> str:
 			+ "\tframe = " + str(frame) + "\t"\
 		    + " simulation time = " + roundup(str(round(world.get_simulation_time(), 7)), 7) + "\t"\
 		    + " ego_vehicle speed = " + roundup(str(round(ego_vehicle.getSpeed(), 7)), 7) + "\t"\
-		    + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 9)), 9) + "\t"\
-		    + " next light status = " + str(trafficLight_1.getCountdown())\
-		    + trafficLight_1.getPhase() + "\n"
+		    + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 9)), 9) + "\t"
+	if(world.find_next_light()):
+	    log_data += " next light status = " + str(world.find_next_light().getCountdown())\
+	    		+ world.find_next_light().getPhase() + "\n"
+	else:
+		log_data += "vehicle passed all traffic lights\n"		
 	return log_data
 
 def roundup(s: str, l: int) -> str:
