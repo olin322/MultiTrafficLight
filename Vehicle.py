@@ -1,6 +1,7 @@
 # import Util.Location
 from Actor import Actor
 from TrafficLight import TrafficLight
+from math import ceil
 
 ### Units
 # velocity: m/s
@@ -10,7 +11,7 @@ from TrafficLight import TrafficLight
 ### 驾驶员制动平均减速度为3.6m/s^2～7.9 m/s^2
 
 ###
-DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 10 # m
+DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 2 # m
 
 class Vehicle(Actor):
 	def __init__(self, location: float, mass: float, \
@@ -32,12 +33,18 @@ class Vehicle(Actor):
 			self.accelerate()
 		else:
 			if (nextLight.getPhase() == "green"):
-				if (((nextLight.getLocation() - self.location) / self.speed) >= nextLight.getCountdown()):
+				if (ceil(self.speed) == 0):
+					self.accelerate()
+				elif (ceil((nextLight.getLocation() - self.location) / self.speed) 
+					>= (nextLight.getCountdown())):
 					self.deaccelerate()
 				else:
 					self.accelerate()
 			elif (nextLight.getPhase() == "red"):
-				if (((nextLight.getLocation() - self.location) / self.speed) > nextLight.getCountdown()):
+				if (ceil(self.speed) == 0):
+					pass
+				elif (ceil((nextLight.getLocation() - self.location) / self.speed) 
+					> (nextLight.getCountdown())):
 					self.moveAtCurrentSpeed()
 				else:
 					self.deaccelerate()
@@ -68,7 +75,8 @@ class Vehicle(Actor):
 		if (nextLight.getPhase() == "green"):
 			t = (self.speedLimit - self.speed) / self.max_acceleration
 			d = self.speed * t + (self.max_acceleration * t ** 2) / 2
-			if (((nextLight.getLocation() - self.location - d) / self.speedLimit) < nextLight.getCountdown()):
+			if (((nextLight.getLocation() - self.location - d) 
+				/ self.speedLimit) < nextLight.getCountdown()):
 				return True
 		return False
 
@@ -76,10 +84,12 @@ class Vehicle(Actor):
 	#
 	def willPassRedLight(self, nextLight: TrafficLight) -> bool:
 		if (nextLight.getPhase() == "red"):
-			if ((nextLight.getLocation() - self.location) < (self.speed * nextLight.getCountdown())):
+			if ((nextLight.getLocation() - self.location) < 
+				(self.speed * (nextLight.getCountdown() - 1))):
 				return True
 		elif (nextLight.getPhase() == "green"):
-			if ((nextLight.getLocation() - self.location) > (self.speed * nextLight.getCountdown())):
+			if ((nextLight.getLocation() - self.location) > 
+				(self.speed * (nextLight.getCountdown() + 1))):
 				return True
 		elif (nextLight.getPhase() == "yellow"):
 			return True
@@ -87,7 +97,16 @@ class Vehicle(Actor):
 			return False
 
 	def min_distance_to_brake(self) -> float:
-		return((self.speed ** 2) / (2 * self.max_deacceleration) + DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT)
+		n = ceil(self.speed / self.max_deacceleration / self.delta_t)
+		print("n = ", n)
+		d = 0
+		s = self.speed
+		for _ in range(n + 1):
+			s -= self.max_deacceleration * self.delta_t
+			d += s * self.delta_t
+		return d + DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT
+		# return((self.speed ** 2) / (2 * self.max_deacceleration) 
+		# 	+ DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT)
 
 
 	def getLocation(self) -> float:
