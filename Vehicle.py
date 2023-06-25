@@ -11,7 +11,7 @@ from math import ceil
 ### 驾驶员制动平均减速度为3.6m/s^2～7.9 m/s^2
 
 ###
-DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 2 # m
+DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 10 # m
 
 class Vehicle(Actor):
 	def __init__(self, location: float, mass: float, \
@@ -26,20 +26,32 @@ class Vehicle(Actor):
 		# self.acceleration = acceleration
 		self.speedLimit = speedLimit
 		self.delta_t = delta_t
+		self.deaccelerate_mode = False
 
 
 	def tick(self, nextLight: TrafficLight) -> None:
-		if (self.location < (nextLight.getLocation() - self.min_distance_to_brake())):
+		if (self.deaccelerate_mode):
+			if (self.speed == 0) & (nextLight.getPhase() == "green"):
+				self.deaccelerate_mode = False
+			else:
+				self.deaccelerate()
+		elif (self.location < (nextLight.getLocation() - self.min_distance_to_brake())):
 			self.accelerate()
 		else:
 			if (nextLight.getPhase() == "green"):
-				if (ceil(self.speed) == 0):
+				if (self.willPassGreenLight(nextLight)):
 					self.accelerate()
-				elif (ceil((nextLight.getLocation() - self.location) / self.speed) 
-					>= (nextLight.getCountdown())):
-					self.deaccelerate()
 				else:
-					self.accelerate()
+					self.deaccelerate_mode = True
+					self.deaccelerate()
+				# if (ceil(self.speed) == 0):
+				# 	self.accelerate()
+				# elif (ceil((nextLight.getLocation() - self.location) / self.speed) 
+				# 		>= (nextLight.getCountdown())):
+				# 	self.deaccelerate()
+				# 	self.deaccelerate_mode = True
+				# else:
+				# 	self.accelerate()
 			elif (nextLight.getPhase() == "red"):
 				if (ceil(self.speed) == 0):
 					pass
@@ -48,6 +60,7 @@ class Vehicle(Actor):
 					self.moveAtCurrentSpeed()
 				else:
 					self.deaccelerate()
+					self.deaccelerate_mode = True
 			else:
 				self.deaccelerate()
 		# self.accelerate()
@@ -73,11 +86,20 @@ class Vehicle(Actor):
 
 	def willPassGreenLight(self, nextLight: TrafficLight) -> bool:
 		if (nextLight.getPhase() == "green"):
-			t = (self.speedLimit - self.speed) / self.max_acceleration
-			d = self.speed * t + (self.max_acceleration * t ** 2) / 2
-			if (((nextLight.getLocation() - self.location - d) 
-				/ self.speedLimit) < nextLight.getCountdown()):
+			n1 = ceil((self.speedLimit - self.speed) / self.max_deacceleration / self.delta_t)
+			d1 = 0
+			s = self.speed
+			for _ in range(n1 + 1):
+				s += self.max_acceleration * self.delta_t
+				d1 += s * self.delta_t
+			if (ceil((nextLight.getLocation() - self.location - d1) / self.speedLimit) < 
+					nextLight.getCountdown()):
 				return True
+			# t = (self.speedLimit - self.speed) / self.max_acceleration
+			# d = self.speed * t + (self.max_acceleration * t ** 2) / 2
+			# if (((nextLight.getLocation() - self.location - d) 
+			# 	/ self.speedLimit) < nextLight.getCountdown()):
+			# 	return True
 		return False
 
 	# return true if continue driving at current speed will pass red light
