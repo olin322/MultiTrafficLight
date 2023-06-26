@@ -123,9 +123,10 @@ class Vehicle(Actor):
 		print("n = ", n)
 		d = 0
 		s = self.speed
-		for _ in range(n + 1):
-			s -= self.max_deacceleration * self.delta_t
+		for _ in range(n):
 			d += s * self.delta_t
+			s -= self.max_deacceleration * self.delta_t
+			
 		return d + DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT
 		# return((self.speed ** 2) / (2 * self.max_deacceleration) 
 		# 	+ DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT)
