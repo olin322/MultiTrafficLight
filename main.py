@@ -17,14 +17,29 @@ from datetime import timedelta
 
 # hyper parameter
 frame = 0
-DESTINATION = 3000 # m
+DESTINATION = 10000 # m
 
 num = 1
 
 world = World(0.02)
 ego_vehicle = Vehicle(0.0, 1500.0, 2.9, 7.9, world.get_delta_t())
-trafficLight_1 = TrafficLight(1000, "green", 50, world.get_delta_t())
-trafficLight_2 = TrafficLight(2000, "green", 30, world.get_delta_t())
+trafficLight_1 = TrafficLight(100, "green", 10, world.get_delta_t())
+trafficLight_2 = TrafficLight(200, "green", 47, world.get_delta_t())
+trafficLight_3 = TrafficLight(500, "green", 61, world.get_delta_t())
+trafficLight_4 = TrafficLight(2000, "green", 53, world.get_delta_t())
+trafficLight_5 = TrafficLight(2500, "green", 53, world.get_delta_t())
+trafficLight_6 = TrafficLight(3200, "green", 61, world.get_delta_t())
+trafficLight_7 = TrafficLight(3400, "green", 67, world.get_delta_t())
+trafficLight_8 = TrafficLight(3600, "green", 67, world.get_delta_t())
+trafficLight_9 = TrafficLight(3800, "green", 67, world.get_delta_t())
+trafficLight_10 = TrafficLight(4000, "green", 57, world.get_delta_t())
+trafficLight_11 = TrafficLight(5000, "green", 57, world.get_delta_t())
+trafficLight_12 = TrafficLight(5100, "green", 67, world.get_delta_t())
+trafficLight_13 = TrafficLight(6000, "green", 61, world.get_delta_t())
+trafficLight_14 = TrafficLight(7000, "green", 61, world.get_delta_t())
+trafficLight_15 = TrafficLight(8000, "green", 61, world.get_delta_t())
+trafficLight_16 = TrafficLight(9900, "green", 61, world.get_delta_t())
+
 
 def main():	
 	global frame, num
@@ -32,6 +47,22 @@ def main():
 	world.spawn_vehicle(ego_vehicle)
 	world.add_traffic_light(trafficLight_1)
 	world.add_traffic_light(trafficLight_2)
+	world.add_traffic_light(trafficLight_3)
+	world.add_traffic_light(trafficLight_4)
+	world.add_traffic_light(trafficLight_5)
+	world.add_traffic_light(trafficLight_6)
+	world.add_traffic_light(trafficLight_7)
+	world.add_traffic_light(trafficLight_8)
+	world.add_traffic_light(trafficLight_9)
+	world.add_traffic_light(trafficLight_10)
+	world.add_traffic_light(trafficLight_11)
+	world.add_traffic_light(trafficLight_12)
+	world.add_traffic_light(trafficLight_13)
+	world.add_traffic_light(trafficLight_14)
+	world.add_traffic_light(trafficLight_15)
+	world.add_traffic_light(trafficLight_16)
+
+
 	# debug
 	log_data = ""
 	log_name = get_debug_log_name()
@@ -60,20 +91,30 @@ def get_debug_log_name() -> str:
 	return("./debug_log/"+str(today)+"-"+str(current_time)+".txt")
 
 def get_debug_log_data() -> str:
-	log_data = "real world time stamp: " + str(datetime.utcnow() + timedelta(hours=8))\
-			+ "\tframe = " + str(frame) + "\t"\
-		    + " simulation time = " + roundup(str(round(world.get_simulation_time(), 7)), 7) + "\t"\
-		    + " ego_vehicle speed = " + roundup(str(round(ego_vehicle.getSpeed(), 7)), 7) + "\t"\
-		    + " ego_vehicle location = " + roundup(str(round(ego_vehicle.getLocation(), 9)), 9) + "\t"
+	log_data = "frame = " + str(frame) + "\t"\
+		    + " sim time = " + roundup(world.get_simulation_time(), 6) + "\t"\
+		    + " ev speed = " + roundup(ego_vehicle.getSpeed(), 6) + "\t"\
+		    + " ev location = " + roundup(ego_vehicle.getLocation(), 6) + "\t"\
+		    
 	if(world.find_next_light()):
-	    log_data += " next light status = " + str(world.find_next_light().getCountdown())\
-	    		+ world.find_next_light().getPhase() + "\n"
+	    log_data += " countdown = " + str(world.find_next_light().getCountdown())\
+	    		+ " " + world.find_next_light().getPhase() \
+	    		+ " \tnext light location: " + roundup(world.find_next_light().getLocation(), 6) \
+	    		+ " \treal world time stamp: " + str(datetime.utcnow() + timedelta(hours=8)) + "\n"
 	else:
-		log_data += "vehicle passed all traffic lights\n"		
+		log_data += " vehicle passed all traffic lights"\
+				+ "\treal world time stamp: " + str(datetime.utcnow() + timedelta(hours=8))\
+				+ "\n"	
 	return log_data
 
-def roundup(s: str, l: int) -> str:
-	while(len(s) < l):
+def roundup(d: float, l: int) -> str:
+	s = str(round(d, l))
+	i = 0
+	if (s.find(".") != -1):
+		i = s.find(".")
+	else:
+		return str(d)
+	while((len(s) - i) <= l):
 		s += '0'
 	return s
 

@@ -2,3 +2,5 @@ $ cat .gitignore
 # ignore pycache files
 /__pycache__/
 /debug_log
+/unusual_logs
+unusual_activities.txt
