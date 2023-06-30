@@ -4,3 +4,5 @@ $ cat .gitignore
 /debug_log
 /unusual_logs
 unusual_activities.txt
+conda --add channels
+/RL/reload_model/*.zip
