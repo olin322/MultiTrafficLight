@@ -1,7 +1,7 @@
-##############################
-The following code runs in  #
-stable-baselines3[extra]    #
-##############################
+###############################
+# The following code runs in  #
+# stable-baselines3[extra]    #
+###############################
 
 import gymnasium as gym
 
