@@ -1,4 +1,14 @@
-# Study Notes
+<!--
+This 
+is 
+multi-line
+comment
+-->
+
+
+
+
+# Study Notes - Stable Baselines3
 
 ## Using Custom Environments
 
@@ -57,6 +67,8 @@ env = CustomEnv(arg1, ...)
 check_env(env)
 ```
 
+<!-- <div style="page-break-after: always;"></div> -->
+
 ### Register the environment with gym
 
 this will allow you to create the RL agent in one line (and use `gym.make()` to instantiate the env):
@@ -68,11 +80,13 @@ register(
     id="CartPole-v1",
     # path to the class for creating the env
     # Note: entry_point also accept a class as input (and not only a string)
-    entry_point="gym.envs.classic_control:CartPoleEnv",
+    entry_point="gym.envs.classic_control:CartPoleEnv", # note this is relative path
     # Max number of steps per episode, using a `TimeLimitWrapper`
     max_episode_steps=500,
 )
 ```
+
+<!-- <div style="page-break-after: always;"></div> -->
 
 ##### A example of custom environment named `IdentityEnv` and how to use it
 ```
@@ -293,4 +307,21 @@ def test_continuous(model_class):
     evaluate_policy(model, env, n_eval_episodes=20, reward_threshold=90, warn=False)
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+<div style="page-break-after: always;"></div>
+
+
+
+
+## Multi-Processing
 
