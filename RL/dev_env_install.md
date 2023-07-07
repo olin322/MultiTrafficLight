@@ -23,5 +23,5 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 install `pytorch2.0.1`
 most of the packages should be installed when installing `stable baselines3`
 ```
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```

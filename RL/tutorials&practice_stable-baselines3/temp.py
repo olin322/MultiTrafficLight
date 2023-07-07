@@ -7,7 +7,7 @@ import gymnasium as gym
 
 from stable_baselines3 import A2C
 from stable_baselines3 import SAC
-from gymnasium.envs.registration import register
+# from gymnasium.envs.registration import register
 
 def trainHumanoid(i: int):
     env = gym.make('HumanoidStandup-v4', render_mode="human")
@@ -15,12 +15,19 @@ def trainHumanoid(i: int):
     model = SAC.load(load_model_name)
     model.set_env(env)
     model.learn(500_000, progress_bar=True)
-    model_name = f"./savedModels/HumanoidStandup-v4_4M500k"
+    model_name = f"./savedModels/HumanoidStandup-v4_{i+1}M"
     model.save(model_name)
     
-# for i in range(1):
-#     trainHumanoid(i)
-trainHumanoid(4)
+# def multiHumanoidStandup():
+#     env_id = "CartPole-v1"
+#     num_cpu = 8  # Number of processes to use
+#     # Create the vectorized environment
+#     env = SubprocVecEnv([make_env(env_id, i) for i in range(num_cpu)])
+#     model = A2C("MlpPolicy", env, verbose=0)
+
+for i in range(4,21):
+    trainHumanoid(i)
+
 
 ##########################################################################
 
@@ -40,8 +47,8 @@ trainHumanoid(4)
 
 ##############################################################################
 
-env = gym.make("HumanoidStandup-v4", render_mode="human")
-model = SAC("MlpPolicy", env, verbose=1)
+# env = gym.make("HumanoidStandup-v4", render_mode="human")
+# model = SAC("MlpPolicy", env, verbose=1)
 # # model.learn(total_timesteps=10_000)
 # model = SAC("MlpPolicy",env,verbose=1)
 # # model = DQN("MultiInputPolicy",env=env,verbose=1,tensorboard_log='./logs',learning_rate=8e-3,)
