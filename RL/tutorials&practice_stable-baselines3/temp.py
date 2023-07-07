@@ -9,36 +9,66 @@ from stable_baselines3 import A2C
 from stable_baselines3 import SAC
 from gymnasium.envs.registration import register
 
-
-
-# env = gym.make("CartPole-v1", render_mode="rgb_array")
-# model = A2C("MlpPolicy", "CartPole-v1").learn(10000)
-
-# model = A2C("MlpPolicy", env, verbose=1)
-# model.learn(total_timesteps=10_000)
-
-# def trainHumanoid(i: int):
-#     env = gym.make('HumanoidStandup-v4', render_mode="human")
-#     load_model_name = "HumanoidStandup-v4_" + str(i+1) + "M"
-#     model = SAC.load(load_model_name)
-#     model.set_env(env)
-#     model.learn(1000_000, progress_bar=True)
-#     model_name = "HumanoidStandup-v4_" + str(i+2) + "M"
-#     model.save(model_name)
+def trainHumanoid(i: int):
+    env = gym.make('HumanoidStandup-v4', render_mode="human")
+    load_model_name = f"./savedModels/HumanoidStandup-v4_{i}M"
+    model = SAC.load(load_model_name)
+    model.set_env(env)
+    model.learn(500_000, progress_bar=True)
+    model_name = f"./savedModels/HumanoidStandup-v4_4M500k"
+    model.save(model_name)
     
-
-# for i in range(4,7):
+# for i in range(1):
 #     trainHumanoid(i)
-env = gym.make('HumanoidStandup-v4', render_mode="human")
-model = SAC.load("HumanoidStandup-v4_3M")
-model.set_env(env)
-model.learn(5000)
-vec_env = model.get_env()
-obs = vec_env.reset()
-for i in range(2000):
-    action, _state = model.predict(obs, deterministic=True)
-    obs, reward, done, info = vec_env.step(action)
-    vec_env.render("human")
+trainHumanoid(4)
+
+##########################################################################
+
+# env = gym.make("HumanoidStandup-v4", render_mode="rgb_array")
+
+# model = SAC("MlpPolicy", env, verbose=1)
+# model.learn(total_timesteps=1_000)
+# model = SAC.load("./savedModels/HumanoidStandup-v4_4M")
+# vec_env = model.get_env()
+# obs = vec_env.reset()
+# for i in range(1000):
+#     action, _state = model.predict(obs, deterministic=True)
+#     obs, reward, done, info = vec_env.step(action)
+#     vec_env.render("human")
+
+
+
+##############################################################################
+
+env = gym.make("HumanoidStandup-v4", render_mode="human")
+model = SAC("MlpPolicy", env, verbose=1)
+# # model.learn(total_timesteps=10_000)
+# model = SAC("MlpPolicy",env,verbose=1)
+# # model = DQN("MultiInputPolicy",env=env,verbose=1,tensorboard_log='./logs',learning_rate=8e-3,)
+# model = SAC.load("./savedModels/HumanoidStandup-v4_500k")
+
+
+# vec_env = model.get_env()
+# obs = vec_env.reset()
+# for i in range(1000):
+#     action, _state = model.predict(obs, deterministic=True)
+#     obs, reward, done, info = vec_env.step(action)
+#     vec_env.render("human")
+
+
+
+# env = gym.make('HumanoidStandup-v4', render_mode="human")
+# model = SAC("MlpPolicy", env=env, verbose=1)
+# model = SAC.load("HumanoidStandup-v4_3M")
+
+# model.set_env(env)
+# model.learn(5000)
+# vec_env = model.get_env()
+# obs = vec_env.reset()
+# for i in range(2000):
+#     action, _state = model.predict(obs, deterministic=True)
+#     obs, reward, done, info = vec_env.step(action)
+#     vec_env.render("human")
     # VecEnv resets automatically
     # if done:
     #   obs = vec_env.reset()

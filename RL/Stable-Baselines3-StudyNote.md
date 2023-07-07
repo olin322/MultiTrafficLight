@@ -320,8 +320,71 @@ def test_continuous(model_class):
 
 <div style="page-break-after: always;"></div>
 
+#### Multi-Processing
+
+```
+    # note using multi-processing does not make training faster
+    # as stated in the answer to [this github issue](https://github.com/hill-a/stable-baselines/issues/1113)
 
 
+    # Is it true that having multiple envs even though running sequentially, 
+    # will make the training stable?
 
-## Multi-Processing
+    # At the end, both are synchronous, 
+    # so it does not change anything for the agent if you use 
+    # a DummyVecEnv with 4 envs or a SubprocVecEnv with 4 envs. 
+    # What may change is the fps (cf. notebook for a comparison).
+```
 
+the following code should run 
+```
+import gymnasium as gym
+from stable_baselines3 import SAC
+
+from stable_baselines3.common.vec_env import SubprocVecEnv
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.utils import set_random_seed
+
+# below is an example
+def make_env(env_id: str, rank: int, seed: int = 0):
+    """
+    Utility function for multiprocessed env.
+    :param env_id: the environment ID
+    :param num_env: the number of environments you wish to have in subprocesses
+    :param seed: the inital seed for RNG
+    :param rank: index of the subprocess
+    """
+    def _init():
+        env = gym.make(env_id, render_mode="human")
+        env.reset(seed=seed + rank)
+        return env
+    set_random_seed(seed)
+    return _init
+
+if __name__ == "__main__":
+    env_id = "CartPole-v1"
+    num_process = 8 # Number of processes to use
+    # Create the vectorized environment
+    vec_env = SubprocVecEnv([make_env(env_id, i) for i in range(num_process)])
+    
+    # Stable Baselines provides you with make_vec_env() helper
+    # which does exactly the previous steps for you.
+    # You can choose between `DummyVecEnv` (usually faster) and `SubprocVecEnv`
+    # env = make_vec_env(env_id, n_envs=num_cpu, seed=0, vec_env_cls=SubprocVecEnv)
+    model = SAC("MlpPolicy", vec_env, verbose=1)
+    model.learn(total_timesteps=25_000)
+    
+    obs = vec_env.reset()
+    for _ in range(1000):
+        action, _states = model.predict(obs)
+        obs, rewards, dones, info = vec_env.step(action)
+        vec_env.render()
+
+```
+
+
+<script
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  type="text/javascript">
+</script>
+#### Learning Rate Schedule (Adjust Learning Rate $$\frac{1}{2}$$)

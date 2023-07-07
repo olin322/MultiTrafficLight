@@ -1,5 +1,22 @@
+"""
+note using multi-processing does not make training faster
+as stated in the anser https://github.com/hill-a/stable-baselines/issues/1113
+
+```
+Is it true that having multiple envs even though running sequentially, 
+will make the training stable?
+```
+At the end, both are synchronous, 
+so it does not change anything for the agent if you use a DummyVecEnv with 4 envs or a SubprocVecEnv with 4 envs. 
+What may change is the fps (cf. notebook for a comparison).
+"""
+
+
+
+
+
 import gymnasium as gym
-from stable_baselines3 import PPO
+from stable_baselines3 import SAC
 
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
@@ -23,15 +40,15 @@ def make_env(env_id: str, rank: int, seed: int = 0):
 
 if __name__ == "__main__":
 	env_id = "CartPole-v1"
-	num_cpu = 8 # Number of processes to use
+	num_process = 8 # Number of processes to use
 	# Create the vectorized environment
-	vec_env = SubprocVecEnv([make_env(env_id, i) for i in range(num_cpu)])
+	vec_env = SubprocVecEnv([make_env(env_id, i) for i in range(num_process)])
 	
 	# Stable Baselines provides you with make_vec_env() helper
 	# which does exactly the previous steps for you.
 	# You can choose between `DummyVecEnv` (usually faster) and `SubprocVecEnv`
 	# env = make_vec_env(env_id, n_envs=num_cpu, seed=0, vec_env_cls=SubprocVecEnv)
-	model = PPO("MlpPolicy", vec_env, verbose=1)
+	model = SAC("MlpPolicy", vec_env, verbose=1)
 	model.learn(total_timesteps=25_000)
 	
 	obs = vec_env.reset()
