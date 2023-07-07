@@ -383,8 +383,127 @@ if __name__ == "__main__":
 ```
 
 
-<script
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-  type="text/javascript">
-</script>
-#### Learning Rate Schedule (Adjust Learning Rate $$\frac{1}{2}$$)
+<!--
+<script 
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript">
+</script> 
+-->
+
+#### Normalizing Input Features on `PyBullet` environments
+```
+pip install pybullet
+```
+
+```
+import os
+import gymnasium as gym
+import pybullet_envs
+from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+from stable_baselines3 import PPO
+# Note: pybullet is not compatible yet with Gymnasium
+# you might need to use `import rl_zoo3.gym_patches`
+# and use gym (not Gymnasium) to instantiate the env
+# Alternatively, you can use the MuJoCo equivalent "HalfCheetah-v4"
+vec_env = DummyVecEnv([lambda: gym.make("HalfCheetahBulletEnv-v0")])
+# Automatically normalize the input features and reward
+vec_env = VecNormalize(vec_env, norm_obs=True, norm_reward=True,
+clip_obs=10.)
+model = PPO("MlpPolicy", vec_env)
+model.learn(total_timesteps=2000)
+# Don't forget to save the VecNormalize statistics when saving the agent
+log_dir = "/tmp/"
+model.save(log_dir + "ppo_halfcheetah")
+stats_path = os.path.join(log_dir, "vec_normalize.pkl")
+env.save(stats_path)
+
+# To demonstrate loading
+del model, vec_env
+# Load the saved statistics
+vec_env = DummyVecEnv([lambda: gym.make("HalfCheetahBulletEnv-v0")])
+vec_env = VecNormalize.load(stats_path, vec_env)
+# do not update them at test time
+vec_env.training = False
+# reward normalization is not needed at test time
+vec_env.norm_reward = False
+# Load the agent
+model = PPO.load(log_dir + "ppo_halfcheetah", env=vec_env)
+```
+
+
+
+#### Learning Rate Schedule (Adjust Learning Rate $$\alpha$$)
+
+```
+from typing import Callable
+from stable_baselines3 import PPO
+
+def linear_schedule(initial_value: float) -> Callable[[float], float]:
+    """
+    Linear learning rate schedule.
+    :param initial_value: Initial learning rate.
+    :return: schedule that computes
+    current learning rate depending on remaining progress
+    """
+    def func(progress_remaining: float) -> float:
+        """
+        Progress will decrease from 1 (beginning) to 0.
+        :param progress_remaining:
+        :return: current learning rate
+        """
+        return progress_remaining * initial_value
+    return func
+# Initial learning rate of 0.001
+model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), verbose=1)
+model.learn(total_timesteps=20_000)
+# By default, `reset_num_timesteps` is True, in which case the learning rate schedule resets.
+# progress_remaining = 1.0 - (num_timesteps / total_timesteps)
+model.learn(total_timesteps=10_000, reset_num_timesteps=True)
+
+```
+
+
+
+
+
+
+### Saving and Loading Model & Policy
+>> Note that when loading a saved model, 
+>> it is required to do `env = ModelsEnv()` and `model.set_env(env)`
+```
+from stable_baselines3 import SAC
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.sac.policies import MlpPolicy
+# Create the model and the training environment
+model = SAC("MlpPolicy", "Pendulum-v1", verbose=1,
+learning_rate=1e-3)
+# train the model
+model.learn(total_timesteps=6000)
+# save the model
+model.save("sac_pendulum")
+# the saved model does not contain the replay buffer
+loaded_model = SAC.load("sac_pendulum")
+print(f"The loaded_model has {loaded_model.replay_buffer.size()} transitions in its
+buffer")
+# now save the replay buffer too
+model.save_replay_buffer("sac_replay_buffer")
+# load it into the loaded_model
+loaded_model.load_replay_buffer("sac_replay_buffer")
+# now the loaded replay is not empty anymore
+print(f"The loaded_model has {loaded_model.replay_buffer.size()} transitions in its buffer")
+# Save the policy independently from the model
+# Note: if you don't save the complete model with `model.save()`
+# you cannot continue training afterward
+policy = model.policy
+policy.save("sac_policy_pendulum")
+# Retrieve the environment
+env = model.get_env()
+# Evaluate the policy
+mean_reward, std_reward = evaluate_policy(policy, env, n_eval_episodes=10, deterministic=True)
+print(f"mean_reward={mean_reward:.2f} +/- {std_reward}")
+# Load the policy independently from the model
+saved_policy = MlpPolicy.load("sac_policy_pendulum")
+# Evaluate the loaded policy
+mean_reward, std_reward = evaluate_policy(saved_policy, env, n_eval_episodes=10, deterministic=True)
+print(f"mean_reward={mean_reward:.2f} +/- {std_reward}")
+```
