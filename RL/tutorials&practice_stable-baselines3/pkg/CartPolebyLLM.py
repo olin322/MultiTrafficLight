@@ -6,6 +6,9 @@ it was the answer to the question
 
 # import gym
 import gymnasium as gym
+from gymnasium.envs.registration import register
+import math
+import numpy as np
 
 class CartPoleEnv(gym.Env):
     metadata = {'render.modes': ['human']}
@@ -82,3 +85,14 @@ class CartPoleEnv(gym.Env):
                 done = True
                 """)
 
+
+# Example for the CartPole environment
+register(
+    # unique identifier for the env `name-version`
+    id="CartPoleEnv",
+    # path to the class for creating the env
+    # Note: entry_point also accept a class as input (and not only a string)
+    entry_point="pkg.CartPolebyLLM:CartPoleEnv",
+    # Max number of steps per episode, using a `TimeLimitWrapper`
+    max_episode_steps=500,
+)

@@ -1,0 +1,1886 @@
+(base) carla@ford-System-Product-Name:/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/box2d$ cd ~/Owen/
+(base) carla@ford-System-Product-Name:/home/carla/Owen$ cd MultiTrafficLight/
+(base) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight$ cd MultiTrafficLight/
+(base) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight$ conda activate stable-baselines3-extra
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight$ pip install gymnasium
+Requirement already satisfied: gymnasium in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (0.28.1)
+Requirement already satisfied: numpy>=1.21.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium) (1.25.0)
+Requirement already satisfied: jax-jumpy>=1.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium) (1.0.0)
+Requirement already satisfied: cloudpickle>=1.2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium) (2.2.1)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium) (4.7.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium) (0.0.4)
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight$ pip install gymnasium[mujoco]
+Requirement already satisfied: gymnasium[mujoco] in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (0.28.1)
+Requirement already satisfied: numpy>=1.21.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium[mujoco]) (1.25.0)
+Requirement already satisfied: jax-jumpy>=1.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium[mujoco]) (1.0.0)
+Requirement already satisfied: cloudpickle>=1.2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium[mujoco]) (2.2.1)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium[mujoco]) (4.7.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium[mujoco]) (0.0.4)
+Collecting mujoco>=2.3.2 (from gymnasium[mujoco])
+  Downloading mujoco-2.3.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 567.5 kB/s eta 0:00:00
+Collecting imageio>=2.14.1 (from gymnasium[mujoco])
+  Using cached imageio-2.31.1-py3-none-any.whl (313 kB)
+Requirement already satisfied: pillow>=8.3.2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from imageio>=2.14.1->gymnasium[mujoco]) (9.5.0)
+Requirement already satisfied: absl-py in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from mujoco>=2.3.2->gymnasium[mujoco]) (1.4.0)
+Collecting glfw (from mujoco>=2.3.2->gymnasium[mujoco])
+  Using cached glfw-2.6.2-py2.py27.py3.py30.py31.py32.py33.py34.py35.py36.py37.py38-none-manylinux2014_x86_64.whl (208 kB)
+Collecting pyopengl (from mujoco>=2.3.2->gymnasium[mujoco])
+  Using cached PyOpenGL-3.1.7-py3-none-any.whl (2.4 MB)
+Installing collected packages: pyopengl, glfw, mujoco, imageio
+Successfully installed glfw-2.6.2 imageio-2.31.1 mujoco-2.3.6 pyopengl-3.1.7
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight$ cd RL/
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 18, in <module>
+    model = DQN("MlpPolicy", "HumanoidStandup-v4").learn(1000000)
+            ^^^
+NameError: name 'DQN' is not defined
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 19, in <module>
+    model = DQN("MlpPolicy", "HumanoidStandup-v4").learn(1000000)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/dqn/dqn.py", line 104, in __init__
+    super().__init__(
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/off_policy_algorithm.py", line 110, in __init__
+    super().__init__(
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 180, in __init__
+    assert isinstance(self.action_space, supported_action_spaces), (
+AssertionError: The algorithm only supports (<class 'gymnasium.spaces.discrete.Discrete'>,) as action spaces but Box(-0.4, 0.4, (17,), float32) was provided
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/glfw/__init__.py:916: GLFWError: (65537) b'The GLFW library is not initialized'
+  warnings.warn(message, GLFWError)
+^CTraceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 30, in <module>
+    obs, reward, done, info = vec_env.step(action)
+                              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/vec_env/base_vec_env.py", line 197, in step
+    return self.step_wait()
+           ^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/vec_env/dummy_vec_env.py", line 58, in step_wait
+    obs, self.buf_rews[env_idx], terminated, truncated, self.buf_infos[env_idx] = self.envs[env_idx].step(
+                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/monitor.py", line 94, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/wrappers/time_limit.py", line 57, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/wrappers/env_checker.py", line 49, in step
+    return self.env.step(action)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/humanoidstandup_v4.py", line 231, in step
+    self.do_simulation(a, self.frame_skip)
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py", line 151, in do_simulation
+    self._step_mujoco_simulation(ctrl, n_frames)
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_env.py", line 371, in _step_mujoco_simulation
+    mujoco.mj_step(self.model, self.data, nstep=self.frame_skip)
+KeyboardInterrupt
+Exception ignored in: <function WindowViewer.__del__ at 0x7f475ca04b80>
+Traceback (most recent call last):
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_rendering.py", line 335, in __del__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_rendering.py", line 328, in free
+AttributeError: 'NoneType' object has no attribute 'get_current_context'
+
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+ 100% ━━━━━━━━━━━━━━━━━━━━━━━━━━ 10,000/10,000  [ 0:02:47 < 0:00:00 , 60 it/s ]
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 26
+    model_name = "HumanoidStandup-v4_" + str(i+1)"M"
+                                                 ^^^
+SyntaxError: invalid syntax
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 32, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 23, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 679, in load
+    data, params, pytorch_variables = load_from_zip_file(
+                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 390, in load_from_zip_file
+    load_path = open_path(load_path, "r", verbose=verbose, suffix="zip")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 234, in open_path_str
+    return open_path(pathlib.Path(path), mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 286, in open_path_pathlib
+    return open_path(path, mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 266, in open_path_pathlib
+    raise error
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 258, in open_path_pathlib
+    path = path.open("rb")
+           ^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'HumanoidStandup-v4_0M.zip'
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+  10% ━━╺━━━━━━━━━━━━━━━━━━━ 98,886/1,000,000  [ 15:41:03 < 4:10:40 , 60 it/s ]Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 
+32, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 
+25, in trainHumanoid
+    model.learn(1000_000, progress_bar=True)
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/sac/sac.py", line 307, in learn
+    return super().learn(
+           ^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/off_policy_algorithm.py", line 312, in learn
+    rollout = self.collect_rollouts(
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/off_policy_algorithm.py", line 544, in collect_rollouts
+    new_obs, rewards, dones, infos = env.step(actions)
+                                     ^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/vec_env/base_vec_env.py", line 197, in step
+    return self.step_wait()
+           ^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/vec_env/dummy_vec_env.py", line 58, in step_wait
+    obs, self.buf_rews[env_idx], terminated, truncated, self.buf_infos[env_idx]
+= self.envs[env_idx].step(
+                                                                               
+   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/monitor.py", line 94, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/wrappers/time_limit.py", line 57, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+                                                       ^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/wrappers/order_enforcing.py", line 56, in step
+    return self.env.step(action)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/wrappers/env_checker.py", line 49, in step
+    return self.env.step(action)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/envs/mujoco/humanoidstandup_v4.py", line 242, in step
+    self.render()
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/envs/mujoco/mujoco_env.py", line 379, in render
+    return self.mujoco_renderer.render(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/envs/mujoco/mujoco_rendering.py", line 673, in render
+    return viewer.render()
+           ^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/envs/mujoco/mujoco_rendering.py", line 413, in render
+    update()
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+ymnasium/envs/mujoco/mujoco_rendering.py", line 394, in update
+    glfw.swap_buffers(self.window)
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+lfw/__init__.py", line 2377, in swap_buffers
+    _glfw.glfwSwapBuffers(window)
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/g
+lfw/__init__.py", line 686, in errcheck
+    def errcheck(result, *args):
+
+KeyboardInterrupt
+  10% ━━╺━━━━━━━━━━━━━━━━━━━ 98,892/1,000,000  [ 15:41:03 < 4:10:40 , 60 it/s ]Exception ignored in: <function tqdm.__del__ at 0x7f3633dcb740>
+Traceback (most recent call last):
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tqdm/std.py", line 1145, in __del__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tqdm/rich.py", line 120, in close
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/progress.py", line 1178, in __exit__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/progress.py", line 1164, in stop
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/live.py", line 155, in stop
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1136, in line
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1673, in print
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1534, in _collect_renderables
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/protocol.py", line 28, in rich_cast
+ImportError: sys.meta_path is None, Python is likely shutting down
+
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+ 100% ━━━━━━━━━━━━━━━━━━━━━━━━━━ 10,000/10,000  [ 0:02:47 < 0:00:00 , 60 it/s ]
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gl
+fw/__init__.py:916: GLFWError: (65537) b'The GLFW library is not initialized'
+  warnings.warn(message, GLFWError)
+  10% ━━╸━━━━━━━━━━━━━━━━━━━━━━━━ 1,040/10,000  [ 0:00:12 < 0:01:48 , 83 it/s ]Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 
+31, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 
+25, in trainHumanoid
+    model.learn(10_000, progress_bar=True)
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/sac/sac.py", line 307, in learn
+    return super().learn(
+           ^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/common/off_policy_algorithm.py", line 331, in learn
+    self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/sac/sac.py", line 222, in train
+    actions_pi, log_prob = self.actor.action_log_prob(replay_data.observations)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/sac/policies.py", line 173, in action_log_prob
+    mean_actions, log_std, kwargs = self.get_action_dist_params(obs)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/s
+table_baselines3/sac/policies.py", line 157, in get_action_dist_params
+    mean_actions = self.mu(latent_pi)
+                   ^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/t
+orch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/t
+orch/nn/modules/linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+  10% ━━╸━━━━━━━━━━━━━━━━━━━━━━━━ 1,040/10,000  [ 0:00:12 < 0:01:48 , 83 it/s ]Exception ignored in: <function tqdm.__del__ at 0x7fd056bfb740>
+Traceback (most recent call last):
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tqdm/std.py", line 1145, in __del__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tqdm/rich.py", line 120, in close
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/progress.py", line 1178, in __exit__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/progress.py", line 1164, in stop
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/live.py", line 155, in stop
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1136, in line
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1673, in print
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/console.py", line 1534, in _collect_renderables
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/rich/protocol.py", line 28, in rich_cast
+ImportError: sys.meta_path is None, Python is likely shutting down
+Exception ignored in: <function WindowViewer.__del__ at 0x7fd04fb80c20>
+Traceback (most recent call last):
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_rendering.py", line 335, in __del__
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/gymnasium/envs/mujoco/mujoco_rendering.py", line 328, in free
+AttributeError: 'NoneType' object has no attribute 'get_current_context'
+
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+  93% ━━━━━━━━━━━━━━━━━━━━━━╺━ 928,861/1,000,000  [ 5:28:19 < 0:19:54 , 60 it/s  100% ━━━━━━━━━━━━━━━━━━━━━ 1,000,000/1,000,000  [ 5:48:07 < 0:00:00 , 60 it/s ]
+  25% ━━━━━╸━━━━━━━━━━━━━━━━━ 248,176/1,000,000  [ 1:17:04 < 3:29:16 , 60 it/s ] 100% ━━━━━━━━━━━━━━━━━━━━ 1,000,000/1,000,000  [ 3:49:14 < 0:00:00 , 120 it/s ]
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/buffers.py:229: UserWarning: This system does not have apparently enough memory to store the complete replay buffer 6.09GB > 4.48GB
+  warnings.warn(
+WARNING: OpenGL error 0x502 in or before mjr_makeContext
+
+ 100% ━━━━━━━━━━━━━━━━━━━━ 1,000,000/1,000,000  [ 2:19:34 < 0:00:00 , 119 it/s ]
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/buffers.py:229: UserWarning: This system does not have apparently enough memory to store the complete replay buffer 6.09GB > 4.55GB
+  warnings.warn(
+WARNING: OpenGL error 0x502 in or before mjr_makeContext
+
+  98% ━━━━━━━━━━━━━━━━━━━━━━━╸ 983,626/1,000,000  [ 3:04:28 < 3:20:52 , 1 it/s ]Killed
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:12:34.105179: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:12:34.756129: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 32, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:14:00.918023: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:14:01.358497: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model.set_env(evn)
+    ^^^^^
+NameError: name 'model' is not defined
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:14:13.855188: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:14:14.290578: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 34, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:17:02.104542: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:17:02.541403: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 34, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:18:49.636928: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:18:50.080471: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 34, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env, verbose = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:23:31.573826: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:23:32.022368: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 34, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env, verbose = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+2023-07-07 09:23:58.411393: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-07-07 09:23:58.855604: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env, verbose = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ pip uninstall tensorflow
+Found existing installation: tensorflow 2.12.0
+Uninstalling tensorflow-2.12.0:
+  Would remove:
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/estimator_ckpt_converter
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/import_pb_to_tensorboard
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/saved_model_cli
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/tensorboard
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/tf_upgrade_v2
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/tflite_convert
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/toco
+    /home/carla/.conda/envs/stable-baselines3-extra/bin/toco_from_protos
+    /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tensorflow-2.12.0.dist-info/*
+    /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/tensorflow/*
+Proceed (Y/n)? y
+  Successfully uninstalled tensorflow-2.12.0
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env, verbose = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M", verbose = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_3M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 33, in <module>
+    model = SAC.load("HumanoidStandup-v4_3M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 24.6     |
+|    ep_rew_mean        | 24.6     |
+| time/                 |          |
+|    fps                | 368      |
+|    iterations         | 100      |
+|    time_elapsed       | 1        |
+|    total_timesteps    | 500      |
+| train/                |          |
+|    entropy_loss       | -0.668   |
+|    explained_variance | -0.356   |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 99       |
+|    policy_loss        | -0.22    |
+|    value_loss         | 22.1     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 26.2     |
+|    ep_rew_mean        | 26.2     |
+| time/                 |          |
+|    fps                | 518      |
+|    iterations         | 200      |
+|    time_elapsed       | 1        |
+|    total_timesteps    | 1000     |
+| train/                |          |
+|    entropy_loss       | -0.606   |
+|    explained_variance | 0.509    |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 199      |
+|    policy_loss        | 1.71     |
+|    value_loss         | 6.66     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 26.1     |
+|    ep_rew_mean        | 26.1     |
+| time/                 |          |
+|    fps                | 599      |
+|    iterations         | 300      |
+|    time_elapsed       | 2        |
+|    total_timesteps    | 1500     |
+| train/                |          |
+|    entropy_loss       | -0.63    |
+|    explained_variance | -0.0291  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 299      |
+|    policy_loss        | 1.82     |
+|    value_loss         | 8.72     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 26.7     |
+|    ep_rew_mean        | 26.7     |
+| time/                 |          |
+|    fps                | 650      |
+|    iterations         | 400      |
+|    time_elapsed       | 3        |
+|    total_timesteps    | 2000     |
+| train/                |          |
+|    entropy_loss       | -0.634   |
+|    explained_variance | -0.0752  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 399      |
+|    policy_loss        | 1.3      |
+|    value_loss         | 6.92     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 28       |
+|    ep_rew_mean        | 28       |
+| time/                 |          |
+|    fps                | 683      |
+|    iterations         | 500      |
+|    time_elapsed       | 3        |
+|    total_timesteps    | 2500     |
+| train/                |          |
+|    entropy_loss       | -0.53    |
+|    explained_variance | 0.0324   |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 499      |
+|    policy_loss        | 1.3      |
+|    value_loss         | 6.43     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 29.9     |
+|    ep_rew_mean        | 29.9     |
+| time/                 |          |
+|    fps                | 710      |
+|    iterations         | 600      |
+|    time_elapsed       | 4        |
+|    total_timesteps    | 3000     |
+| train/                |          |
+|    entropy_loss       | -0.578   |
+|    explained_variance | 0.022    |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 599      |
+|    policy_loss        | 0.657    |
+|    value_loss         | 5.54     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 32       |
+|    ep_rew_mean        | 32       |
+| time/                 |          |
+|    fps                | 730      |
+|    iterations         | 700      |
+|    time_elapsed       | 4        |
+|    total_timesteps    | 3500     |
+| train/                |          |
+|    entropy_loss       | -0.556   |
+|    explained_variance | -0.0234  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 699      |
+|    policy_loss        | 0.82     |
+|    value_loss         | 5.08     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 33.5     |
+|    ep_rew_mean        | 33.5     |
+| time/                 |          |
+|    fps                | 746      |
+|    iterations         | 800      |
+|    time_elapsed       | 5        |
+|    total_timesteps    | 4000     |
+| train/                |          |
+|    entropy_loss       | -0.415   |
+|    explained_variance | -0.00226 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 799      |
+|    policy_loss        | 2.04     |
+|    value_loss         | 4.52     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 35       |
+|    ep_rew_mean        | 35       |
+| time/                 |          |
+|    fps                | 759      |
+|    iterations         | 900      |
+|    time_elapsed       | 5        |
+|    total_timesteps    | 4500     |
+| train/                |          |
+|    entropy_loss       | -0.557   |
+|    explained_variance | -0.00214 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 899      |
+|    policy_loss        | 0.503    |
+|    value_loss         | 4.05     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 37.4     |
+|    ep_rew_mean        | 37.4     |
+| time/                 |          |
+|    fps                | 770      |
+|    iterations         | 1000     |
+|    time_elapsed       | 6        |
+|    total_timesteps    | 5000     |
+| train/                |          |
+|    entropy_loss       | -0.536   |
+|    explained_variance | 0.00395  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 999      |
+|    policy_loss        | 0.525    |
+|    value_loss         | 3.56     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 40.5     |
+|    ep_rew_mean        | 40.5     |
+| time/                 |          |
+|    fps                | 779      |
+|    iterations         | 1100     |
+|    time_elapsed       | 7        |
+|    total_timesteps    | 5500     |
+| train/                |          |
+|    entropy_loss       | -0.535   |
+|    explained_variance | -0.00237 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1099     |
+|    policy_loss        | 0.874    |
+|    value_loss         | 3.11     |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 43.2      |
+|    ep_rew_mean        | 43.2      |
+| time/                 |           |
+|    fps                | 786       |
+|    iterations         | 1200      |
+|    time_elapsed       | 7         |
+|    total_timesteps    | 6000      |
+| train/                |           |
+|    entropy_loss       | -0.527    |
+|    explained_variance | -0.000274 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1199      |
+|    policy_loss        | 0.416     |
+|    value_loss         | 2.71      |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 45.1      |
+|    ep_rew_mean        | 45.1      |
+| time/                 |           |
+|    fps                | 792       |
+|    iterations         | 1300      |
+|    time_elapsed       | 8         |
+|    total_timesteps    | 6500      |
+| train/                |           |
+|    entropy_loss       | -0.511    |
+|    explained_variance | -0.000257 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1299      |
+|    policy_loss        | 0.599     |
+|    value_loss         | 2.32      |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 48.4     |
+|    ep_rew_mean        | 48.4     |
+| time/                 |          |
+|    fps                | 798      |
+|    iterations         | 1400     |
+|    time_elapsed       | 8        |
+|    total_timesteps    | 7000     |
+| train/                |          |
+|    entropy_loss       | -0.57    |
+|    explained_variance | 9.67e-05 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1399     |
+|    policy_loss        | 0.594    |
+|    value_loss         | 1.93     |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 51.5     |
+|    ep_rew_mean        | 51.5     |
+| time/                 |          |
+|    fps                | 803      |
+|    iterations         | 1500     |
+|    time_elapsed       | 9        |
+|    total_timesteps    | 7500     |
+| train/                |          |
+|    entropy_loss       | -0.495   |
+|    explained_variance | 0.000578 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1499     |
+|    policy_loss        | 0.846    |
+|    value_loss         | 1.57     |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 56.5      |
+|    ep_rew_mean        | 56.5      |
+| time/                 |           |
+|    fps                | 807       |
+|    iterations         | 1600      |
+|    time_elapsed       | 9         |
+|    total_timesteps    | 8000      |
+| train/                |           |
+|    entropy_loss       | -0.589    |
+|    explained_variance | -4.58e-05 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1599      |
+|    policy_loss        | 0.355     |
+|    value_loss         | 1.23      |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 60.3      |
+|    ep_rew_mean        | 60.3      |
+| time/                 |           |
+|    fps                | 811       |
+|    iterations         | 1700      |
+|    time_elapsed       | 10        |
+|    total_timesteps    | 8500      |
+| train/                |           |
+|    entropy_loss       | -0.437    |
+|    explained_variance | -0.000137 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1699      |
+|    policy_loss        | 0.693     |
+|    value_loss         | 0.942     |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 63.2     |
+|    ep_rew_mean        | 63.2     |
+| time/                 |          |
+|    fps                | 815      |
+|    iterations         | 1800     |
+|    time_elapsed       | 11       |
+|    total_timesteps    | 9000     |
+| train/                |          |
+|    entropy_loss       | -0.514   |
+|    explained_variance | 0.000324 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1799     |
+|    policy_loss        | 0.389    |
+|    value_loss         | 0.69     |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 67.4      |
+|    ep_rew_mean        | 67.4      |
+| time/                 |           |
+|    fps                | 818       |
+|    iterations         | 1900      |
+|    time_elapsed       | 11        |
+|    total_timesteps    | 9500      |
+| train/                |           |
+|    entropy_loss       | -0.566    |
+|    explained_variance | -2.97e-05 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1899      |
+|    policy_loss        | 0.328     |
+|    value_loss         | 0.478     |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 70.8     |
+|    ep_rew_mean        | 70.8     |
+| time/                 |          |
+|    fps                | 821      |
+|    iterations         | 2000     |
+|    time_elapsed       | 12       |
+|    total_timesteps    | 10000    |
+| train/                |          |
+|    entropy_loss       | -0.606   |
+|    explained_variance | 0        |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1999     |
+|    policy_loss        | 0.187    |
+|    value_loss         | 0.304    |
+------------------------------------
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 49, in <module>
+    model = SAC.load("HumanoidStandup-v4_3M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 49, in <module>
+    model = SAC.load("HumanoidStandup-v4_3M", env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 49, in <module>
+    model = SAC("HumanoidStandup-v4", env=env, verbose=1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/sac/sac.py", line 120, in __init__
+    super().__init__(
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/off_policy_algorithm.py", line 110, in __init__
+    super().__init__(
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 123, in __init__
+    self.policy_class = self._get_policy_from_name(policy)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 338, in _get_policy_from_name
+    raise ValueError(f"Policy {policy_name} unknown")
+ValueError: Policy HumanoidStandup-v4 unknown
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 50, in <module>
+    model.load("HumanoidStandup-v4_3M")
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 55, in <module>
+    model.load("HumanoidStandup-v4_3M", env=env)
+    ^^^^^
+NameError: name 'model' is not defined
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 55, in <module>
+    model = SAC.load("HumanoidStandup-v4_3M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 55, in <module>
+    model.load("HumanoidStandup-v4_3M")
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1e+03    |
+|    ep_rew_mean     | 4.4e+04  |
+| time/              |          |
+|    episodes        | 4        |
+|    fps             | 156      |
+|    time_elapsed    | 25       |
+|    total_timesteps | 4000     |
+| train/             |          |
+|    actor_loss      | -775     |
+|    critic_loss     | 61.9     |
+|    ent_coef        | 0.385    |
+|    ent_coef_loss   | -5.09    |
+|    learning_rate   | 0.0003   |
+|    n_updates       | 3899     |
+---------------------------------
+---------------------------------
+| rollout/           |          |
+|    ep_len_mean     | 1e+03    |
+|    ep_rew_mean     | 5.66e+04 |
+| time/              |          |
+|    episodes        | 8        |
+|    fps             | 153      |
+|    time_elapsed    | 51       |
+|    total_timesteps | 8000     |
+| train/             |          |
+|    actor_loss      | -1.9e+03 |
+|    critic_loss     | 197      |
+|    ent_coef        | 0.436    |
+|    ent_coef_loss   | -0.352   |
+|    learning_rate   | 0.0003   |
+|    n_updates       | 7899     |
+---------------------------------
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model.load("HumanoidStandup-v4_4M")
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M.zip")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 30, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 23, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 679, in load
+    data, params, pytorch_variables = load_from_zip_file(
+                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 390, in load_from_zip_file
+    load_path = open_path(load_path, "r", verbose=verbose, suffix="zip")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 234, in open_path_str
+    return open_path(pathlib.Path(path), mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 286, in open_path_pathlib
+    return open_path(path, mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 266, in open_path_pathlib
+    raise error
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 258, in open_path_pathlib
+    path = path.open("rb")
+           ^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'HumanoidStandup-v4_5M.zip'
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 30, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 23, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 30, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 23, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 30, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 23, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 13, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 2, in trainHumanoid
+    env = gym.make('HumanoidStandup-v4', render_mode="human")
+          ^^^
+NameError: name 'gym' is not defined
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 20, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 679, in load
+    data, params, pytorch_variables = load_from_zip_file(
+                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 390, in load_from_zip_file
+    load_path = open_path(load_path, "r", verbose=verbose, suffix="zip")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 234, in open_path_str
+    return open_path(pathlib.Path(path), mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 286, in open_path_pathlib
+    return open_path(path, mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 266, in open_path_pathlib
+    raise error
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 258, in open_path_pathlib
+    path = path.open("rb")
+           ^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'HumanoidStandup-v4_1M.zip'
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 20, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ pip install stable-baselines3[extra]
+Requirement already satisfied: stable-baselines3[extra] in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (2.0.0)
+Requirement already satisfied: gymnasium==0.28.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.28.1)
+Requirement already satisfied: numpy>=1.20 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (1.23.5)
+Requirement already satisfied: torch>=1.11 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.0.1)
+Requirement already satisfied: cloudpickle in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.2.1)
+Requirement already satisfied: pandas in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.0.3)
+Requirement already satisfied: matplotlib in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (3.7.1)
+Requirement already satisfied: opencv-python in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (4.7.0.72)
+Requirement already satisfied: tensorboard>=2.9.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.12.3)
+Requirement already satisfied: psutil in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (5.9.5)
+Requirement already satisfied: tqdm in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (4.65.0)
+Requirement already satisfied: rich in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (13.4.2)
+Requirement already satisfied: shimmy[atari]~=0.2.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.2.1)
+Requirement already satisfied: pillow in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (9.5.0)
+Requirement already satisfied: autorom[accept-rom-license]~=0.6.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.6.1)
+Requirement already satisfied: pygame in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.5.0)
+Requirement already satisfied: jax-jumpy>=1.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (1.0.0)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (4.7.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (0.0.4)
+Requirement already satisfied: click in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (8.1.3)
+Requirement already satisfied: requests in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (2.31.0)
+Requirement already satisfied: AutoROM.accept-rom-license in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (0.6.1)
+Requirement already satisfied: ale-py~=0.8.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from shimmy[atari]~=0.2.1->stable-baselines3[extra]) (0.8.1)
+Requirement already satisfied: absl-py>=0.4 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.4.0)
+Requirement already satisfied: grpcio>=1.48.2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.56.0)
+Requirement already satisfied: google-auth<3,>=1.6.3 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (2.21.0)
+Requirement already satisfied: google-auth-oauthlib<1.1,>=0.5 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.0.0)
+Requirement already satisfied: markdown>=2.6.8 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (3.4.3)
+Requirement already satisfied: protobuf>=3.19.6 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (4.23.3)
+Requirement already satisfied: setuptools>=41.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (67.8.0)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (0.7.1)
+Requirement already satisfied: werkzeug>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (2.3.6)
+Requirement already satisfied: wheel>=0.26 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (0.38.4)
+Requirement already satisfied: filelock in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.12.2)
+Requirement already satisfied: sympy in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (1.12)
+Requirement already satisfied: networkx in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.1)
+Requirement already satisfied: jinja2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.1.2)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu11==11.7.99 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.99)
+Requirement already satisfied: nvidia-cuda-runtime-cu11==11.7.99 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.99)
+Requirement already satisfied: nvidia-cuda-cupti-cu11==11.7.101 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.101)
+Collecting nvidia-cudnn-cu11==8.5.0.96 (from torch>=1.11->stable-baselines3[extra])
+  Using cached nvidia_cudnn_cu11-8.5.0.96-2-py3-none-manylinux1_x86_64.whl (557.1 MB)
+Requirement already satisfied: nvidia-cublas-cu11==11.10.3.66 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.10.3.66)
+Requirement already satisfied: nvidia-cufft-cu11==10.9.0.58 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (10.9.0.58)
+Requirement already satisfied: nvidia-curand-cu11==10.2.10.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (10.2.10.91)
+Requirement already satisfied: nvidia-cusolver-cu11==11.4.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.4.0.1)
+Requirement already satisfied: nvidia-cusparse-cu11==11.7.4.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.4.91)
+Requirement already satisfied: nvidia-nccl-cu11==2.14.3 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (2.14.3)
+Requirement already satisfied: nvidia-nvtx-cu11==11.7.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.91)
+Requirement already satisfied: triton==2.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (2.0.0)
+Requirement already satisfied: cmake in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from triton==2.0.0->torch>=1.11->stable-baselines3[extra]) (3.26.4)
+Requirement already satisfied: lit in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from triton==2.0.0->torch>=1.11->stable-baselines3[extra]) (16.0.6)
+Requirement already satisfied: contourpy>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (1.1.0)
+Requirement already satisfied: cycler>=0.10 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (0.11.0)
+Requirement already satisfied: fonttools>=4.22.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (4.40.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (1.4.4)
+Requirement already satisfied: packaging>=20.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (23.1)
+Requirement already satisfied: pyparsing>=2.3.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (3.1.0)
+Requirement already satisfied: python-dateutil>=2.7 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (2.8.2)
+Requirement already satisfied: pytz>=2020.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pandas->stable-baselines3[extra]) (2023.3)
+Requirement already satisfied: tzdata>=2022.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pandas->stable-baselines3[extra]) (2023.3)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from rich->stable-baselines3[extra]) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from rich->stable-baselines3[extra]) (2.15.1)
+Requirement already satisfied: importlib-resources in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from ale-py~=0.8.1->shimmy[atari]~=0.2.1->stable-baselines3[extra]) (5.12.0)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (5.3.1)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (0.3.0)
+Requirement already satisfied: rsa<5,>=3.1.4 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (4.9)
+Requirement already satisfied: six>=1.9.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (1.16.0)
+Requirement already satisfied: urllib3<2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (1.26.16)
+Requirement already satisfied: requests-oauthlib>=0.7.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth-oauthlib<1.1,>=0.5->tensorboard>=2.9.1->stable-baselines3[extra]) (1.3.1)
+Requirement already satisfied: mdurl~=0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich->stable-baselines3[extra]) (0.1.2)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (3.1.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (2023.5.7)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from werkzeug>=1.0.1->tensorboard>=2.9.1->stable-baselines3[extra]) (2.1.3)
+Requirement already satisfied: mpmath>=0.19 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from sympy->torch>=1.11->stable-baselines3[extra]) (1.3.0)
+Requirement already satisfied: pyasn1<0.6.0,>=0.4.6 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (0.5.0)
+Requirement already satisfied: oauthlib>=3.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests-oauthlib>=0.7.0->google-auth-oauthlib<1.1,>=0.5->tensorboard>=2.9.1->stable-baselines3[extra]) (3.2.2)
+Installing collected packages: nvidia-cudnn-cu11
+  Attempting uninstall: nvidia-cudnn-cu11
+    Found existing installation: nvidia-cudnn-cu11 8.6.0.163
+    Uninstalling nvidia-cudnn-cu11-8.6.0.163:
+      Successfully uninstalled nvidia-cudnn-cu11-8.6.0.163
+Successfully installed nvidia-cudnn-cu11-8.5.0.96
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ pip uninstall stable-baselines3[extra]
+Found existing installation: stable-baselines3 2.0.0
+Uninstalling stable-baselines3-2.0.0:
+  Would remove:
+    /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3-2.0.0.dist-info/*
+    /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/*
+Proceed (Y/n)? y
+  Successfully uninstalled stable-baselines3-2.0.0
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ pip install stable-baselines3[extra]
+Collecting stable-baselines3[extra]
+  Using cached stable_baselines3-2.0.0-py3-none-any.whl (178 kB)
+Requirement already satisfied: gymnasium==0.28.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.28.1)
+Requirement already satisfied: numpy>=1.20 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (1.23.5)
+Requirement already satisfied: torch>=1.11 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.0.1)
+Requirement already satisfied: cloudpickle in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.2.1)
+Requirement already satisfied: pandas in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.0.3)
+Requirement already satisfied: matplotlib in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (3.7.1)
+Requirement already satisfied: opencv-python in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (4.7.0.72)
+Requirement already satisfied: tensorboard>=2.9.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.12.3)
+Requirement already satisfied: psutil in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (5.9.5)
+Requirement already satisfied: tqdm in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (4.65.0)
+Requirement already satisfied: rich in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (13.4.2)
+Requirement already satisfied: shimmy[atari]~=0.2.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.2.1)
+Requirement already satisfied: pillow in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (9.5.0)
+Requirement already satisfied: autorom[accept-rom-license]~=0.6.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (0.6.1)
+Requirement already satisfied: pygame in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from stable-baselines3[extra]) (2.5.0)
+Requirement already satisfied: jax-jumpy>=1.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (1.0.0)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (4.7.0)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from gymnasium==0.28.1->stable-baselines3[extra]) (0.0.4)
+Requirement already satisfied: click in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (8.1.3)
+Requirement already satisfied: requests in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (2.31.0)
+Requirement already satisfied: AutoROM.accept-rom-license in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (0.6.1)
+Requirement already satisfied: ale-py~=0.8.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from shimmy[atari]~=0.2.1->stable-baselines3[extra]) (0.8.1)
+Requirement already satisfied: absl-py>=0.4 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.4.0)
+Requirement already satisfied: grpcio>=1.48.2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.56.0)
+Requirement already satisfied: google-auth<3,>=1.6.3 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (2.21.0)
+Requirement already satisfied: google-auth-oauthlib<1.1,>=0.5 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (1.0.0)
+Requirement already satisfied: markdown>=2.6.8 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (3.4.3)
+Requirement already satisfied: protobuf>=3.19.6 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (4.23.3)
+Requirement already satisfied: setuptools>=41.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (67.8.0)
+Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (0.7.1)
+Requirement already satisfied: werkzeug>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (2.3.6)
+Requirement already satisfied: wheel>=0.26 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from tensorboard>=2.9.1->stable-baselines3[extra]) (0.38.4)
+Requirement already satisfied: filelock in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.12.2)
+Requirement already satisfied: sympy in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (1.12)
+Requirement already satisfied: networkx in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.1)
+Requirement already satisfied: jinja2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (3.1.2)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu11==11.7.99 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.99)
+Requirement already satisfied: nvidia-cuda-runtime-cu11==11.7.99 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.99)
+Requirement already satisfied: nvidia-cuda-cupti-cu11==11.7.101 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.101)
+Requirement already satisfied: nvidia-cudnn-cu11==8.5.0.96 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (8.5.0.96)
+Requirement already satisfied: nvidia-cublas-cu11==11.10.3.66 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.10.3.66)
+Requirement already satisfied: nvidia-cufft-cu11==10.9.0.58 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (10.9.0.58)
+Requirement already satisfied: nvidia-curand-cu11==10.2.10.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (10.2.10.91)
+Requirement already satisfied: nvidia-cusolver-cu11==11.4.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.4.0.1)
+Requirement already satisfied: nvidia-cusparse-cu11==11.7.4.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.4.91)
+Requirement already satisfied: nvidia-nccl-cu11==2.14.3 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (2.14.3)
+Requirement already satisfied: nvidia-nvtx-cu11==11.7.91 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (11.7.91)
+Requirement already satisfied: triton==2.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from torch>=1.11->stable-baselines3[extra]) (2.0.0)
+Requirement already satisfied: cmake in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from triton==2.0.0->torch>=1.11->stable-baselines3[extra]) (3.26.4)
+Requirement already satisfied: lit in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from triton==2.0.0->torch>=1.11->stable-baselines3[extra]) (16.0.6)
+Requirement already satisfied: contourpy>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (1.1.0)
+Requirement already satisfied: cycler>=0.10 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (0.11.0)
+Requirement already satisfied: fonttools>=4.22.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (4.40.0)
+Requirement already satisfied: kiwisolver>=1.0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (1.4.4)
+Requirement already satisfied: packaging>=20.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (23.1)
+Requirement already satisfied: pyparsing>=2.3.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (3.1.0)
+Requirement already satisfied: python-dateutil>=2.7 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from matplotlib->stable-baselines3[extra]) (2.8.2)
+Requirement already satisfied: pytz>=2020.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pandas->stable-baselines3[extra]) (2023.3)
+Requirement already satisfied: tzdata>=2022.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pandas->stable-baselines3[extra]) (2023.3)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from rich->stable-baselines3[extra]) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from rich->stable-baselines3[extra]) (2.15.1)
+Requirement already satisfied: importlib-resources in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from ale-py~=0.8.1->shimmy[atari]~=0.2.1->stable-baselines3[extra]) (5.12.0)
+Requirement already satisfied: cachetools<6.0,>=2.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (5.3.1)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (0.3.0)
+Requirement already satisfied: rsa<5,>=3.1.4 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (4.9)
+Requirement already satisfied: six>=1.9.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (1.16.0)
+Requirement already satisfied: urllib3<2.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (1.26.16)
+Requirement already satisfied: requests-oauthlib>=0.7.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from google-auth-oauthlib<1.1,>=0.5->tensorboard>=2.9.1->stable-baselines3[extra]) (1.3.1)
+Requirement already satisfied: mdurl~=0.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich->stable-baselines3[extra]) (0.1.2)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (3.1.0)
+Requirement already satisfied: idna<4,>=2.5 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests->autorom[accept-rom-license]~=0.6.0->stable-baselines3[extra]) (2023.5.7)
+Requirement already satisfied: MarkupSafe>=2.1.1 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from werkzeug>=1.0.1->tensorboard>=2.9.1->stable-baselines3[extra]) (2.1.3)
+Requirement already satisfied: mpmath>=0.19 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from sympy->torch>=1.11->stable-baselines3[extra]) (1.3.0)
+Requirement already satisfied: pyasn1<0.6.0,>=0.4.6 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from pyasn1-modules>=0.2.1->google-auth<3,>=1.6.3->tensorboard>=2.9.1->stable-baselines3[extra]) (0.5.0)
+Requirement already satisfied: oauthlib>=3.0.0 in /home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages (from requests-oauthlib>=0.7.0->google-auth-oauthlib<1.1,>=0.5->tensorboard>=2.9.1->stable-baselines3[extra]) (3.2.2)
+Installing collected packages: stable-baselines3
+Successfully installed stable-baselines3-2.0.0
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model = SAC.load("HumanoidStandup-v4_4M",env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 679, in load
+    data, params, pytorch_variables = load_from_zip_file(
+                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 390, in load_from_zip_file
+    load_path = open_path(load_path, "r", verbose=verbose, suffix="zip")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 234, in open_path_str
+    return open_path(pathlib.Path(path), mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 286, in open_path_pathlib
+    return open_path(path, mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 266, in open_path_pathlib
+    raise error
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 258, in open_path_pathlib
+    path = path.open("rb")
+           ^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'HumanoidStandup-v4_4M.zip'
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 39, in <module>
+    model = SAC.load("./savedModels/HumanoidStandup-v4_4M",env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python load.py 
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 18, in <module>
+    trainHumanoid(i)
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/load.py", line 11, in trainHumanoid
+    model = SAC.load(load_model_name, env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 57, in <module>
+    model = SAC.load("./savedModels/HumanoidStandup-v4_4M",env=env)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 57, in <module>
+    model = SAC.load("./savedModels/HumanoidStandup-v4_4M")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 57, in <module>
+    model = SAC.load("./savedModels/HumanoidStandup-v4_500K")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 679, in load
+    data, params, pytorch_variables = load_from_zip_file(
+                                      ^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 390, in load_from_zip_file
+    load_path = open_path(load_path, "r", verbose=verbose, suffix="zip")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 234, in open_path_str
+    return open_path(pathlib.Path(path), mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 286, in open_path_pathlib
+    return open_path(path, mode, verbose, suffix)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/functools.py", line 909, in wrapper
+    return dispatch(args[0].__class__)(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 266, in open_path_pathlib
+    raise error
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py", line 258, in open_path_pathlib
+    path = path.open("rb")
+           ^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'savedModels/HumanoidStandup-v4_500K.zip'
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/save_util.py:166: UserWarning: Could not deserialize object action_space. Consider using `custom_objects` argument to replace this object.
+Exception: __generator_ctor() takes from 0 to 1 positional arguments but 2 were given
+  warnings.warn(
+Traceback (most recent call last):
+  File "/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL/temp.py", line 57, in <module>
+    model = SAC.load("./savedModels/HumanoidStandup-v4_500k")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carla/.conda/envs/stable-baselines3-extra/lib/python3.11/site-packages/stable_baselines3/common/base_class.py", line 706, in load
+    raise KeyError("The observation_space and action_space were not given, can't verify new environments")
+KeyError: "The observation_space and action_space were not given, can't verify new environments"
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ python temp.py 
+Using cuda device
+Wrapping the env with a `Monitor` wrapper
+Wrapping the env in a DummyVecEnv.
+------------------------------------
+| time/                 |          |
+|    fps                | 432      |
+|    iterations         | 100      |
+|    time_elapsed       | 1        |
+|    total_timesteps    | 500      |
+| train/                |          |
+|    entropy_loss       | -23.9    |
+|    explained_variance | -0.0579  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 99       |
+|    policy_loss        | 2.52e+03 |
+|    std                | 0.989    |
+|    value_loss         | 1.22e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.16e+04 |
+| time/                 |          |
+|    fps                | 534      |
+|    iterations         | 200      |
+|    time_elapsed       | 1        |
+|    total_timesteps    | 1000     |
+| train/                |          |
+|    entropy_loss       | -23.9    |
+|    explained_variance | -0.00412 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 199      |
+|    policy_loss        | 3.15e+03 |
+|    std                | 0.989    |
+|    value_loss         | 2.21e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.16e+04 |
+| time/                 |          |
+|    fps                | 584      |
+|    iterations         | 300      |
+|    time_elapsed       | 2        |
+|    total_timesteps    | 1500     |
+| train/                |          |
+|    entropy_loss       | -23.9    |
+|    explained_variance | -0.0176  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 299      |
+|    policy_loss        | 2.67e+03 |
+|    std                | 0.989    |
+|    value_loss         | 1.64e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 3.88e+04 |
+| time/                 |          |
+|    fps                | 612      |
+|    iterations         | 400      |
+|    time_elapsed       | 3        |
+|    total_timesteps    | 2000     |
+| train/                |          |
+|    entropy_loss       | -23.9    |
+|    explained_variance | -0.00675 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 399      |
+|    policy_loss        | 2.7e+03  |
+|    std                | 0.985    |
+|    value_loss         | 1.39e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 3.88e+04 |
+| time/                 |          |
+|    fps                | 630      |
+|    iterations         | 500      |
+|    time_elapsed       | 3        |
+|    total_timesteps    | 2500     |
+| train/                |          |
+|    entropy_loss       | -23.8    |
+|    explained_variance | 0.00018  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 499      |
+|    policy_loss        | 2.5e+03  |
+|    std                | 0.984    |
+|    value_loss         | 1.31e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.06e+04 |
+| time/                 |          |
+|    fps                | 641      |
+|    iterations         | 600      |
+|    time_elapsed       | 4        |
+|    total_timesteps    | 3000     |
+| train/                |          |
+|    entropy_loss       | -23.9    |
+|    explained_variance | 0.000702 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 599      |
+|    policy_loss        | 3.49e+03 |
+|    std                | 0.986    |
+|    value_loss         | 2.44e+04 |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.06e+04  |
+| time/                 |           |
+|    fps                | 650       |
+|    iterations         | 700       |
+|    time_elapsed       | 5         |
+|    total_timesteps    | 3500      |
+| train/                |           |
+|    entropy_loss       | -23.8     |
+|    explained_variance | -0.000184 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 699       |
+|    policy_loss        | 3.5e+03   |
+|    std                | 0.984     |
+|    value_loss         | 2.23e+04  |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.07e+04 |
+| time/                 |          |
+|    fps                | 657      |
+|    iterations         | 800      |
+|    time_elapsed       | 6        |
+|    total_timesteps    | 4000     |
+| train/                |          |
+|    entropy_loss       | -23.8    |
+|    explained_variance | -0.0033  |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 799      |
+|    policy_loss        | 2.93e+03 |
+|    std                | 0.981    |
+|    value_loss         | 1.9e+04  |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.07e+04  |
+| time/                 |           |
+|    fps                | 661       |
+|    iterations         | 900       |
+|    time_elapsed       | 6         |
+|    total_timesteps    | 4500      |
+| train/                |           |
+|    entropy_loss       | -23.8     |
+|    explained_variance | -0.000229 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 899       |
+|    policy_loss        | 2.86e+03  |
+|    std                | 0.98      |
+|    value_loss         | 1.96e+04  |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.15e+04 |
+| time/                 |          |
+|    fps                | 665      |
+|    iterations         | 1000     |
+|    time_elapsed       | 7        |
+|    total_timesteps    | 5000     |
+| train/                |          |
+|    entropy_loss       | -23.7    |
+|    explained_variance | 0.000106 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 999      |
+|    policy_loss        | 5.55e+03 |
+|    std                | 0.978    |
+|    value_loss         | 6.81e+04 |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.15e+04  |
+| time/                 |           |
+|    fps                | 669       |
+|    iterations         | 1100      |
+|    time_elapsed       | 8         |
+|    total_timesteps    | 5500      |
+| train/                |           |
+|    entropy_loss       | -23.6     |
+|    explained_variance | -1.05e-05 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1099      |
+|    policy_loss        | 4.63e+03  |
+|    std                | 0.972     |
+|    value_loss         | 4.53e+04  |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.37e+04 |
+| time/                 |          |
+|    fps                | 673      |
+|    iterations         | 1200     |
+|    time_elapsed       | 8        |
+|    total_timesteps    | 6000     |
+| train/                |          |
+|    entropy_loss       | -23.6    |
+|    explained_variance | 0.0434   |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1199     |
+|    policy_loss        | 2.48e+03 |
+|    std                | 0.972    |
+|    value_loss         | 1.44e+04 |
+------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.37e+04 |
+| time/                 |          |
+|    fps                | 676      |
+|    iterations         | 1300     |
+|    time_elapsed       | 9        |
+|    total_timesteps    | 6500     |
+| train/                |          |
+|    entropy_loss       | -23.6    |
+|    explained_variance | 8.58e-05 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1299     |
+|    policy_loss        | 3.41e+03 |
+|    std                | 0.97     |
+|    value_loss         | 2.1e+04  |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.45e+04  |
+| time/                 |           |
+|    fps                | 677       |
+|    iterations         | 1400      |
+|    time_elapsed       | 10        |
+|    total_timesteps    | 7000      |
+| train/                |           |
+|    entropy_loss       | -23.6     |
+|    explained_variance | -0.000109 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1399      |
+|    policy_loss        | 3.24e+03  |
+|    std                | 0.969     |
+|    value_loss         | 2.37e+04  |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.45e+04  |
+| time/                 |           |
+|    fps                | 679       |
+|    iterations         | 1500      |
+|    time_elapsed       | 11        |
+|    total_timesteps    | 7500      |
+| train/                |           |
+|    entropy_loss       | -23.5     |
+|    explained_variance | -0.000262 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1499      |
+|    policy_loss        | 2.73e+03  |
+|    std                | 0.967     |
+|    value_loss         | 1.77e+04  |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.44e+04  |
+| time/                 |           |
+|    fps                | 681       |
+|    iterations         | 1600      |
+|    time_elapsed       | 11        |
+|    total_timesteps    | 8000      |
+| train/                |           |
+|    entropy_loss       | -23.5     |
+|    explained_variance | -2.38e-07 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1599      |
+|    policy_loss        | 3.25e+03  |
+|    std                | 0.964     |
+|    value_loss         | 2.29e+04  |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.44e+04  |
+| time/                 |           |
+|    fps                | 683       |
+|    iterations         | 1700      |
+|    time_elapsed       | 12        |
+|    total_timesteps    | 8500      |
+| train/                |           |
+|    entropy_loss       | -23.5     |
+|    explained_variance | -2.38e-07 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1699      |
+|    policy_loss        | 1.88e+03  |
+|    std                | 0.965     |
+|    value_loss         | 7.98e+03  |
+-------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.46e+04  |
+| time/                 |           |
+|    fps                | 684       |
+|    iterations         | 1800      |
+|    time_elapsed       | 13        |
+|    total_timesteps    | 9000      |
+| train/                |           |
+|    entropy_loss       | -23.4     |
+|    explained_variance | -7.58e-05 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1799      |
+|    policy_loss        | 3.19e+03  |
+|    std                | 0.962     |
+|    value_loss         | 2.42e+04  |
+-------------------------------------
+------------------------------------
+| rollout/              |          |
+|    ep_len_mean        | 1e+03    |
+|    ep_rew_mean        | 4.46e+04 |
+| time/                 |          |
+|    fps                | 685      |
+|    iterations         | 1900     |
+|    time_elapsed       | 13       |
+|    total_timesteps    | 9500     |
+| train/                |          |
+|    entropy_loss       | -23.4    |
+|    explained_variance | 2.98e-07 |
+|    learning_rate      | 0.0007   |
+|    n_updates          | 1899     |
+|    policy_loss        | 2.87e+03 |
+|    std                | 0.96     |
+|    value_loss         | 1.35e+04 |
+------------------------------------
+-------------------------------------
+| rollout/              |           |
+|    ep_len_mean        | 1e+03     |
+|    ep_rew_mean        | 4.43e+04  |
+| time/                 |           |
+|    fps                | 686       |
+|    iterations         | 2000      |
+|    time_elapsed       | 14        |
+|    total_timesteps    | 10000     |
+| train/                |           |
+|    entropy_loss       | -23.4     |
+|    explained_variance | -1.31e-06 |
+|    learning_rate      | 0.0007    |
+|    n_updates          | 1999      |
+|    policy_loss        | 3.08e+03  |
+|    std                | 0.961     |
+|    value_loss         | 2.04e+04  |
+-------------------------------------
+(stable-baselines3-extra) carla@ford-System-Product-Name:/home/carla/Owen/MultiTrafficLight/MultiTrafficLight/RL$ 
