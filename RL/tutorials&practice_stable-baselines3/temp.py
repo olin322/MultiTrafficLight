@@ -8,12 +8,22 @@ import gymnasium as gym
 from stable_baselines3 import A2C
 from stable_baselines3 import SAC
 from typing import Callable
+from stable_baselines3.common.vec_env import SubprocVecEnv
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.utils import set_random_seed
 
 # from gymnasium.envs.registration import register
 
 def trainHumanoid(i: int):
     env = gym.make('HumanoidStandup-v4', render_mode="human")
+    # tried multi-processing not working
+    # env_id = "HumanoidStandup-v4"
+    # num_process = 4  # Number of processes to use
+    # # Create the vectorized environment
+    # env = SubprocVecEnv([make_env(env_id, j) for j in range(num_process)])
+
     load_model_name = f"./savedModels/HumanoidStandup-v4_{i}M"
+    model = SAC("MlpPolicy", env=env, learning_rate=linear_schedule(0.001), verbose=1)
     model = SAC.load(load_model_name, device='cuda')
     model.set_env(env)
     model.learn(1000_000, progress_bar=True)
@@ -38,7 +48,40 @@ def linear_schedule(initial_value: float) -> Callable[[float], float]:
         return progress_remaining * initial_value
     return func
 # Initial learning rate of 0.001
-model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), verbose=1)
+# model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), verbose=1)
+
+
+def make_env(env_id: str, rank: int, seed: int = 0) -> Callable:
+
+    def _init() -> gym.Env:
+        env = gym.make(env_id)
+        env.reset(seed=seed + rank)
+        return env
+
+    set_random_seed(seed)
+    return _init
+
+#########################################################################################
+
+for it in range(9, 15):
+    trainHumanoid(it)
+
+### uncomment the following code to check result
+
+# env = gym.make('HumanoidStandup-v4', render_mode="human")
+# load_model_name = f"./savedModels/HumanoidStandup-v4_8M"
+# model = SAC("MlpPolicy", env=env, learning_rate=linear_schedule(0.001), verbose=1)
+# model = SAC.load(load_model_name)
+# model.set_env(env)
+# model.learn(1000_000, progress_bar=True)
+# model_name = f"./savedModels/HumanoidStandup-v4_9M"
+# model.save(model_name)
+# vec_env = model.get_env()
+# obs = vec_env.reset()
+# for i in range(1000):
+#     action, _state = model.predict(obs, deterministic=True)
+#     obs, reward, done, info = vec_env.step(action)
+#     vec_env.render("human")
 
 ##########################################################################
 
@@ -57,18 +100,6 @@ model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), ve
 
 
 ##############################################################################
-
-env = gym.make('HumanoidStandup-v4', render_mode="human")
-load_model_name = f"./savedModels/HumanoidStandup-v4_8M"
-model = SAC.load(load_model_name)
-model.set_env(env)
-vec_env = model.get_env()
-obs = vec_env.reset()
-for i in range(1000):
-    action, _state = model.predict(obs, deterministic=True)
-    obs, reward, done, info = vec_env.step(action)
-    vec_env.render("human")
-
 
 
 # env = gym.make('HumanoidStandup-v4', render_mode="human")
@@ -192,29 +223,29 @@ for i in range(1000):
 
 
 
+#############################################################################################33
 
+# from typing import Callable
+# from stable_baselines3 import PPO
 
-from typing import Callable
-from stable_baselines3 import PPO
-
-def linear_schedule(initial_value: float) -> Callable[[float], float]:
-    """
-    Linear learning rate schedule.
-    :param initial_value: Initial learning rate.
-    :return: schedule that computes
-    current learning rate depending on remaining progress
-    """
-    def func(progress_remaining: float) -> float:
-        """
-        Progress will decrease from 1 (beginning) to 0.
-        :param progress_remaining:
-        :return: current learning rate
-        """
-        return progress_remaining * initial_value
-    return func
-# Initial learning rate of 0.001
-model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), verbose=1)
-model.learn(total_timesteps=20_000)
-# By default, `reset_num_timesteps` is True, in which case the learning rate schedule resets.
-# progress_remaining = 1.0 - (num_timesteps / total_timesteps)
-model.learn(total_timesteps=10_000, reset_num_timesteps=True)
+# def linear_schedule(initial_value: float) -> Callable[[float], float]:
+#     """
+#     Linear learning rate schedule.
+#     :param initial_value: Initial learning rate.
+#     :return: schedule that computes
+#     current learning rate depending on remaining progress
+#     """
+#     def func(progress_remaining: float) -> float:
+#         """
+#         Progress will decrease from 1 (beginning) to 0.
+#         :param progress_remaining:
+#         :return: current learning rate
+#         """
+#         return progress_remaining * initial_value
+#     return func
+# # Initial learning rate of 0.001
+# model = PPO("MlpPolicy", "CartPole-v1", learning_rate=linear_schedule(0.001), verbose=1)
+# model.learn(total_timesteps=20_000)
+# # By default, `reset_num_timesteps` is True, in which case the learning rate schedule resets.
+# # progress_remaining = 1.0 - (num_timesteps / total_timesteps)
+# model.learn(total_timesteps=10_000, reset_num_timesteps=True)

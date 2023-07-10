@@ -601,7 +601,7 @@ for iteration in range(10):
 
 ### MODEL PARAMETERS
 ```
-class stable_baselines3.a2c.A2C(
+class stable_baselines3.base_class.BaseAlgorithm(
     policy, # "MlpPolicy", "CnnPolicy", ...
     env, 
     learning_rate=0.0007, # can be a fload or a Callable
@@ -639,9 +639,30 @@ model.learn(
 ```
 Parameters:
 
-   > - total_timesteps(int): the total number of samples(env steps) to train on
-   > - callback(None, Callable, List[BaseCallback], BaseCallback): callbacks called at every step with state of the algorithm
-   > - log_interval(int): the number of episodes before logging
-   > - tb_log_name(str): the name of the run for TensorBoard logging
-   > - reset_num_timesteps(bool): whether or not to reset the current timestep number used in logging
-   > - probress_bar(bool): desplay a progress using tqdm and rich. 
+> - total_timesteps(int): the total number of samples(env steps) to train on
+> - callback(None, Callable, List[BaseCallback], BaseCallback): callbacks called at every step with state of the algorithm
+> - log_interval(int): the number of episodes before logging
+> - tb_log_name(str): the name of the run for TensorBoard logging
+> - reset_num_timesteps(bool): whether or not to reset the current timestep number used in logging
+> - probress_bar(bool): desplay a progress using tqdm and rich. 
+
+```
+model.load(
+    path, 
+    env=None, 
+    device='auto', 
+    custom_objects=None, 
+    print_system_info=False,
+    force_reset=True, 
+    **kwargs
+)
+```
+Parameters:
+
+> - path(str): path to the file where to load the agent from
+> - env(Env, VecEnv, None): the new env to runthe loaded model on (can be Noneif you only need prediction from a trained model) has priority over any saved env
+> - device(str): 
+> - custom_objects(Optional[Dict[str, Any]]): Dictionary of objects to replace upon loading. If a variableis present in this dictionary as a key, it will not be deserialized and the corresponding item will be used instead. Similar to `custom_objects` in **Keras.models.load_model**. Useful when you have an object in file that can not be deserialized.
+> - print_system_info(bool): Whether to print system info from the saved model and the current system info, useful to debug loading issues
+> - force_reset(bool): Force call to `reset()` before training to avoid unexpected behavior. See [this github issue](https://github.com/DLR-RM/stable-baselines3/issues/597)
+> - kwargs: extra arguments to change the model when loading
