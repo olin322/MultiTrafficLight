@@ -14,7 +14,7 @@ def trainHumanoid(i: int):
     load_model_name = f"./savedModels/HumanoidStandup-v4_{i}M"
     model = SAC.load(load_model_name)
     model.set_env(env)
-    model.learn(500_000, progress_bar=True)
+    model.learn(1000_000, progress_bar=True)
     model_name = f"./savedModels/HumanoidStandup-v4_{i+1}M"
     model.save(model_name)
     
