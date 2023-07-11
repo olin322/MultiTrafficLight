@@ -21,14 +21,21 @@ def trainHumanoid(i: int):
     # num_process = 4  # Number of processes to use
     # # Create the vectorized environment
     # env = SubprocVecEnv([make_env(env_id, j) for j in range(num_process)])
-
-    load_model_name = f"./savedModels/HumanoidStandup-v4_{i}M"
-    model = SAC("MlpPolicy", env=env, learning_rate=linear_schedule(0.001), verbose=1)
-    model = SAC.load(load_model_name, device='cuda')
-    model.set_env(env)
+    env_id = "HumanoidStandup-v4"
+    num_process = 32
+    vec_env_train = make_vec_env(env_id, n_envs=num_process)
+    model = SAC("MlpPolicy", vec_env_train, verbose=0)
+    model = SAC.load(f"./savedModels/HumanoidStandup-v4_{i}M", vec_env_train)
+    # model.set_env(vec_env_train)
     model.learn(1000_000, progress_bar=True)
-    model_name = f"./savedModels/HumanoidStandup-v4_{i+1}M"
-    model.save(model_name)
+    model.save(f"./savedModels/HumanoidStandup-v4_{i+1}M_t")
+    # load_model_name = f"./savedModels/HumanoidStandup-v4_{i}M"
+    # model = SAC("MlpPolicy", env=env, learning_rate=linear_schedule(0.001), verbose=1)
+    # model = SAC.load(load_model_name, device='cuda')
+    # model.set_env(env)
+    # model.learn(1000_000, progress_bar=True)
+    # model_name = f"./savedModels/HumanoidStandup-v4_{i+1}M"
+    # model.save(model_name)
     
 
 
@@ -63,19 +70,28 @@ def make_env(env_id: str, rank: int, seed: int = 0) -> Callable:
 
 #########################################################################################
 
-for it in range(9, 15):
+for it in range(22, 23):
     trainHumanoid(it)
+
+# env_id = "HumanoidStandup-v4"
+# num_process = 16
+# vec_env_train = make_vec_env(env_id, n_envs=num_process)
+# model = SAC("MlpPolicy", vec_env_train, verbose=0)
+# model = SAC.load("./savedModels/HumanoidStandup-v4_13M", vec_env_train)
+# # model.set_env(vec_env_train)
+# model.learn(1000_000, progress_bar=True)
+# model.save("./savedModels/HumanoidStandup-v4_14M")
 
 ### uncomment the following code to check result
 
 # env = gym.make('HumanoidStandup-v4', render_mode="human")
-# load_model_name = f"./savedModels/HumanoidStandup-v4_8M"
+# load_model_name = f"./savedModels/HumanoidStandup-v4_19M"
 # model = SAC("MlpPolicy", env=env, learning_rate=linear_schedule(0.001), verbose=1)
 # model = SAC.load(load_model_name)
 # model.set_env(env)
-# model.learn(1000_000, progress_bar=True)
-# model_name = f"./savedModels/HumanoidStandup-v4_9M"
-# model.save(model_name)
+# # model.learn(1000_000, progress_bar=True)
+# # # model_name = f"./savedModels/HumanoidStandup-v4_100M"
+# # # model.save(model_name)
 # vec_env = model.get_env()
 # obs = vec_env.reset()
 # for i in range(1000):
