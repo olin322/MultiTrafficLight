@@ -6,3 +6,4 @@ $ cat .gitignore
 unusual_activities.txt
 conda --add channels
 /RL/reload_model/*.zip
+/RL/tutorials&practice_stable-baselines3/reload_model/cart*.zip
