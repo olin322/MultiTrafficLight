@@ -593,3 +593,76 @@ for iteration in range(10):
     print(f"Iteration {iteration + 1:<3} Mean top fitness: {mean_fitness:.2f}")
     print(f"Best fitness: {top_candidates[0][1]:.2f}")
 ```
+
+
+
+
+
+
+### MODEL PARAMETERS
+```
+class stable_baselines3.base_class.BaseAlgorithm(
+    policy, # "MlpPolicy", "CnnPolicy", ...
+    env, 
+    learning_rate=0.0007, # can be a fload or a Callable
+    n_steps=5, # the number of steps to run for each env per update, e.g. batch size is n_steps * n_env
+    gamma=0.99, # discount factor
+    gae_lambda=1.0, # Generalized Advantage Estimator
+    ent_coef=0.0, # Entropy coefficient for the loss calculation
+    vf_coef=0.5, # Value function coefficient for the loss calculation
+    max_grad_norm=0.5, # The maximum value for the gradient clipping ?
+    rms_prop_eps=1e-05, 
+    use_rms_prop=True, 
+    use_sde=False,
+    sde_sample_freq=-1, 
+    normalize_advantage=False,
+    stats_window_size=100, 
+    tensorboard_log=None, 
+    policy_kwargs=None,
+    verbose=0, 
+    seed=None, # int type, seed for random generators
+    device='auto', 
+    _init_setup_model=True # Whether or not to build the network at the creation of the instance
+)
+```
+```
+# Return a trained model.
+
+model.learn(
+    total_timesteps, 
+    callback=None, 
+    log_interval=100, 
+    tb_log_name='A2C', 
+    reset_num_timesteps=True,
+    progress_bar=False
+)
+```
+Parameters:
+
+> - total_timesteps(int): the total number of samples(env steps) to train on
+> - callback(None, Callable, List[BaseCallback], BaseCallback): callbacks called at every step with state of the algorithm
+> - log_interval(int): the number of episodes before logging
+> - tb_log_name(str): the name of the run for TensorBoard logging
+> - reset_num_timesteps(bool): whether or not to reset the current timestep number used in logging
+> - probress_bar(bool): desplay a progress using tqdm and rich. 
+
+```
+model.load(
+    path, 
+    env=None, 
+    device='auto', 
+    custom_objects=None, 
+    print_system_info=False,
+    force_reset=True, 
+    **kwargs
+)
+```
+Parameters:
+
+> - path(str): path to the file where to load the agent from
+> - env(Env, VecEnv, None): the new env to runthe loaded model on (can be Noneif you only need prediction from a trained model) has priority over any saved env
+> - device(str): 
+> - custom_objects(Optional[Dict[str, Any]]): Dictionary of objects to replace upon loading. If a variableis present in this dictionary as a key, it will not be deserialized and the corresponding item will be used instead. Similar to `custom_objects` in **Keras.models.load_model**. Useful when you have an object in file that can not be deserialized.
+> - print_system_info(bool): Whether to print system info from the saved model and the current system info, useful to debug loading issues
+> - force_reset(bool): Force call to `reset()` before training to avoid unexpected behavior. See [this github issue](https://github.com/DLR-RM/stable-baselines3/issues/597)
+> - kwargs: extra arguments to change the model when loading
