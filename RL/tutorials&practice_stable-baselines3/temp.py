@@ -90,13 +90,13 @@ def demo(i: int): # i-th saved model
     model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{i}M", vec_env_demo)
     vec_env = model.get_env()
     obs = vec_env.reset()
-    for i in range(1000):
+    for i in range(2000):
         action, _state = model.predict(obs, deterministic=True)
         obs, reward, done, info = vec_env.step(action)
         vec_env.render("human")
     vec_env_demo.close()
 
-demo(110)
+demo(120)
 
 #########################################################################################
 # for it in range(22, 23):
