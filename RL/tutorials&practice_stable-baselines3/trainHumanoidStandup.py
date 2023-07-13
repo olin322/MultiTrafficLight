@@ -11,7 +11,7 @@ from typing import Callable
 
 def trainHumanoid(it: int,t: float, g: float, a:float):
     env_id = "HumanoidStandup-v4"
-    num_process = 1024
+    num_process = 4096
     vec_env_train = make_vec_env(env_id, n_envs=num_process)
     model = SAC(
         "MlpPolicy", 
@@ -29,8 +29,8 @@ def trainHumanoid(it: int,t: float, g: float, a:float):
         )
     model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{it}M", vec_env_train)    
     # model.set_env(vec_env_train)
-    model.learn(1000_000, progress_bar=True)
-    trained = f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{it+1}M"
+    model.learn(2000_000, progress_bar=True)
+    trained = f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{it+2}M"
     model.save(trained)
     print("saved model:\t", trained.split('/')[-1])
 
@@ -109,18 +109,44 @@ def linear_schedule(initial_value: float) -> Callable[[float], float]:
     return func
 
 
+def demo(i: int): # i-th saved model 
+    env_id = "HumanoidStandup-v4"
+    num_process = 1
+    vec_env_demo = make_vec_env(env_id, n_envs=num_process)
+    model = SAC(
+        "MlpPolicy", 
+        vec_env_demo, 
+        batch_size=1024,
+        tau=0.01,
+        gamma=0.9,
+        optimize_memory_usage=False,
+        learning_rate=0.001, 
+        action_noise=None,
+        tensorboard_log="./logs",
+        verbose=1, 
+        device='cpu'
+        )
+    model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{i}M", vec_env_demo)
+    vec_env = model.get_env()
+    obs = vec_env.reset()
+    for i in range(1000):
+        action, _state = model.predict(obs, deterministic=True)
+        obs, reward, done, info = vec_env.step(action)
+        vec_env.render("human")
+    vec_env_demo.close()
 
-for it in range(1,15):
+
+for it in range(100,200, 2):
     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
-
+# demo(200)
 
 # env_id = "HumanoidStandup-v4"
-# num_process = 8
-# vec_env_train = make_vec_env(env_id, n_envs=num_process)
+# num_process = 1
+# vec_env_demo = make_vec_env(env_id, n_envs=num_process)
 # model = SAC(
 #     "MlpPolicy", 
-#     vec_env_train, 
+#     vec_env_demo, 
 #     batch_size=1024,
 #     tau=0.01,
 #     gamma=0.9,
@@ -131,17 +157,17 @@ for it in range(1,15):
 #     verbose=1, 
 #     device='cpu'
 #     )
-# model = SAC.load(f"./savedModels/tau0.01gamma0.9alpha0.001/HumanoidStandup-v4_1M", vec_env_train)
+# model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{50}M", vec_env_demo)
 # model.learn(1000_000, progress_bar=True)
-# model_name=f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_1M"
+# model_name=f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_M"
 # model.save(model_name)
 # vec_env = make_vec_env(env_id, 16)
 # vec_env = model.get_env()
 # obs = vec_env.reset()
-# for i in range(100):
+# for i in range(1000):
 #     action, _state = model.predict(obs, deterministic=True)
 #     obs, reward, done, info = vec_env.step(action)
 #     vec_env.render("human")
-# vec_env_train.close()
+# vec_env_demo.close()
 
 # tensorboard --logdir ./logs

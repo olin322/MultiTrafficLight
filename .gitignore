@@ -7,3 +7,8 @@ unusual_activities.txt
 conda --add channels
 /RL/reload_model/*.zip
 /RL/tutorials&practice_stable-baselines3/reload_model/cart*.zip
+
+/RL/tutorials&practice_stable-baselines3/savedModels/second/*.zip
+!/RL/tutorials&practice_stable-baselines3/savedModels/second/*0M.zip
+# !/RL/tutorials&practice_stable-baselines3/savedModels/second/*5M.zip
+
