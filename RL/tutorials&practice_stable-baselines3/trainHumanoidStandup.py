@@ -110,7 +110,7 @@ def linear_schedule(initial_value: float) -> Callable[[float], float]:
 
 
 
-for it in range(1,15):
+for it in range(12,80):
     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
 
