@@ -1,0 +1,19 @@
+$ cat .gitignore
+# ignore pycache files
+/__pycache__/
+/debug_log
+/unusual_logs
+unusual_activities.txt
+conda --add channels
+conda thu channels
+/RL/reload_model/*.zip
+/RL/tutorials&practice_stable-baselines3/reload_model/cart*.zip
+
+/RL/tutorials&practice_stable-baselines3/savedModels/second/*.zip
+!/RL/tutorials&practice_stable-baselines3/savedModels/second/*0M.zip
+# !/RL/tutorials&practice_stable-baselines3/savedModels/second/*5M.zip
+
+<<<<<<< HEAD
+/Simulation/unusual_activities.txt
+=======
+>>>>>>> efdd3e443704d7046c0c3973a18dca979009d9c5
