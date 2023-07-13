@@ -1,0 +1,1 @@
+real world time stamp: 2023-06-25 14:21:10.900055	frame = 1	 simulation time = 0000000	 ego_vehicle speed = 0.00000	 ego_vehicle location = 0.0000000	 next light status = 50green

@@ -4,7 +4,7 @@
 ##### install `stable baselines3` and `mujoco`
 
 ```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple stable-baselines3[extra] gymnasium[mujoco] 
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple stable-baselines3[extra] gymnasium[mujoco] numpy
 ```
 
 ##### be careful installing `tensorflow`, it seems unnecessary for reinforcement learning using `stable baselines3`

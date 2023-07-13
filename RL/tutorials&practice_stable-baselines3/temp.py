@@ -70,8 +70,37 @@ def make_env(env_id: str, rank: int, seed: int = 0) -> Callable:
 
 #########################################################################################
 
-for it in range(22, 23):
-    trainHumanoid(it)
+def demo(i: int): # i-th saved model 
+    env_id = "HumanoidStandup-v4"
+    num_process = 1
+    vec_env_demo = make_vec_env(env_id, n_envs=num_process)
+    model = SAC(
+        "MlpPolicy", 
+        vec_env_demo, 
+        batch_size=1024,
+        tau=0.01,
+        gamma=0.9,
+        optimize_memory_usage=False,
+        learning_rate=0.001, 
+        action_noise=None,
+        tensorboard_log="./logs",
+        verbose=1, 
+        device='cpu'
+        )
+    model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma{model.gamma}alpha{model.learning_rate}_{i}M", vec_env_demo)
+    vec_env = model.get_env()
+    obs = vec_env.reset()
+    for i in range(1000):
+        action, _state = model.predict(obs, deterministic=True)
+        obs, reward, done, info = vec_env.step(action)
+        vec_env.render("human")
+    vec_env_demo.close()
+
+demo(110)
+
+#########################################################################################
+# for it in range(22, 23):
+#     trainHumanoid(it)
 
 # env_id = "HumanoidStandup-v4"
 # num_process = 16

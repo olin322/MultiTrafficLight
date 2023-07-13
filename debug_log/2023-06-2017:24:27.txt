@@ -1,0 +1,1 @@
+frame = 1	 simulation time = 0000000	 ego_vehicle speed = 10.0000	 ego_vehicle location = 0.00000000	 next light status = 70green
