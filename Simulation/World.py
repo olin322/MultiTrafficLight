@@ -1,7 +1,8 @@
-import Util.Location
+# import Util.Location
 import Actor
 import Vehicle
 import TrafficLight
+
 from Util.Utils import getClassName
 
 class World:
