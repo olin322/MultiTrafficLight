@@ -19,10 +19,10 @@ from datetime import timedelta
 frame = 0
 DESTINATION = 10000 # m
 
-num = 1
+# num = 1
 
 world = World(0.02)
-ego_vehicle = Vehicle(0.0, 1500.0, 2.9, 7.9, world.get_delta_t())
+ego_vehicle = Vehicle(0.0, 1500.0, 2, 2, world.get_delta_t())
 trafficLight_1 = TrafficLight(100, "green", 10, world.get_delta_t())
 trafficLight_2 = TrafficLight(200, "green", 47, world.get_delta_t())
 trafficLight_3 = TrafficLight(500, "green", 61, world.get_delta_t())

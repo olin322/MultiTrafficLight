@@ -17,4 +17,7 @@ conda thu channels
 /Simulation/logs/
 /Simulation/unusual_logs/
 /Simulation/debug_log/
+/RL/gym-master/
 
+/Simulation/__pycache__/
+/Simulation/Util/__pycache__/
