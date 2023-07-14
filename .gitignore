@@ -14,3 +14,7 @@ conda thu channels
 # !/RL/tutorials&practice_stable-baselines3/savedModels/second/*5M.zip
 
 /Simulation/unusual_activities.txt
+/Simulation/logs/
+/Simulation/unusual_logs/
+/Simulation/debug_log/
+
