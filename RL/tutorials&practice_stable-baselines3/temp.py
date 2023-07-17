@@ -3,6 +3,85 @@
 # stable-baselines3[extra]    #
 ###############################
 
+
+import gymnasium as gym
+import numpy as np
+
+from stable_baselines3 import SAC
+from gymnasium.envs.registration import register
+from stable_baselines3.common.vec_env import SubprocVecEnv
+from stable_baselines3.common.env_util import make_vec_env
+from stable_baselines3.common.noise import NormalActionNoise
+from typing import Callable
+# from stable_baselines3.common.utils import set_random_seed
+
+def trainHumanoid(it: int,t: float, g: float, a:float):
+    env_id = "HumanoidStandup-v4"
+    num_process = 4096
+    vec_env_train = make_vec_env(env_id, n_envs=num_process)
+    model = SAC(
+        "MlpPolicy", 
+        env=vec_env_train, 
+        batch_size=2048,
+        tau=t,
+        gamma=g,
+        optimize_memory_usage=False,
+        learning_rate=a, 
+        action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
+            sigma=0.1*np.ones(vec_env_train.action_space.shape[-1])),
+        tensorboard_log=None,
+        verbose=1, 
+        device='cuda'
+        )
+    model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}"+\
+            f"gamma{model.gamma}alpha{model.learning_rate}_{it}M", vec_env_train)    
+    # model.set_env(vec_env_train)
+    model.learn(5000_000, progress_bar=True)
+    trained = f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma"+\
+                f"{model.gamma}alpha{model.learning_rate}_{it+5}M"
+    model.save(trained)
+    print("saved model:\t", trained.split('/')[-1])
+
+
+def demo(i: int): # i-th saved model 
+    # env_id = "HumanoidStandup-v4"
+    # num_process = 1
+    # vec_env_demo = make_vec_env(env_id, n_envs=num_process)
+    env_demo = gym.make('HumanoidStandup-v4', render_mode="human")
+    model = SAC(
+        "MlpPolicy", 
+        env_demo, 
+        batch_size=1024,
+        tau=0.01,
+        gamma=0.9,
+        optimize_memory_usage=False,
+        learning_rate=0.001, 
+        action_noise=None,
+        tensorboard_log="./logs",
+        verbose=1, 
+        device='cpu'
+        )
+    model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}"+\
+            f"gamma{model.gamma}alpha{model.learning_rate}_{i}M", env_demo)
+    vec_env = model.get_env()
+    obs = vec_env.reset()
+    for i in range(1000):
+        action, _state = model.predict(obs, deterministic=True)
+        obs, reward, done, info = vec_env.step(action)
+        vec_env.render("human")
+    vec_env.close()
+
+
+# for it in range(640,700, 5):
+#     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
+
+demo(470)
+
+
+
+
+
+
 import gymnasium as gym
 
 from stable_baselines3 import A2C
@@ -96,7 +175,7 @@ def demo(i: int): # i-th saved model
         vec_env.render("human")
     vec_env_demo.close()
 
-demo(120)
+# demo(120)
 
 #########################################################################################
 # for it in range(22, 23):
