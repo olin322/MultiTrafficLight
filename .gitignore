@@ -7,11 +7,11 @@ unusual_activities.txt
 conda --add channels
 conda thu channels
 /RL/reload_model/*.zip
-/RL/tutorials&practice_stable-baselines3/reload_model/cart*.zip
+/RL/practice_sb3/reload_model/cart*.zip
 
-/RL/tutorials&practice_stable-baselines3/savedModels/second/*.zip
-!/RL/tutorials&practice_stable-baselines3/savedModels/second/*0M.zip
-# !/RL/tutorials&practice_stable-baselines3/savedModels/second/*5M.zip
+/RL/practice_sb3/savedModels/second/*.zip
+!/RL/practice_sb3/savedModels/second/*0M.zip
+# !/RL/practice_sb3/savedModels/second/*5M.zip
 
 /Simulation/unusual_activities.txt
 /Simulation/logs/
@@ -21,3 +21,8 @@ conda thu channels
 
 /Simulation/__pycache__/
 /Simulation/Util/__pycache__/
+
+/RL/practice_sb3/savedModels/second/*705M.*
+/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_710M.zip
+/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_715M.zip
+/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_720M.zip
