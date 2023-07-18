@@ -3,6 +3,9 @@ import numpy as np
 from gymnasium import spaces
 from World import World
 
+from overrides import override
+
+
 class StraightRoadEnv(gym.Env, World):
     """Custom Environment that follows gym interface."""
 
@@ -17,11 +20,12 @@ class StraightRoadEnv(gym.Env, World):
         self.totalTrafficLights = totalTrafficLights
         
         """
-        | Num |                 Action                   | Control Min | Control Max | Unit |
-        |  0  | accelerate at maximum acceleration       |     N/A     |     N/A     |      |
-        |  1  | deaccelerate at maximum deacceleration   |     N/A     |     N/A     |      |
+        | Num |                    Action                      | Control Min | Control Max | Unit |
+        |  0  | accelerate at maximum acceleration             |     N/A     |     N/A     |      |
+        |  1  | deaccelerate at maximum deacceleration         |     N/A     |     N/A     |      |
+        |  2  | move at current speed                          |     N/A     |     N/A     |      |
         """
-        self.action_space = spaces.Discrete(2)
+        self.action_space = spaces.Discrete(3)
 
 
         """
@@ -54,10 +58,12 @@ class StraightRoadEnv(gym.Env, World):
         """
         self.observation_space = 
             spaces.Tuple(
-                spaces.Discrete(3),
+                spaces.Box(low=0.0, high=10000.0, shape=(1,), dtype=np.float32),
+                spaces.Box(low=0.0, high=16.67, shape=(1,), dtype=np.float32)
+                spaces.Discrete(totalTrafficLights)
                 spaces.Box(
                     low=np.array([[0.0, 0, 0] * totalTrafficLights]), 
-                    high=np.array([[10000.0, 300, 2]]),
+                    high=np.array([[10000.0, 300, 2]] * totalTrafficLights),
                     shape=(totalTrafficLights, 3,), 
                     dtype=np.float32
                 )
@@ -85,3 +91,13 @@ class StraightRoadEnv(gym.Env, World):
 
     def close(self):
         pass
+
+    def _get_observation() -> spaces.Tuple:
+        # need a pointer in World class that points to ego_vehicle
+        state = spaces.Tuple(
+            (1-D array),
+            (1-D array),
+            (),
+            ()
+        )
+        return

@@ -1,4 +1,5 @@
 # import Util.Location
+from overrides import override
 import Actor
 import Vehicle
 import TrafficLight

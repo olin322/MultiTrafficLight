@@ -5,19 +5,19 @@ test test
 import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
-# from typing import Override
+from overrides import override
 
 class Animal:
     def speak(self):
         print("Animal speaks")
 
 class Cat(Animal):
-    # @override
+    @override
     def speak(self):
         print("Meow")
 
 class Dog(Animal):
-    # @override
+    @override
     def speak(self):
         print("Woof")
 
