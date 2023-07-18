@@ -11,12 +11,12 @@ from typing import Callable
 
 def trainHumanoid(it: int,t: float, g: float, a:float):
     env_id = "HumanoidStandup-v4"
-    num_process = 16384
+    num_process = 10000
     vec_env_train = make_vec_env(env_id, n_envs=num_process)
     model = SAC(
         "MlpPolicy", 
         env=vec_env_train, 
-        batch_size=16384,
+        batch_size=4096,
         tau=t,
         gamma=g,
         optimize_memory_usage=False,
