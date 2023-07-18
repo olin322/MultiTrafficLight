@@ -18,6 +18,9 @@ class Vehicle(Actor):
 				max_acceleration: float, max_deacceleration: float, \
 				delta_t: float, speed = 0.0, \
 				speedLimit = 16.6667):
+		self.INITIAL_STATE = [location, mass, 
+							max_acceleration, max_deacceleration,
+							delta_t, speed, speedLimit]
 		super().__init__(location)
 		self.mass = mass
 		self.max_acceleration = max_acceleration
@@ -138,3 +141,14 @@ class Vehicle(Actor):
 
 	def getSpeed(self) -> float:
 		return self.speed
+
+	@override
+	def reset(self) -> None:
+		self.mass = self.INITIAL_STATE[0]
+		self.max_acceleration = self.INITIAL_STATE[1]
+		self.max_deacceleration = self.INITIAL_STATE[2]
+		self.speed = self.INITIAL_STATE[3]
+		self.speedLimit = self.INITIAL_STATE[4]
+		self.delta_t = self.INITIAL_STATE[5]
+		self.deaccelerate_mode = False
+		return None

@@ -11,3 +11,6 @@ class Actor:
 
 	def tick() -> None:
 		return None
+
+	def reset():
+		return None
