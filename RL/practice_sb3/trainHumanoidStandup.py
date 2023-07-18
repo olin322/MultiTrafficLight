@@ -11,7 +11,7 @@ from typing import Callable
 
 def trainHumanoid(it: int,t: float, g: float, a:float):
     env_id = "HumanoidStandup-v4"
-    num_process = 10000
+    num_process = 4096
     vec_env_train = make_vec_env(env_id, n_envs=num_process)
     model = SAC(
         "MlpPolicy", 

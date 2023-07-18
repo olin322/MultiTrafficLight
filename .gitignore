@@ -23,7 +23,13 @@ conda thu channels
 /Simulation/__pycache__/
 /Simulation/Util/__pycache__/
 
-/RL/practice_sb3/savedModels/second/*705M.*
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_710M.zip
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_715M.zip
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_720M
+/RL/practice_sb3/savedModels/second/*
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_700M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_725M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_750M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_775M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_800M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_825M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_850M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_875M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_900M
