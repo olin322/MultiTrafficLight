@@ -1,4 +1,5 @@
 # import Util.Location
+from overrides import override
 import Actor
 import Vehicle
 import TrafficLight
@@ -14,9 +15,9 @@ class World:
     def tick(self) -> None:
         for actor in self.actors:
             if (getClassName(str(type(actor)))  == "Vehicle"):
-                nextLight = self.find_next_light()
+                nextLight = self._find_next_light()
                 if(nextLight):
-                    actor.tick(self.find_next_light())
+                    actor.tick(self._find_next_light())
                 else:
                     actor.accelerate()
             else:
@@ -40,7 +41,7 @@ class World:
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
-    def find_next_light(self) -> TrafficLight:
+    def _find_next_light(self) -> TrafficLight:
         if (len(self.actors) < 2):
             return None
         vehicle = None
@@ -56,3 +57,9 @@ class World:
                     else:
                         closest = actor
         return closest
+
+    @override
+    def reset() -> None:
+        for a in self.actors:
+            a.reset()
+        return None

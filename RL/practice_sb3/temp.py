@@ -75,7 +75,7 @@ def demo(i: int): # i-th saved model
 # for it in range(640,700, 5):
 #     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
-demo(680)
+demo(845)
 
 
 

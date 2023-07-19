@@ -92,14 +92,14 @@ def get_debug_log_name() -> str:
 
 def get_debug_log_data() -> str:
 	log_data = "frame = " + str(frame) + "\t"\
-		    + " sim time = " + roundup(world.get_simulation_time(), 6) + "\t"\
-		    + " ev speed = " + roundup(ego_vehicle.getSpeed(), 6) + "\t"\
-		    + " ev location = " + roundup(ego_vehicle.getLocation(), 6) + "\t"\
+		    + " sim time = " + _roundup(world.get_simulation_time(), 6) + "\t"\
+		    + " ev speed = " + _roundup(ego_vehicle.getSpeed(), 6) + "\t"\
+		    + " ev location = " + _roundup(ego_vehicle.getLocation(), 6) + "\t"\
 		    
 	if(world.find_next_light()):
 	    log_data += " countdown = " + str(world.find_next_light().getCountdown())\
 	    		+ " " + world.find_next_light().getPhase() \
-	    		+ " \tnext light location: " + roundup(world.find_next_light().getLocation(), 6) \
+	    		+ " \tnext light location: " + _roundup(world.find_next_light().getLocation(), 6) \
 	    		+ " \treal world time stamp: " + str(datetime.utcnow() + timedelta(hours=8)) + "\n"
 	else:
 		log_data += " vehicle passed all traffic lights"\
@@ -107,7 +107,7 @@ def get_debug_log_data() -> str:
 				+ "\n"	
 	return log_data
 
-def roundup(d: float, l: int) -> str:
+def _roundup(d: float, l: int) -> str:
 	s = str(round(d, l))
 	i = 0
 	if (s.find(".") != -1):

@@ -69,3 +69,4 @@ class TrafficLight(Actor):
 
 	def getCountdown(self) -> int:
 		return self.countdown
+
