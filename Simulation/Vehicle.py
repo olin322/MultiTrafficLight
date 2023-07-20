@@ -135,9 +135,9 @@ class Vehicle(Actor):
 		# 	+ DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT)
 
 
-	def getLocation(self) -> float:
-		# print(self.location)
-		return self.location
+	# def getLocation(self) -> float:
+	# 	# print(self.location)
+	# 	return self.location
 
 	def getSpeed(self) -> float:
 		return self.speed
