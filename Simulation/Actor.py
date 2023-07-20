@@ -6,7 +6,8 @@
 # 		self.location = spawn_point
 
 class Actor:
-	def __init__(self, location: float):
+	def __init__(self, id: str, location: float):
+		self.id = id
 		self.location = location
 
 	def tick() -> None:
