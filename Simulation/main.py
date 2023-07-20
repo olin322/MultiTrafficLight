@@ -1,6 +1,7 @@
 from World import World
 from Actor import Actor
 from Vehicle import Vehicle
+from rewards import RewardMap
 from TrafficLight import TrafficLight
 import matplotlib.pyplot as plt
 import random
@@ -17,12 +18,13 @@ from datetime import timedelta
 
 # hyper parameter
 frame = 0
+INITIAL_REWARD = 0
 DESTINATION = 10000 # m
 
 # num = 1
 
 world = World(0.02)
-reward_map = 
+reward_map = RewardMap(DESTINATION, INITIAL_REWARD)
 ego_vehicle     = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
 trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
 trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
