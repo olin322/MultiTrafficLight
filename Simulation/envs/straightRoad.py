@@ -94,10 +94,11 @@ class StraightRoadEnv(gym.Env, World):
 
     def _get_observation() -> spaces.Tuple:
         # need a pointer in World class that points to ego_vehicle
-        state = spaces.Tuple(
-            (1-D array),
-            (1-D array),
-            (),
+        ego_vehicle = self.get_ego_vehicle()
+        observation = spaces.Tuple(
+            np.array([ego_vehicle.getLocation(), ]),
+            np.array([ego_vehicle.getSpeed()], ),
+            self.numTrafficLightAhead,
             ()
         )
-        return
+        return observation

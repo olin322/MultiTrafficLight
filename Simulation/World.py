@@ -1,5 +1,6 @@
 # import Util.Location
 from overrides import override
+
 import Actor
 import Vehicle
 import TrafficLight
@@ -41,7 +42,36 @@ class World:
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
-    def _find_next_light(self) -> TrafficLight:
+    def get_ego_vehicle(self) -> Vehicle:
+        for actor in self.actors:
+            if (getClassName(str(type(actor)))  == "Vehicle"):
+                ego_vehicle = actor
+                return ego_vehicle
+        # raise error "ego vehicle not found"
+        return None
+
+
+    def numTrafficLightAhead(self, vehicle: Vehicle) -> int:
+        n = 0
+        
+        return n
+
+    @override
+    def reset() -> None:
+        for a in self.actors:
+            a.reset()
+        return None
+
+
+
+
+###############################################################################
+
+"""
+    private methods
+"""
+
+def _find_next_light(self) -> TrafficLight:
         if (len(self.actors) < 2):
             return None
         vehicle = None
@@ -57,9 +87,3 @@ class World:
                     else:
                         closest = actor
         return closest
-
-    @override
-    def reset() -> None:
-        for a in self.actors:
-            a.reset()
-        return None
