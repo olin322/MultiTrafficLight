@@ -50,9 +50,9 @@ class TrafficLight(Actor):
 		return None
 	
 
-	def setLocation(self, location: float) -> None:
-		self.location = location
-		return None
+	# def setLocation(self, location: float) -> None:
+	# 	self.location = location
+	# 	return None
 
 	def setSPAT(self, phase: str, timer: float) -> None:
 		self.phase = phase
@@ -61,8 +61,8 @@ class TrafficLight(Actor):
 		return None
 
 
-	def getLocation(self) -> float:
-		return self.location
+	# def getLocation(self) -> float:
+	# 	return self.location
 
 	def getPhase(self) -> str:
 		return self.phase

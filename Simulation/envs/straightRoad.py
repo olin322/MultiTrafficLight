@@ -3,6 +3,9 @@ import numpy as np
 from gymnasium import spaces
 from World import World
 
+
+from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
+
 from overrides import override
 
 
@@ -69,10 +72,21 @@ class StraightRoadEnv(gym.Env, World):
                 )
             )
         
-
-    def step(self, action)
-        -> tuple(spaces.Tuple, float, bool, bool, int):
-        pass
+    """
+        GymEnv = Union[gym.Env, vec_env.VecEnv]
+        GymObs = Union[Tuple, Dict[str, Any], np.ndarray, int]
+        GymResetReturn = Tuple[GymObs, Dict]
+        GymStepReturn = Tuple[GymObs, float, bool, bool, Dict]
+        in this case the return value would be a tuple defined as follows
+        tuple(spaces.Tuple, float, bool, bool, int):
+    """
+    def step(self, action) -> GymStepReturn:
+        observation = self._get_observation()
+        reward = None # update reward and reward map
+        # unnecessary to check max_step as ev will always arrive destination
+        terminated = bool(self.getLocation() >= 10000.0)
+        truncated = False # unnecessary to truncate anything
+        info = {}
         return observation, reward, terminated, truncated, info
 
     def reset(self, seed=None, options=None) 
@@ -82,6 +96,9 @@ class StraightRoadEnv(gym.Env, World):
         # and place the ego_vehicle to correct location ?
 
         # return value `info` is not currently used, set to None for now
+        World.reset()
+        observation = _get_observation()
+        info = {}
         return observation, info
 
     def render(self):
@@ -95,10 +112,28 @@ class StraightRoadEnv(gym.Env, World):
     def _get_observation() -> spaces.Tuple:
         # need a pointer in World class that points to ego_vehicle
         ego_vehicle = self.get_ego_vehicle()
+        lights_status = []
+        for a in self.actors:
+            if(a._find_Actor_Type() == "TrafficLight"):
+                lights_status.append([a.getLocation(),
+                                      a.getCountdown(),
+                                      a.getPhase()])
         observation = spaces.Tuple(
             np.array([ego_vehicle.getLocation(), ]),
             np.array([ego_vehicle.getSpeed()], ),
-            self.numTrafficLightAhead,
-            ()
+            self.numTrafficLightAhead(ego_vehicle),
+            lights_status
         )
         return observation
+
+
+register(
+    # unique identifier for the env `name-version`
+    id = "StraightRoad-v1",
+    # path to the class for creating the env
+    # entry_point also accept a class as input (and not only a string)
+    entry_point = "envs.straightRoad:StraightRoadEnv",
+    # max_episode_steps is not necessary in this env as ev 
+    # will always arrive at destination
+    max_episode_steps = 1e6
+)

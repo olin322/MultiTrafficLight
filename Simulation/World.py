@@ -51,13 +51,17 @@ class World:
         return None
 
 
-    def numTrafficLightAhead(self, vehicle: Vehicle) -> int:
+    def numTrafficLightAhead(self, actor: Actor) -> int:
         n = 0
-        
-        return n
+        for a in actors:
+            n += 1
+            if (a.getID() == actor.getID()):
+                return len(actors) - n
+        # should raise actor not found error
+        return None
 
     @override
-    def reset() -> None:
+    def reset(self) -> None:
         for a in self.actors:
             a.reset()
         return None
@@ -87,3 +91,6 @@ def _find_next_light(self) -> TrafficLight:
                     else:
                         closest = actor
         return closest
+
+def _find_Actor_Type(self, actor: Actor) -> str:
+    return getClassName(str(type(actor))
