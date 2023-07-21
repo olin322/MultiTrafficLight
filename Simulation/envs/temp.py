@@ -11,10 +11,23 @@ class Animal:
     def speak(self):
         print("Animal speaks")
 
+    def funcA(self):
+        print("Animal funcA")
+
 class Cat(Animal):
     @override
     def speak(self):
         print("Meow")
+
+    def funcB(self):
+        self.funcA()
+
+    @override
+    def funcA(self):
+        print("funcA in Cat")
+
+    def funcC(self):
+        super().funcA()
 
 class Dog(Animal):
     @override
@@ -27,6 +40,8 @@ class Robot:
 
 animals = [Cat(), Dog(), Robot()]
 
-for animal in animals:
-    animal.speak()
+a = Cat()
+a.funcC()
+# for animal in animals:
+    # animal.speak()
 

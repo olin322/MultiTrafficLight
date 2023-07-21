@@ -12,8 +12,10 @@ class World:
         self.delta_t = delta_t
         self.simulation_time = 0
         self.actors = []
+        self.frame = 0
 
     def tick(self) -> None:
+        self.frame += 1
         for actor in self.actors:
             if (getClassName(str(type(actor)))  == "Vehicle"):
                 nextLight = self._find_next_light()
@@ -50,6 +52,8 @@ class World:
         # raise error "ego vehicle not found"
         return None
 
+    def getFrame() -> int:
+        return self.frame
 
     def numTrafficLightAhead(self, actor: Actor) -> int:
         n = 0
