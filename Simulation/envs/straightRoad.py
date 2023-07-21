@@ -17,10 +17,15 @@ class StraightRoadEnv(gym.Env, World):
         "render_fps": 30
     }
 
-    def __init__(self, totalTrafficLights: int, delta_t: float):
+    def __init__(self, 
+                totalTrafficLights: int, 
+                delta_t: float, 
+                rewardMap: RewardMap):
         super().__init__()
         super(gym.Env, self).__init__(delta_t)
         self.totalTrafficLights = totalTrafficLights
+        self.rewardMap = rewardMap
+
         
         """
         | Num |                    Action                      | Control Min | Control Max | Unit |
@@ -80,9 +85,13 @@ class StraightRoadEnv(gym.Env, World):
         in this case the return value would be a tuple defined as follows
         tuple(spaces.Tuple, float, bool, bool, int):
     """
-    def step(self, action) -> GymStepReturn:
+    # def step(self, action): action??
+    # update actions first, then get_obs
+    def step(self) -> GymStepReturn: 
+        self.tick()
         observation = self._get_observation()
-        reward = None # update reward and reward map
+        self.rewardMap.tick()
+        reward = self.rewardMap.getReward() # update reward and reward map
         # unnecessary to check max_step as ev will always arrive destination
         terminated = bool(self.getLocation() >= 10000.0)
         truncated = False # unnecessary to truncate anything
@@ -96,7 +105,7 @@ class StraightRoadEnv(gym.Env, World):
         # and place the ego_vehicle to correct location ?
 
         # return value `info` is not currently used, set to None for now
-        World.reset()
+        World.reset(self)
         observation = _get_observation()
         info = {}
         return observation, info

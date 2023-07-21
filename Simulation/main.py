@@ -11,43 +11,66 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
+from envs import StraightRoadEnv
+
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
 
 
 # hyper parameter
-frame = 0
+# frame = 0
 INITIAL_REWARD = 0
 DESTINATION = 10000 # m
-
+DELTA_T = 0.02
+NUMBR_OF_LIGHTS = 16
 # num = 1
 
-world = World(0.02)
+world = World(DELTA_T)
 reward_map = RewardMap(DESTINATION, INITIAL_REWARD)
-ego_vehicle     = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
-trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
-trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
-trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
-trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
-trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
-trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
-trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
-trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
-trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
-trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
-trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
-trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
-trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
-trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
-trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
-trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
+ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
 
+
+
+
+
+# model = SAC()
+# model.learn()
+
+# TO-DO
+# 1. implement seed for random generator so experiment can be replicated
+# 2. try multi-processing
+def rl_straighRoad(seed: int):
+	env = StraightRoadEnv(number_of_lights, DELTA_T, reward_map)
+	world.spawn_vehicle(ego_vehicle)
+	lights = creatTrafficLightList(number_of_lights=NUMBR_OF_LIGHTS, 
+									min_distance=100,
+									max_distance=500,
+									min_countDown=30,
+									max_countDown=180)
+	for light in lights:
+		world.add_traffic_light(light)
 
 def main():	
-	global frame, num
-		
-	world.spawn_vehicle(ego_vehicle)
+	# global frame, num
+
+	# trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
 	world.add_traffic_light(trafficLight_1)
 	world.add_traffic_light(trafficLight_2)
 	world.add_traffic_light(trafficLight_3)
@@ -71,8 +94,8 @@ def main():
 	log_name = get_debug_log_name()
 	while ((ego_vehicle.getLocation() >= 0) & 
 			(ego_vehicle.getLocation() < DESTINATION)):
-		print(frame)
-		frame += 1
+		print(world.getFrame())
+		# frame += 1
 		log_debug_data(log_name)
 		world.tick()
 
@@ -80,6 +103,29 @@ def main():
 
 		# print("speed = ", ego_vehicle.getSpeed())
 		# print("light count down: ", trafficLight_1.getCountdown(), " ", trafficLight_1.getPhase())
+
+def creatTrafficLightList(
+							number_of_lights: int, 
+							min_distance: float, # 最小间距
+							max_distance: float, # 最大间距
+							min_countDown: int, 
+							max_countDown: int) -> list:
+	lights = []
+	trafficLight_0  = TrafficLight("0", 0, "green", 10, DELTA_T)
+	lights.append(trafficLight_0)
+	phases["green", "red"]
+	for i in range(number_of_lights):
+		lights.append(
+			TrafficLight(
+				str(i + 1),
+				lights[i+1].getLocation() + random.randint(min_distance, max_distance),
+				phases[random.randint(0,1)],
+				random.randint(min_countDown, max_countDown),
+				DELTA_T
+			)
+		)
+	return lights
+
 
 def log_debug_data(log_name: str) -> None:
 	log_data = get_debug_log_data()
@@ -94,7 +140,7 @@ def get_debug_log_name() -> str:
 	return("./debug_log/"+str(today)+"-"+str(current_time)+".txt")
 
 def get_debug_log_data() -> str:
-	log_data = "frame = " + str(frame) + "\t"\
+	log_data = "frame = " + str(world.getFrame()) + "\t"\
 		    + " sim time = " + _roundup(world.get_simulation_time(), 6) + "\t"\
 		    + " ev speed = " + _roundup(ego_vehicle.getSpeed(), 6) + "\t"\
 		    + " ev location = " + _roundup(ego_vehicle.getLocation(), 6) + "\t"\
