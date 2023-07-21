@@ -2,6 +2,7 @@ $ cat .gitignore
 # ignore pycache files
 /__pycache__/
 /debug_log
+/debug_log/*
 /unusual_logs
 unusual_activities.txt
 conda --add channels
@@ -22,7 +23,25 @@ conda thu channels
 /Simulation/__pycache__/
 /Simulation/Util/__pycache__/
 
-/RL/practice_sb3/savedModels/second/*705M.*
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_710M.zip
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_715M.zip
-/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_720M.zip
+/RL/practice_sb3/savedModels/second/*
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_700M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_725M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_750M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_775M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_800M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_825M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_850M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_875M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_900M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_950M
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.00B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.01B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.02B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.03B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.04B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.05B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.06B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.07B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.08B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.09B
+!/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.10B

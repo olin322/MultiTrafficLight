@@ -1,4 +1,6 @@
 # import Util.Location
+from overrides import override
+
 import Actor
 import Vehicle
 import TrafficLight
@@ -10,13 +12,15 @@ class World:
         self.delta_t = delta_t
         self.simulation_time = 0
         self.actors = []
+        self.frame = 0
 
     def tick(self) -> None:
+        self.frame += 1
         for actor in self.actors:
             if (getClassName(str(type(actor)))  == "Vehicle"):
-                nextLight = self.find_next_light()
+                nextLight = self._find_next_light()
                 if(nextLight):
-                    actor.tick(self.find_next_light())
+                    actor.tick(self._find_next_light())
                 else:
                     actor.accelerate()
             else:
@@ -40,7 +44,42 @@ class World:
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
-    def find_next_light(self) -> TrafficLight:
+    def get_ego_vehicle(self) -> Vehicle:
+        for actor in self.actors:
+            if (getClassName(str(type(actor)))  == "Vehicle"):
+                ego_vehicle = actor
+                return ego_vehicle
+        # raise error "ego vehicle not found"
+        return None
+
+    def getFrame() -> int:
+        return self.frame
+
+    def numTrafficLightAhead(self, actor: Actor) -> int:
+        n = 0
+        for a in actors:
+            n += 1
+            if (a.getID() == actor.getID()):
+                return len(actors) - n
+        # should raise actor not found error
+        return None
+
+    @override
+    def reset(self) -> None:
+        for a in self.actors:
+            a.reset()
+        return None
+
+
+
+
+###############################################################################
+
+"""
+    private methods
+"""
+
+def _find_next_light(self) -> TrafficLight:
         if (len(self.actors) < 2):
             return None
         vehicle = None
@@ -56,3 +95,6 @@ class World:
                     else:
                         closest = actor
         return closest
+
+def _find_Actor_Type(self, actor: Actor) -> str:
+    return getClassName(str(type(actor))

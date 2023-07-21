@@ -11,12 +11,12 @@ from typing import Callable
 
 def trainHumanoid(it: int,t: float, g: float, a:float):
     env_id = "HumanoidStandup-v4"
-    num_process = 16384
+    num_process = 4096
     vec_env_train = make_vec_env(env_id, n_envs=num_process)
     model = SAC(
         "MlpPolicy", 
         env=vec_env_train, 
-        batch_size=16384,
+        batch_size=4096,
         tau=t,
         gamma=g,
         optimize_memory_usage=False,
@@ -28,11 +28,12 @@ def trainHumanoid(it: int,t: float, g: float, a:float):
         device='cuda'
         )
     model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}"+\
-            f"gamma{model.gamma}alpha{model.learning_rate}_{it}M", vec_env_train)    
+            f"gamma{model.gamma}alpha{model.learning_rate}_{format(1+(it/100), '.2f')}B", vec_env_train)    
     # model.set_env(vec_env_train)
-    model.learn(5000_000, progress_bar=True)
+    model.learn(10_000_000, progress_bar=True)
     trained = f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma"+\
-                f"{model.gamma}alpha{model.learning_rate}_{it+5}M"
+                f"{model.gamma}alpha{model.learning_rate}_"+\
+                f"{format(1+(it/100), '.2f')}B"
     model.save(trained)
     print("saved model:\t", trained.split('/')[-1])
 
@@ -145,10 +146,10 @@ def demo(i: int): # i-th saved model
     vec_env.close()
 
 
-for it in range(720,900, 5):
+for it in range(0, 30):
     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
-# demo(720)
+# demo(995)
 
 
 ###############################################################################

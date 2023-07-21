@@ -9,9 +9,9 @@ class TrafficLight(Actor):
 	# phase: "red" == red light, "green" == green light, "yellow" == yellow light
 	# timer: amount of time current phase remaining, decrement every tick() so it is float type
 	# 
-	def __init__(self, location: float, phase: str, \
+	def __init__(self, id: str, location: float, phase: str, \
 				timer: float, delta_t: float):
-		super().__init__(location)
+		super().__init__(id, location)
 		self.phase = phase
 		self.timer = timer
 		self.delta_t = delta_t
@@ -50,9 +50,9 @@ class TrafficLight(Actor):
 		return None
 	
 
-	def setLocation(self, location: float) -> None:
-		self.location = location
-		return None
+	# def setLocation(self, location: float) -> None:
+	# 	self.location = location
+	# 	return None
 
 	def setSPAT(self, phase: str, timer: float) -> None:
 		self.phase = phase
@@ -61,11 +61,12 @@ class TrafficLight(Actor):
 		return None
 
 
-	def getLocation(self) -> float:
-		return self.location
+	# def getLocation(self) -> float:
+	# 	return self.location
 
 	def getPhase(self) -> str:
 		return self.phase
 
 	def getCountdown(self) -> int:
 		return self.countdown
+
