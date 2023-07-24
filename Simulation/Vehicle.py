@@ -3,6 +3,8 @@ from Actor import Actor
 from TrafficLight import TrafficLight
 from math import ceil
 
+from overrides import override 
+
 ### Units
 # velocity: m/s
 # location: distance from origin, 1-D space/x-axis
@@ -14,14 +16,14 @@ from math import ceil
 DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 10 # m
 
 class Vehicle(Actor):
-	def __init__(self, location: float, mass: float, \
+	def __init__(self, ID: str, location: float, mass: float, \
 				max_acceleration: float, max_deacceleration: float, \
 				delta_t: float, speed = 0.0, \
 				speedLimit = 16.6667):
 		self.INITIAL_STATE = [location, mass, 
 							max_acceleration, max_deacceleration,
 							delta_t, speed, speedLimit]
-		super().__init__(location)
+		super().__init__(ID, location)
 		self.mass = mass
 		self.max_acceleration = max_acceleration
 		self.max_deacceleration = max_deacceleration

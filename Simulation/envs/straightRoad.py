@@ -2,9 +2,10 @@ import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 from World import World
-
+from rewards import RewardMap
 
 from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
+from gymnasium.envs.registration import register
 
 from overrides import override
 
@@ -21,7 +22,7 @@ class StraightRoadEnv(gym.Env, World):
                 totalTrafficLights: int, 
                 delta_t: float, 
                 rewardMap: RewardMap):
-        super().__init__()
+        # super().__init__() gym.env has no constructor
         super(gym.Env, self).__init__(delta_t)
         self.totalTrafficLights = totalTrafficLights
         self.rewardMap = rewardMap
@@ -64,17 +65,16 @@ class StraightRoadEnv(gym.Env, World):
         or 2-D array with i rows and j cols,
         and the low high values are inclusive.
         """
-        self.observation_space = 
-            spaces.Tuple(
-                spaces.Box(low=0.0, high=10000.0, shape=(1,), dtype=np.float32),
-                spaces.Box(low=0.0, high=16.67, shape=(1,), dtype=np.float32)
-                spaces.Discrete(totalTrafficLights)
+        self.observation_space = spaces.Tuple(
+                [spaces.Box(low=0.0, high=10000.0, shape=(1,), dtype=np.float32),
+                spaces.Box(low=0.0, high=16.67, shape=(1,), dtype=np.float32),
+                spaces.Discrete(totalTrafficLights),
                 spaces.Box(
-                    low=np.array([[0.0, 0, 0] * totalTrafficLights]), 
-                    high=np.array([[10000.0, 300, 2]] * totalTrafficLights),
+                    low=np.array([[0.0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
+                    high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
                     shape=(totalTrafficLights, 3,), 
                     dtype=np.float32
-                )
+                )]
             )
         
     """
@@ -98,8 +98,8 @@ class StraightRoadEnv(gym.Env, World):
         info = {}
         return observation, reward, terminated, truncated, info
 
-    def reset(self, seed=None, options=None) 
-            -> tuple[spaces.Tuple[spaces.Discrete, space.Box], info]:
+    def reset(self, seed=None, options=None) -> tuple[2]:
+            # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
         # should re-initialize all traffic light status 
         # reset all rewards ?
         # and place the ego_vehicle to correct location ?

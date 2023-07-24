@@ -7,9 +7,9 @@ from math import floor, ceil
 class RewardMap:
 	
 	def __init__(self, mapSize: int, 
-				initialReward = 0: int, 
 				ego_vehicle: Vehicle,
-				world: World):
+				initialReward: int = 0, 
+				):
 		# mapSize represents the length of the road
 		# in this 1-dimension world
 		self.mapSize = mapSize
@@ -24,7 +24,7 @@ class RewardMap:
 	def calcReward(self) -> None:
 		# reward coefficient
 		# 1 - (time passed/total time needed)
-		coef = 1 - (world.get_simulation_time() / ceil(self.mapSize / 16.67))
+		coef = 1 - (World.get_simulation_time() / ceil(self.mapSize / 16.67))
 		for i in range(floor(ego_vehicle_prev_location), 
 						ceil(ego_vehicle.getLocation())):
 			self.reward += self.rewardMap[i] * coef

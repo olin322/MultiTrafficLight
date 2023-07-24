@@ -1,5 +1,5 @@
 # import Util.Location
-from overrides import override
+# from overrides import override
 
 import Actor
 import Vehicle
@@ -41,6 +41,7 @@ class World:
     def get_delta_t(self) -> float:
         return self.delta_t
 
+    @staticmethod
     def get_simulation_time(self) -> float:
         return self.simulation_time
 
@@ -64,7 +65,6 @@ class World:
         # should raise actor not found error
         return None
 
-    @override
     def reset(self) -> None:
         for a in self.actors:
             a.reset()
@@ -97,4 +97,4 @@ def _find_next_light(self) -> TrafficLight:
         return closest
 
 def _find_Actor_Type(self, actor: Actor) -> str:
-    return getClassName(str(type(actor))
+    return getClassName(str(type(actor)))

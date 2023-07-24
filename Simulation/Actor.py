@@ -13,7 +13,7 @@ class Actor:
 	def getID(self) -> str:
 		return self.id
 
-	def getLocation(self) -> float
+	def getLocation(self) -> float:
 		return self.location
 
 	def setLocation(self, location: float) -> None:

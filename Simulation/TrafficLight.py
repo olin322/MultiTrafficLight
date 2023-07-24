@@ -2,6 +2,8 @@ import random
 import math
 from Actor import Actor
 
+from overrides import override
+
 class TrafficLight(Actor):
 
 	# Constructor
