@@ -23,6 +23,9 @@ conda thu channels
 /Simulation/__pycache__/
 /Simulation/Util/__pycache__/
 
+/RL/tutorials&practice_stable-baselines3
+/RL/tutorials&practice_stable-baselines3/*
+
 /RL/practice_sb3/savedModels/second/*
 !/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_700M
 !/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_725M
