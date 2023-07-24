@@ -1,8 +1,14 @@
+# import sys
+# sys.path.append('~/Owen/MultiTrafficLight/MultiTrafficLight/Simulation')
+
+
 from World import World
 from Actor import Actor
 from Vehicle import Vehicle
 from rewards import RewardMap
 from TrafficLight import TrafficLight
+from envs.straightRoad import StraightRoadEnv
+
 import matplotlib.pyplot as plt
 import random
 import matplotlib.animation as animation
@@ -11,7 +17,9 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
-from envs import StraightRoadEnv
+from stable_baselines3 import SAC
+
+
 
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
@@ -21,14 +29,15 @@ from envs import StraightRoadEnv
 # hyper parameter
 # frame = 0
 INITIAL_REWARD = 0
-DESTINATION = 10000 # m
+MAP_SIZE = 10000 # m
+DESTINATION = MAP_SIZE
 DELTA_T = 0.02
 NUMBR_OF_LIGHTS = 16
 # num = 1
 
-world = World(DELTA_T)
-reward_map = RewardMap(DESTINATION, INITIAL_REWARD)
-ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
+# world = World(DELTA_T)
+# reward_map = RewardMap(MAP_SIZE, INITIAL_REWARD)
+# ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
 
 
 
@@ -39,9 +48,9 @@ ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
 
 # TO-DO
 # 1. implement seed for random generator so experiment can be replicated
-# 2. try multi-processing
-def rl_straighRoad(seed: int):
-	env = StraightRoadEnv(number_of_lights, DELTA_T, reward_map)
+# 2. try multi-pro cessing
+def rl_vec_straighRoad(seed: int):
+	vec_envs = gym.make("StraightRoad-v1", number_of_lights, DELTA_T, reward_map)
 	world.spawn_vehicle(ego_vehicle)
 	lights = creatTrafficLightList(number_of_lights=NUMBR_OF_LIGHTS, 
 									min_distance=100,
@@ -53,6 +62,8 @@ def rl_straighRoad(seed: int):
 
 def main():	
 	# global frame, num
+	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
+	world = StraightRoadEnv(16, DELTA_T, RewardMap(MAP_SIZE, ego_vehicle))
 
 	# trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
 	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
@@ -88,6 +99,9 @@ def main():
 	world.add_traffic_light(trafficLight_15)
 	world.add_traffic_light(trafficLight_16)
 
+	model = SAC("MlpPolicy", world, verbose=1, learning_rate=1e-3)
+	model.learn(1e5)
+	model.save("./tstraightRoadModels/temps/StraightRoad-v1_1e-3_1e5")
 
 	# debug
 	log_data = ""

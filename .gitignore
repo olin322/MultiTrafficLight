@@ -22,6 +22,7 @@ conda thu channels
 
 /Simulation/__pycache__/
 /Simulation/Util/__pycache__/
+/Simulation/envs/__pycache__/
 
 /RL/tutorials&practice_stable-baselines3
 /RL/tutorials&practice_stable-baselines3/*
