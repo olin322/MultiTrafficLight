@@ -33,7 +33,7 @@ def trainHumanoid(it: int,t: float, g: float, a:float):
     model.learn(10_000_000, progress_bar=True)
     trained = f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}gamma"+\
                 f"{model.gamma}alpha{model.learning_rate}_"+\
-                f"{format(1+(it/100), '.2f')}B"
+                f"{format(1+((it+1)/100), '.2f')}B"
     model.save(trained)
     print("saved model:\t", trained.split('/')[-1])
 
