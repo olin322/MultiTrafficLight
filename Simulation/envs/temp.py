@@ -8,13 +8,24 @@ import numpy as np
 from overrides import override
 
 class Animal:
+    def __init__(self):
+        print("is Animal")
+
     def speak(self):
         print("Animal speaks")
 
     def funcA(self):
         print("Animal funcA")
 
-class Cat(Animal):
+class Mamal:
+    def __init__(self):
+        print("is Mamal")
+
+class Cat(Animal, Mamal):
+    def __init__(self):
+        super().__init__()
+        print("\n and Cat")
+    
     @override
     def speak(self):
         print("Meow")
@@ -38,10 +49,10 @@ class Robot:
     def speak(self):
         print("Beep boop")
 
-animals = [Cat(), Dog(), Robot()]
+# animals = [Cat(), Dog(), Robot()]
 
 a = Cat()
-a.funcC()
+# a.funcC()
 # for animal in animals:
     # animal.speak()
 
