@@ -64,8 +64,10 @@ def main():
 	# global frame, num
 	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
 	world = StraightRoadEnv(16, DELTA_T, RewardMap(MAP_SIZE, ego_vehicle))
-
-	# trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
+	world.spawn_vehicle(ego_vehicle)
+	"""
+	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
+	"""
 	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
 	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
 	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
@@ -99,7 +101,7 @@ def main():
 	world.add_traffic_light(trafficLight_15)
 	world.add_traffic_light(trafficLight_16)
 
-	model = SAC("MlpPolicy", world, verbose=1, learning_rate=1e-3)
+	model = SAC("MultiInputPolicy", world, verbose=1, learning_rate=1e-3)
 	model.learn(1e5)
 	model.save("./tstraightRoadModels/temps/StraightRoad-v1_1e-3_1e5")
 
