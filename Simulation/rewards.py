@@ -21,6 +21,7 @@ class RewardMap:
 	def tick(self):
 		self.calcReward()
 
+	# need to add rewards for passing a traffic light?
 	def calcReward(self) -> None:
 		# reward coefficient
 		# 1 - (time passed/total time needed)

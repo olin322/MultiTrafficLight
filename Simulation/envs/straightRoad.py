@@ -27,15 +27,26 @@ class StraightRoadEnv(gym.Env, World):
         self.totalTrafficLights = totalTrafficLights
         self.rewardMap = rewardMap
 
-        
-        """
-        | Num |                    Action                      | Control Min | Control Max | Unit |
-        |  0  | accelerate at maximum acceleration             |     N/A     |     N/A     |      |
-        |  1  | deaccelerate at maximum deacceleration         |     N/A     |     N/A     |      |
-        |  2  | move at current speed                          |     N/A     |     N/A     |      |
-        """
-        self.action_space = spaces.Discrete(3)
 
+        """
+        @action_space is defined as acceleration or deacceleration of ego_vehicle
+        the value action_space can take is in [max_deacceleration, max_acceleration]
+        which are defined as parameters of constructor of Vehicle class
+        max_deacceleration and max_acceleration are currently set to 2 and 2, respectively
+        """
+        self.action_space = spaces.Box(low=-2.0, high=2.0, shape=(1,), dtype=np.float32)
+
+
+        ###############################################################################################
+        # THIS PART IS NOT USED AS SAC ALGORITHM REQUIRES CONTINUES-VALUE ACTION SPACE
+        # """
+        # | Num |                    Action                      | Control Min | Control Max | Unit |
+        # |  0  | accelerate at maximum acceleration             |     N/A     |     N/A     |      |
+        # |  1  | deaccelerate at maximum deacceleration         |     N/A     |     N/A     |      |
+        # |  2  | move at current speed                          |     N/A     |     N/A     |      |
+        # """
+        # self.action_space = spaces.Discrete(3)
+        ###############################################################################################
 
         """
         The first element in Tuple of the observation_space
@@ -65,17 +76,19 @@ class StraightRoadEnv(gym.Env, World):
         or 2-D array with i rows and j cols,
         and the low high values are inclusive.
         """
-        self.observation_space = spaces.Tuple(
-                [spaces.Box(low=0.0, high=10000.0, shape=(1,), dtype=np.float32),
-                spaces.Box(low=0.0, high=16.67, shape=(1,), dtype=np.float32),
-                spaces.Discrete(totalTrafficLights),
-                spaces.Box(
-                    low=np.array([[0.0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
+        self.observation_space = spaces.Dict(
+            {
+                "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float32),
+                "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float32),
+                "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
+                "traffic_lights_states": spaces.Box(
+                    low=np.array([[0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
                     high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
                     shape=(totalTrafficLights, 3,), 
                     dtype=np.float32
-                )]
-            )
+                )
+            }
+        )
         
     """
         GymEnv = Union[gym.Env, vec_env.VecEnv]
@@ -85,10 +98,9 @@ class StraightRoadEnv(gym.Env, World):
         in this case the return value would be a tuple defined as follows
         tuple(spaces.Tuple, float, bool, bool, int):
     """
-    # def step(self, action): action??
     # update actions first, then get_obs
-    def step(self) -> GymStepReturn: 
-        self.tick()
+    def step(self, action) -> GymStepReturn: 
+        self.rl_tick(action)
         observation = self._get_observation()
         self.rewardMap.tick()
         reward = self.rewardMap.getReward() # update reward and reward map
@@ -106,7 +118,7 @@ class StraightRoadEnv(gym.Env, World):
 
         # return value `info` is not currently used, set to None for now
         World.reset(self)
-        observation = _get_observation()
+        observation = self._get_observation()
         info = {}
         return observation, info
 
@@ -118,20 +130,22 @@ class StraightRoadEnv(gym.Env, World):
     def close(self):
         pass
 
-    def _get_observation() -> spaces.Tuple:
+    def _get_observation(self) -> spaces.Dict:
         # need a pointer in World class that points to ego_vehicle
-        ego_vehicle = self.get_ego_vehicle()
+        ego_vehicle = self.actors[self._get_ego_vehicle_index()]
         lights_status = []
         for a in self.actors:
-            if(a._find_Actor_Type() == "TrafficLight"):
+            if(self._find_Actor_Type(a) == "TrafficLight"):
                 lights_status.append([a.getLocation(),
                                       a.getCountdown(),
-                                      a.getPhase()])
-        observation = spaces.Tuple(
-            np.array([ego_vehicle.getLocation(), ]),
-            np.array([ego_vehicle.getSpeed()], ),
-            self.numTrafficLightAhead(ego_vehicle),
-            lights_status
+                                      a.getPhaseInFloat()])
+        observation = dict(
+            {
+                "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]).reshape(1,),
+                "ego_vehicle_speed": np.array([ego_vehicle.getSpeed()], ).reshape(1,),
+                "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
+                "traffic_lights_states": np.array(lights_status).reshape(self.totalTrafficLights, 3)
+            }
         )
         return observation
 
