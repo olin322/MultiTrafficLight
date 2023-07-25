@@ -15,6 +15,11 @@ from overrides import override
 ###
 DISTANCE_STOPLINE_TO_TRAFFIC_LIGHT = 10 # m
 
+
+"""
+@max_acceleration and @max_deacceleration both are initialized or given in positive value
+initialization and modification should follow accordingly
+"""
 class Vehicle(Actor):
 	def __init__(self, ID: str, location: float, mass: float, \
 				max_acceleration: float, max_deacceleration: float, \
@@ -88,6 +93,10 @@ class Vehicle(Actor):
 		self.location += self.speed * self.delta_t
 		return None
 
+	def accelerateAt(self, acceleration: float) -> None:
+		self.speed = self.speed + (acceleration * self.delta_t)
+		self.location = self.location + (self.speed * self.delta_t)
+		return None
 
 	def willPassGreenLight(self, nextLight: TrafficLight) -> bool:
 		if (nextLight.getPhase() == "green"):

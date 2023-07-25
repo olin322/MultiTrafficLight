@@ -69,6 +69,14 @@ class TrafficLight(Actor):
 	def getPhase(self) -> str:
 		return self.phase
 
+	def getPhaseInFloat(self) -> float:
+		t = {
+			"green": 0,
+			"red": 1,
+			"yellow": 2
+		}
+		return float(t[self.getPhase()])
+
 	def getCountdown(self) -> int:
 		return self.countdown
 

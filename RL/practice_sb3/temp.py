@@ -62,7 +62,7 @@ def demo(i: int): # i-th saved model
         device='cpu'
         )
     model = SAC.load(f"./savedModels/second/HumanoidStandup-v4_tau{model.tau}"+\
-            f"gamma{model.gamma}alpha{model.learning_rate}_{i}M", env_demo)
+            f"gamma{model.gamma}alpha{model.learning_rate}_{format(1+(i/100), '.2f')}B", env_demo)
     vec_env = model.get_env()
     obs = vec_env.reset()
     for i in range(1000):
@@ -75,7 +75,7 @@ def demo(i: int): # i-th saved model
 # for it in range(640,700, 5):
 #     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
-demo(845)
+demo(20)
 
 
 

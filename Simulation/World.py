@@ -14,18 +14,49 @@ class World:
         self.actors = []
         self.frame = 0
 
-    def tick(self) -> None:
+    """
+    initial version of tick()
+    and this function should not be called
+    """
+    def tick_old(self) -> None:
         self.frame += 1
         for actor in self.actors:
             if (getClassName(str(type(actor)))  == "Vehicle"):
                 nextLight = self._find_next_light()
                 if(nextLight):
-                    actor.tick(self._find_next_light())
+                    actor.tick(self._find_next_light()) ## ??
                 else:
                     actor.accelerate()
             else:
                 actor.tick()
         self.simulation_time += self.delta_t
+        return None
+
+    """
+    it is probably better to update status of traffic lights first
+    before updating status of ego_vehicle
+    @action is currently not used
+    """
+    def tick(self, action=None) -> None:
+        self.frame += 1
+        self._update_traffic_lights()
+        if (not action):
+            nextLight = self._find_next_light()
+            if (nextLight):
+                self.actors[self._get_ego_vehicle_index()].tick(nextLight)
+        return None
+
+    """
+    @action the action agent takes, action: np.ndarray, shape=(1,)
+    represents the acceleration of ego_vehicle
+    should be a continues value in [-max_deacceleration, max_acceleration]
+    """
+    def rl_tick(self, action) -> None:
+        self.frame += 1
+        self._update_traffic_lights()
+        if (action):
+            i = self._get_ego_vehicle_index()
+            self.actors[i].accelerateAt(action[0])
         return None
 
     def spawn_vehicle(self, vehicle: Actor) -> None:
@@ -42,28 +73,22 @@ class World:
         return self.delta_t
 
     @staticmethod
-    def get_simulation_time(self) -> float:
+    def get_simulation_time() -> float:
         return self.simulation_time
 
-    def get_ego_vehicle(self) -> Vehicle:
-        for actor in self.actors:
-            if (getClassName(str(type(actor)))  == "Vehicle"):
-                ego_vehicle = actor
-                return ego_vehicle
-        # raise error "ego vehicle not found"
-        return None
+    
 
     def getFrame() -> int:
         return self.frame
 
     def numTrafficLightAhead(self, actor: Actor) -> int:
+        i = self._get_ego_vehicle_index()
         n = 0
-        for a in actors:
-            n += 1
-            if (a.getID() == actor.getID()):
-                return len(actors) - n
-        # should raise actor not found error
-        return None
+        for a in self.actors:
+            if (self._find_Actor_Type(a) == "TrafficLight"):
+                if (a.getLocation() > self.actors[i].getLocation()):
+                    n += 1
+        return n
 
     def reset(self) -> None:
         for a in self.actors:
@@ -75,26 +100,41 @@ class World:
 
 ###############################################################################
 
-"""
-    private methods
-"""
+    """
+        private methods
+    """
 
-def _find_next_light(self) -> TrafficLight:
-        if (len(self.actors) < 2):
-            return None
-        vehicle = None
-        closest = None
-        for actor in self.actors:
-            if (getClassName(str(type(actor))) == "Vehicle"):
-                vehicle = actor
-            if (getClassName(str(type(actor))) == "TrafficLight"):
-                if (actor.getLocation() > vehicle.getLocation()):
-                    if (closest != None):
-                        if (actor.getLocation() < closest.getLocation()):
+    def _find_next_light(self) -> TrafficLight:
+            if (len(self.actors) < 2):
+                return None
+            vehicle = None
+            closest = None
+            for actor in self.actors:
+                if (getClassName(str(type(actor))) == "Vehicle"):
+                    vehicle = actor
+                if (getClassName(str(type(actor))) == "TrafficLight"):
+                    if (actor.getLocation() > vehicle.getLocation()):
+                        if (closest != None):
+                            if (actor.getLocation() < closest.getLocation()):
+                                closest = actor
+                        else:
                             closest = actor
-                    else:
-                        closest = actor
-        return closest
+            return closest
 
-def _find_Actor_Type(self, actor: Actor) -> str:
-    return getClassName(str(type(actor)))
+    def _find_Actor_Type(self, actor: Actor) -> str:
+        return getClassName(str(type(actor)))
+
+    def _get_ego_vehicle_index(self) -> int:
+            i = 0
+            for actor in self.actors:
+                if (getClassName(str(type(actor)))  == "Vehicle"):
+                    return i
+                i += 1
+            # raise error "ego vehicle not found"
+            return None
+
+    def _update_traffic_lights(self) -> None:
+        for light in self.actors:
+            if (self._find_Actor_Type(light) == "TrafficLight"):
+                light.tick()
+        return None
