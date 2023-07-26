@@ -72,8 +72,8 @@ class World:
     def get_delta_t(self) -> float:
         return self.delta_t
 
-    @staticmethod
-    def get_simulation_time() -> float:
+    # @staticmethod
+    def get_simulation_time(self) -> float:
         return self.simulation_time
 
     
