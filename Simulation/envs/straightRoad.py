@@ -26,7 +26,7 @@ class StraightRoadEnv(gym.Env, World):
         super(gym.Env, self).__init__(delta_t)
         self.totalTrafficLights = totalTrafficLights
         self.rewardMap = rewardMap
-
+        self.num_envs = 1
 
         """
         @action_space is defined as acceleration or deacceleration of ego_vehicle
@@ -80,7 +80,7 @@ class StraightRoadEnv(gym.Env, World):
             {
                 "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float32),
                 "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float32),
-                "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
+                # "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
                 "traffic_lights_states": spaces.Box(
                     low=np.array([[0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
                     high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
@@ -97,20 +97,22 @@ class StraightRoadEnv(gym.Env, World):
         GymStepReturn = Tuple[GymObs, float, bool, bool, Dict]
         in this case the return value would be a tuple defined as follows
         tuple(spaces.Tuple, float, bool, bool, int):
+        @reward is the reward gained from one step
     """
     # update actions first, then get_obs
     def step(self, action) -> GymStepReturn: 
         self.rl_tick(action)
         observation = self._get_observation()
         self.rewardMap.tick()
-        reward = self.rewardMap.getReward() # update reward and reward map
+        reward = self.rewardMap.getStepReward() # update reward and reward map
         # unnecessary to check max_step as ev will always arrive destination
-        terminated = bool(self.getLocation() >= 10000.0)
+        terminated = bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= 10000.0)
         truncated = False # unnecessary to truncate anything
         info = {}
         return observation, reward, terminated, truncated, info
 
-    def reset(self, seed=None, options=None) -> tuple[2]:
+
+    def reset(self, seed=None, options=None) -> tuple:
             # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
         # should re-initialize all traffic light status 
         # reset all rewards ?
@@ -118,6 +120,7 @@ class StraightRoadEnv(gym.Env, World):
 
         # return value `info` is not currently used, set to None for now
         World.reset(self)
+        self.rewardMap.reset()
         observation = self._get_observation()
         info = {}
         return observation, info
@@ -143,7 +146,7 @@ class StraightRoadEnv(gym.Env, World):
             {
                 "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]).reshape(1,),
                 "ego_vehicle_speed": np.array([ego_vehicle.getSpeed()], ).reshape(1,),
-                "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
+                # "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
                 "traffic_lights_states": np.array(lights_status).reshape(self.totalTrafficLights, 3)
             }
         )

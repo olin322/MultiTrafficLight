@@ -1,0 +1,50 @@
+gym.logger.warn(f"Box bound precision lowered by casting to {self.dtype}")
+Using cpu device
+Traceback (most recent call last):
+  File "main.py", line 200, in <module>
+    main()
+  File "main.py", line 119, in main
+    model.learn(1e5, progress_bar=True)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/sac/sac.py", line 307, in learn
+    return super().learn(
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/off_policy_algorithm.py", line 312, in learn
+    rollout = self.collect_rollouts(
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/off_policy_algorithm.py", line 541, in collect_rollouts
+    actions, buffer_actions = self._sample_action(learning_starts, action_noise, env.num_envs)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/off_policy_algorithm.py", line 373, in _sample_action
+    unscaled_action, _ = self.predict(self._last_obs, deterministic=False)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/base_class.py", line 555, in predict
+    return self.policy.predict(observation, state, episode_start, deterministic)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/policies.py", line 349, in predict
+    actions = self._predict(observation, deterministic=deterministic)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/sac/policies.py", line 353, in _predict
+    return self.actor(observation, deterministic)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/sac/policies.py", line 170, in forward
+    return self.action_dist.actions_from_params(mean_actions, log_std, deterministic=deterministic, **kwargs)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/distributions.py", line 190, in actions_from_params
+    self.proba_distribution(mean_actions, log_std)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/distributions.py", line 224, in proba_distribution
+    super().proba_distribution(mean_actions, log_std)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/stable_baselines3/common/distributions.py", line 164, in proba_distribution
+    self.distribution = Normal(mean_actions, action_std)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/torch/distributions/normal.py", line 56, in __init__
+    super().__init__(batch_shape, validate_args=validate_args)
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/torch/distributions/distribution.py", line 62, in __init__
+    raise ValueError(
+ValueError: Expected parameter loc (Tensor of shape (1, 1)) of distribution Normal(loc: tensor([[nan]]), scale: tensor([[nan]])) to satisfy the constraint Real(), but
+found invalid values:
+tensor([[nan]])
+  65% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 65,441/100,000  [ 0:07:21 < 0:03:54 , 148 it/s ]Exception ignored in: <function tqdm.__del__ at 0x7f9cc3898040>
+Traceback (most recent call last):
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/tqdm/std.py", line 1145, in __del__
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/tqdm/rich.py", line 120, in close
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/progress.py", line 1178, in __exit__
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/progress.py", line 1164, in stop
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/live.py", line 155, in stop
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/console.py", line 1136, in line
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/console.py", line 1673, in print
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/console.py", line 1534, in _collect_renderables
+  File "/home/carla/.conda/envs/sb3extra-py38/lib/python3.8/site-packages/rich/protocol.py", line 28, in rich_cast
+ImportError: sys.meta_path is None, Python is likely shutting down
