@@ -32,6 +32,7 @@ class TrafficLight(Actor):
 	def reset(self):
 		self.timer = self.timer_repeat
 		self.countdown = int(math.ceil(self.timer))
+		self.phase = "green"
 
 	## TO-DO:
 	## resolve the issue during phase transition
