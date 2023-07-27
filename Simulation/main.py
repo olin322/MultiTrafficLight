@@ -123,11 +123,14 @@ def main():
 			verbose=1, 
 			learning_rate=1e-5, 
 			device='cuda')
-	model = SAC.load("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_2e6")
+	# model = SAC.load("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_2e6")
 	# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-	model.set_env(world)
-	model.learn(2e6, progress_bar=True)
-	model.save("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_4e6")
+	# model.set_env(world)
+	model.learn(1e5, progress_bar=True)
+	"""
+	naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+	"""
+	model.save("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_1e5")
 
 	# debug
 	# log_data = ""
@@ -206,6 +209,26 @@ def _roundup(d: float, l: int) -> str:
 	while((len(s) - i) <= l):
 		s += '0'
 	return s
+
+
+###############################################################################
+###############################################################################
+
+def check_result():
+	eposides = 5
+	for ep in range(eposides):
+	    obs = env.reset()
+	    done = False
+	    rewards = 0
+	    step = 0
+	    while not done:
+	        step += 1 
+	        action, _states = model.predict(obs, deterministic=True)
+	        obs, reward, done, info = env.step(action)
+	        env.render()
+	        rewards += reward
+	print(rewards)
+
 
 main()
 
