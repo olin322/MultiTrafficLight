@@ -123,15 +123,19 @@ def main():
 			verbose=1, 
 			learning_rate=1e-5, 
 			device='cuda')
-	# model = SAC.load("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_2e6")
-	# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-	# model.set_env(world)
-	model.learn(1e5, progress_bar=True)
-	"""
-	naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
-	"""
-	model.save("./straightRoadModels/temps/StraightRoad-v1_256_1e-5_cuda_1e5")
 
+	def _func(i: int):
+		model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i}e5")
+		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
+		model.set_env(world)
+		model.learn(5e5, progress_bar=True)
+		"""
+		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+		"""
+		model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i+5}e5")
+
+	for i in range(5, 90, 5):
+		_func(i)
 	# debug
 	# log_data = ""
 	# log_name = get_debug_log_name()
