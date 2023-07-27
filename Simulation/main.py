@@ -17,6 +17,8 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
+import gymnasium as gym
+
 from stable_baselines3 import SAC
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
@@ -73,22 +75,22 @@ def main():
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
 	"""
-	trafficLight_1  = TrafficLight("1",  10,  "green", 10, world.get_delta_t())
-	trafficLight_2  = TrafficLight("2",  20,  "green", 47, world.get_delta_t())
-	trafficLight_3  = TrafficLight("3",  50,  "green", 61, world.get_delta_t())
-	trafficLight_4  = TrafficLight("4",  200, "green", 53, world.get_delta_t())
-	trafficLight_5  = TrafficLight("5",  250, "green", 53, world.get_delta_t())
-	trafficLight_6  = TrafficLight("6",  320, "green", 61, world.get_delta_t())
-	trafficLight_7  = TrafficLight("7",  340, "green", 67, world.get_delta_t())
-	trafficLight_8  = TrafficLight("8",  360, "green", 67, world.get_delta_t())
-	trafficLight_9  = TrafficLight("9",  380, "green", 67, world.get_delta_t())
-	trafficLight_10 = TrafficLight("10", 400, "green", 57, world.get_delta_t())
-	trafficLight_11 = TrafficLight("11", 500, "green", 57, world.get_delta_t())
-	trafficLight_12 = TrafficLight("12", 510, "green", 67, world.get_delta_t())
-	trafficLight_13 = TrafficLight("13", 600, "green", 61, world.get_delta_t())
-	trafficLight_14 = TrafficLight("14", 700, "green", 61, world.get_delta_t())
-	trafficLight_15 = TrafficLight("15", 800, "green", 61, world.get_delta_t())
-	trafficLight_16 = TrafficLight("16", 990, "green", 61, world.get_delta_t())
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
 	world.add_traffic_light(trafficLight_1)
 	world.add_traffic_light(trafficLight_2)
 	world.add_traffic_light(trafficLight_3)
@@ -115,10 +117,25 @@ def main():
 	reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	# env = make_vec_env(lambda: world, n_envs=1)
 	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
-	model = SAC("MultiInputPolicy", world, verbose=1, learning_rate=1e-3, device='cpu')
-	model.learn(1e5, progress_bar=True)
-	model.save("./straightRoadModels/temps/StraightRoad-v1_1e-3_1e5")
+	model = SAC("MultiInputPolicy", 
+			env=world, 
+			batch_size=256, 
+			verbose=1, 
+			learning_rate=1e-5, 
+			device='cuda')
 
+	def _func(i: int):
+		model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i}e5")
+		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
+		model.set_env(world)
+		model.learn(5e5, progress_bar=True)
+		"""
+		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+		"""
+		model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i+5}e5")
+
+	for i in range(5, 90, 5):
+		_func(i)
 	# debug
 	# log_data = ""
 	# log_name = get_debug_log_name()
@@ -196,6 +213,26 @@ def _roundup(d: float, l: int) -> str:
 	while((len(s) - i) <= l):
 		s += '0'
 	return s
+
+
+###############################################################################
+###############################################################################
+
+def check_result():
+	eposides = 5
+	for ep in range(eposides):
+	    obs = env.reset()
+	    done = False
+	    rewards = 0
+	    step = 0
+	    while not done:
+	        step += 1 
+	        action, _states = model.predict(obs, deterministic=True)
+	        obs, reward, done, info = env.step(action)
+	        env.render()
+	        rewards += reward
+	print(rewards)
+
 
 main()
 

@@ -94,7 +94,15 @@ class Vehicle(Actor):
 		return None
 
 	def accelerateAt(self, acceleration: float) -> None:
-		self.speed = self.speed + (acceleration * self.delta_t)
+		if (acceleration >= 0):
+			self.speed = min(self.speedLimit, self.speed + acceleration)
+		else:
+			self.speed = max(0, self.speed + acceleration)
+		"""
+		the following line was WRONG
+		and probably was why training terminated early after 65K episodes
+		# self.speed = self.speed + (acceleration * self.delta_t)
+		"""
 		self.location = self.location + (self.speed * self.delta_t)
 		return None
 
