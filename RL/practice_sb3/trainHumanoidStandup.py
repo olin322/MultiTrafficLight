@@ -146,7 +146,7 @@ def demo(i: int): # i-th saved model
     vec_env.close()
 
 
-for it in range(0, 30):
+for it in range(30, 32):
     trainHumanoid(it, t=0.01, g=0.9, a=0.001)
 
 # demo(995)
