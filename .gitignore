@@ -53,5 +53,6 @@ conda thu channels
 !/RL/practice_sb3/savedModels/second/HumanoidStandup-v4_tau0.01gamma0.9alpha0.001_1.3*B
 
 /Simulation/straightRoadModels/
+!/Simulation/straightRoadModels/test_run_1
 
 /logs/earlyTerminationAt65K
