@@ -34,7 +34,7 @@ class StraightRoadEnv(gym.Env, World):
         which are defined as parameters of constructor of Vehicle class
         max_deacceleration and max_acceleration are currently set to 2 and 2, respectively
         """
-        self.action_space = spaces.Box(low=-2.0, high=2.0, shape=(1,), dtype=np.float32)
+        self.action_space = spaces.Box(low=-2.0, high=2.0, shape=(1,), dtype=np.float64)
 
 
         ###############################################################################################
@@ -78,14 +78,14 @@ class StraightRoadEnv(gym.Env, World):
         """
         self.observation_space = spaces.Dict(
             {
-                "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float32),
-                "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float32),
+                "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float64),
+                "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float64),
                 # "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
                 "traffic_lights_states": spaces.Box(
                     low=np.array([[0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
                     high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
                     shape=(totalTrafficLights, 3,), 
-                    dtype=np.float32
+                    dtype=np.float64
                 )
             }
         )
@@ -112,8 +112,8 @@ class StraightRoadEnv(gym.Env, World):
         return observation, reward, terminated, truncated, info
 
 
-    def reset(self, seed=None, options=None) -> tuple:
-            # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
+    def reset(self, seed=1, options=None) -> tuple:
+        # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
         # should re-initialize all traffic light status 
         # reset all rewards ?
         # and place the ego_vehicle to correct location ?
@@ -126,9 +126,8 @@ class StraightRoadEnv(gym.Env, World):
         return observation, info
 
     def render(self):
-        # not implemented in this simulation
-        # will use CARLA for demo
-        pass
+        # Return type Optional[ndarray]
+        return None
 
     def close(self):
         pass
@@ -144,10 +143,10 @@ class StraightRoadEnv(gym.Env, World):
                                       a.getPhaseInFloat()])
         observation = dict(
             {
-                "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]).reshape(1,),
+                "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]),
                 "ego_vehicle_speed": np.array([ego_vehicle.getSpeed()], ).reshape(1,),
                 # "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
-                "traffic_lights_states": np.array(lights_status).reshape(self.totalTrafficLights, 3)
+                "traffic_lights_states": np.array(lights_status, dtype=np.float64).reshape(self.totalTrafficLights, 3)
             }
         )
         return observation

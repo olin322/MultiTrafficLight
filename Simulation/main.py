@@ -24,8 +24,13 @@ from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
 
+# import carla
+# from carla import Actor
+# from carla import Vector3D
+# from carla import Transform, Location, Rotation
 
 
+from stable_baselines3.common.env_checker import check_env
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
@@ -54,7 +59,7 @@ NUMBR_OF_LIGHTS = 16
 
 # TO-DO
 # 1. implement seed for random generator so experiment can be replicated
-# 2. try multi-pro cessing
+# 2. try multi-pro cessing # checkout conventions need to follow
 def rl_vec_straighRoad(seed: int):
 	vec_envs = gym.make("StraightRoad-v1", number_of_lights, DELTA_T, reward_map)
 	world.spawn_vehicle(ego_vehicle)
@@ -134,7 +139,7 @@ def main():
 		"""
 		model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i+5}e5")
 
-	for i in range(5, 90, 5):
+	for i in range(60, 65, 5):
 		_func(i)
 	# debug
 	# log_data = ""
@@ -219,23 +224,104 @@ def _roundup(d: float, l: int) -> str:
 ###############################################################################
 
 def check_result():
-	eposides = 5
+	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
+	reward_map = RewardMap(ego_vehicle)
+	world = StraightRoadEnv(16, DELTA_T, reward_map)
+	world.spawn_vehicle(ego_vehicle)
+	"""
+	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
+	"""
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
+	world.add_traffic_light(trafficLight_1)
+	world.add_traffic_light(trafficLight_2)
+	world.add_traffic_light(trafficLight_3)
+	world.add_traffic_light(trafficLight_4)
+	world.add_traffic_light(trafficLight_5)
+	world.add_traffic_light(trafficLight_6)
+	world.add_traffic_light(trafficLight_7)
+	world.add_traffic_light(trafficLight_8)
+	world.add_traffic_light(trafficLight_9)
+	world.add_traffic_light(trafficLight_10)
+	world.add_traffic_light(trafficLight_11)
+	world.add_traffic_light(trafficLight_12)
+	world.add_traffic_light(trafficLight_13)
+	world.add_traffic_light(trafficLight_14)
+	world.add_traffic_light(trafficLight_15)
+	world.add_traffic_light(trafficLight_16)
+
+	trafficLights = [
+					trafficLight_1, trafficLight_2, trafficLight_3,trafficLight_4,
+					trafficLight_5, trafficLight_6, trafficLight_7,trafficLight_8,
+					trafficLight_9, trafficLight_10, trafficLight_11,trafficLight_12,
+					trafficLight_13, trafficLight_14, trafficLight_15,trafficLight_16,
+					]
+	reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	check_env(world)
+	model = SAC("MultiInputPolicy", 
+			env=world, 
+			batch_size=256, 
+			verbose=1, 
+			learning_rate=1e-5, 
+			device='cpu')
+	model = SAC.load("./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_50e5")
+	eposides = 6
 	for ep in range(eposides):
-	    obs = env.reset()
+	    obs = world.reset()
+	    print(obs)
 	    done = False
 	    rewards = 0
 	    step = 0
 	    while not done:
 	        step += 1 
 	        action, _states = model.predict(obs, deterministic=True)
+	        print("aaaaaa", action)
 	        obs, reward, done, info = env.step(action)
-	        env.render()
+	        display_in_carla(action[0])
 	        rewards += reward
-	print(rewards)
+	# print(rewards)
+	print(action[0])
 
+def display_in_carla(action):
+	ego_vehicle.apply_control(
+    	arla.VehicleControl(
+    		throttle=action[0]/3, steer=0
+    	)
+    )
+	return None
 
-main()
+# main()
 
+client = carla.Client('localhost', 2000)
+client.load_world('Town06')
+world = client.get_world()
+settings = world.get_settings()
+settings.synchronous_mode = True
+settings.fixed_delta_seconds = self.delta_t
+world.apply_settings(settings)# level = world.get_map()
+blueprint_library = world.get_blueprint_library()
+ego_vehicle_spawn_point = carla.Transform(
+	carla.Location(x=-272, y=-18, z=0.281494), 
+	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
+)
+ego_vehicle = world.spawn_actor(
+    blueprint_library.find('vehicle.lincoln.mkz'), ego_vehicle_spawn_point
+)
+check_result()
 
 
 
