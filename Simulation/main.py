@@ -19,15 +19,15 @@ from datetime import timedelta
 
 import gymnasium as gym
 
-from stable_baselines3 import SAC
+from stable_baselines3 import SAC, TD3
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
 
-import carla
-from carla import Actor
-from carla import Vector3D
-from carla import Transform, Location, Rotation
+# import carla
+# from carla import Actor
+# from carla import Vector3D
+# from carla import Transform, Location, Rotation
 
 
 from stable_baselines3.common.env_checker import check_env
@@ -124,26 +124,32 @@ def main():
 	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	# env = make_vec_env(lambda: world, n_envs=1)
 	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
+	# env1 = gym.make("StraightRoad-v1", totalTrafficLights=16, delta_t=DELTA_T, rewardMap=reward_map)
+	# check_env(env1)
 	check_env(world)
+	# env = SubprocVecEnv([world for _ in range(4)])
+	# env = world
 	model = SAC("MultiInputPolicy", 
 			env=world, 
-			batch_size=256, 
+			batch_size=128, 
 			verbose=1, 
-			learning_rate=1e-5, 
+			learning_rate=3e-5, 
 			device='cuda')
 
-	def _func(i: int):
-		model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i}e5")
-		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-		model.set_env(world)
-		model.learn(5e5, progress_bar=True)
-		"""
-		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
-		"""
-		model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i+5}e5")
+	# def _func(i: int):
+	# 	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{10}e4")
+	# 	# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
+	# 	model.set_env(world)
+	# 	model.learn(1e5, progress_bar=True)
+	# 	"""
+	# 	naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+	# 	"""
+	# 	model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{10}e4")
 
-	for i in range(60, 65, 5):
-		_func(i)
+	# for i in range(1, 2, 1):
+		# _func(i)
+	model.learn(1e5)
+	model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{1}e5")
 	# debug
 	# log_data = ""
 	# log_name = get_debug_log_name()
@@ -310,24 +316,24 @@ def display_in_carla(action):
     )
 	return None
 
-# main()
+main()
 
-client = carla.Client('localhost', 2000)
-client.load_world('Town06')
-world = client.get_world()
-settings = world.get_settings()
-settings.synchronous_mode = True
-settings.fixed_delta_seconds = DELTA_T
-world.apply_settings(settings)# level = world.get_map()
-blueprint_library = world.get_blueprint_library()
-ego_vehicle_spawn_point = carla.Transform(
-	carla.Location(x=-272, y=-18, z=0.281494), 
-	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
-)
-ego_vehicle = world.spawn_actor(
-    blueprint_library.find('vehicle.lincoln.mkz_2020'), ego_vehicle_spawn_point
-)
-check_result()
+# client = carla.Client('localhost', 2000)
+# client.load_world('Town06')
+# world = client.get_world()
+# settings = world.get_settings()
+# settings.synchronous_mode = True
+# settings.fixed_delta_seconds = DELTA_T
+# world.apply_settings(settings)# level = world.get_map()
+# blueprint_library = world.get_blueprint_library()
+# ego_vehicle_spawn_point = carla.Transform(
+# 	carla.Location(x=-272, y=-18, z=0.281494), 
+# 	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
+# )
+# ego_vehicle = world.spawn_actor(
+#     blueprint_library.find('vehicle.lincoln.mkz_2020'), ego_vehicle_spawn_point
+# )
+# check_result()
 
 
 

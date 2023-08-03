@@ -56,3 +56,5 @@ conda thu channels
 !/Simulation/straightRoadModels/test_run_1/
 
 /logs/earlyTerminationAt65K
+
+/Simulation/CusEnv.py

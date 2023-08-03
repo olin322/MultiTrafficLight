@@ -101,7 +101,7 @@ class RewardMap:
 	def getAccumulatedReward(self) -> int:
 		return self.accumulatedReward
 
-	def reset(self, seed: int = 1) -> None:
+	def reset(self, seed=None) -> None:
 		self.accumulatedReward = self.initialState[0]
 		self.ego_vehicle = self.initialState[1]
 		self.ego_vehicle_prev_location = self.ego_vehicle.getLocation()

@@ -23,5 +23,5 @@ class Actor:
 	def tick(self) -> None:
 		return None
 
-	def reset(self, seed: int = 1):
+	def reset(self, seed=None):
 		return None
