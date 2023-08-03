@@ -24,10 +24,10 @@ from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
 
-# import carla
-# from carla import Actor
-# from carla import Vector3D
-# from carla import Transform, Location, Rotation
+import carla
+from carla import Actor
+from carla import Vector3D
+from carla import Transform, Location, Rotation
 
 
 from stable_baselines3.common.env_checker import check_env
@@ -76,6 +76,7 @@ def main():
 	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
 	reward_map = RewardMap(ego_vehicle)
 	world = StraightRoadEnv(16, DELTA_T, reward_map)
+	# check_env(world)
 	world.spawn_vehicle(ego_vehicle)
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
@@ -119,9 +120,11 @@ def main():
 					trafficLight_9, trafficLight_10, trafficLight_11,trafficLight_12,
 					trafficLight_13, trafficLight_14, trafficLight_15,trafficLight_16,
 					]
-	reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	reward_map.setTrafficLights(trafficLights)
+	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	# env = make_vec_env(lambda: world, n_envs=1)
 	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
+	check_env(world)
 	model = SAC("MultiInputPolicy", 
 			env=world, 
 			batch_size=256, 
@@ -270,7 +273,10 @@ def check_result():
 					trafficLight_9, trafficLight_10, trafficLight_11,trafficLight_12,
 					trafficLight_13, trafficLight_14, trafficLight_15,trafficLight_16,
 					]
-	reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	reward_map.setTrafficLights(trafficLights)
+	for i in world.actors:
+		print(i.getID())
 	check_env(world)
 	model = SAC("MultiInputPolicy", 
 			env=world, 
@@ -298,7 +304,7 @@ def check_result():
 
 def display_in_carla(action):
 	ego_vehicle.apply_control(
-    	arla.VehicleControl(
+    	carla.VehicleControl(
     		throttle=action[0]/3, steer=0
     	)
     )
@@ -311,7 +317,7 @@ client.load_world('Town06')
 world = client.get_world()
 settings = world.get_settings()
 settings.synchronous_mode = True
-settings.fixed_delta_seconds = self.delta_t
+settings.fixed_delta_seconds = DELTA_T
 world.apply_settings(settings)# level = world.get_map()
 blueprint_library = world.get_blueprint_library()
 ego_vehicle_spawn_point = carla.Transform(
@@ -319,7 +325,7 @@ ego_vehicle_spawn_point = carla.Transform(
 	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
 )
 ego_vehicle = world.spawn_actor(
-    blueprint_library.find('vehicle.lincoln.mkz'), ego_vehicle_spawn_point
+    blueprint_library.find('vehicle.lincoln.mkz_2020'), ego_vehicle_spawn_point
 )
 check_result()
 

@@ -90,9 +90,10 @@ class World:
                     n += 1
         return n
 
-    def reset(self) -> None:
+    def reset(self, seed: int = 1) -> None:
         for a in self.actors:
-            a.reset()
+            a.reset(2)
+        print("world", seed)
         return None
 
 

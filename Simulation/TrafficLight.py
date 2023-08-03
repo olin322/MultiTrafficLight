@@ -29,7 +29,7 @@ class TrafficLight(Actor):
 		self.updatePhase()
 	
 
-	def reset(self):
+	def reset(self, seed: int = 1):
 		self.timer = self.timer_repeat
 		self.countdown = int(math.ceil(self.timer))
 		self.phase = "green"

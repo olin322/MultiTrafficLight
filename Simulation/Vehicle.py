@@ -162,7 +162,7 @@ class Vehicle(Actor):
 		return self.speed
 
 	@override
-	def reset(self) -> None:
+	def reset(self, seed: int = 1) -> None:
 		self.mass = self.INITIAL_STATE[0]
 		self.max_acceleration = self.INITIAL_STATE[1]
 		self.max_deacceleration = self.INITIAL_STATE[2]
@@ -170,4 +170,5 @@ class Vehicle(Actor):
 		self.speedLimit = self.INITIAL_STATE[4]
 		self.delta_t = self.INITIAL_STATE[5]
 		self.deaccelerate_mode = False
+		print("vehicle", seed)
 		return None

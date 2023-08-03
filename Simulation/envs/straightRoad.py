@@ -112,16 +112,17 @@ class StraightRoadEnv(gym.Env, World):
         return observation, reward, terminated, truncated, info
 
 
-    def reset(self, seed=1, options=None) -> tuple:
+    def reset(self, seed: int = 1, options=None) -> tuple:
         # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
         # should re-initialize all traffic light status 
         # reset all rewards ?
         # and place the ego_vehicle to correct location ?
 
         # return value `info` is not currently used, set to None for now
-        World.reset(self)
-        self.rewardMap.reset()
+        World.reset(self, 1)
+        self.rewardMap.reset(2)
         observation = self._get_observation()
+        print(seed)
         info = {}
         return observation, info
 
