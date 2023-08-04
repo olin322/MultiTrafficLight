@@ -72,9 +72,11 @@ class TrafficLight(Actor):
 
 	def getPhaseInFloat(self) -> float:
 		if (self.getPhase() == "green"):
-			return float(0)
-		if (self.getPhase() == "red"):
 			return float(1)
+		if (self.getPhase() == "red"):
+			return float(2)
+		if (self.getPhase() == "yellow"):
+			return float(0)
 		return None
 		# t = {
 		# 	"green": 0,

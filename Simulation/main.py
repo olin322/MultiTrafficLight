@@ -19,7 +19,7 @@ from datetime import timedelta
 
 import gymnasium as gym
 
-from stable_baselines3 import SAC, TD3
+from stable_baselines3 import SAC, TD3, A2C, DDPG
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
@@ -76,7 +76,6 @@ def main():
 	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
 	reward_map = RewardMap(ego_vehicle)
 	world = StraightRoadEnv(16, DELTA_T, reward_map)
-	# check_env(world)
 	world.spawn_vehicle(ego_vehicle)
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
@@ -126,30 +125,35 @@ def main():
 	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
 	# env1 = gym.make("StraightRoad-v1", totalTrafficLights=16, delta_t=DELTA_T, rewardMap=reward_map)
 	# check_env(env1)
-	check_env(world)
-	# env = SubprocVecEnv([world for _ in range(4)])
-	# env = world
-	model = SAC("MultiInputPolicy", 
-			env=world, 
-			batch_size=128, 
+	# check_env(world)
+	# vec_env_train = make_vec_env(env, n_envs=1024)
+	# env = SubprocVecEnv([env for _ in range(1024)])
+	env = world
+	model = SAC(
+			"MlpPolicy",
+			# "MultiInputPolicy", 
+			# env=vec_env_train, 
+			env = env,
+			batch_size=1024, 
 			verbose=1, 
 			learning_rate=3e-5, 
 			device='cuda')
 
-	# def _func(i: int):
-	# 	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{10}e4")
-	# 	# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-	# 	model.set_env(world)
-	# 	model.learn(1e5, progress_bar=True)
-	# 	"""
-	# 	naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
-	# 	"""
-	# 	model.save(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{10}e4")
+	def _func(i: int):
+		# model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i}e4")
+		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
+		# model.set_env(world)
+		model.learn(1e5, progress_bar=True)
+		"""
+		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+		"""
+		model.save(f"./straightRoadModels/080423/StraightRoad-v1_256_3e-5_cuda_{i}e5")
 
-	# for i in range(1, 2, 1):
-		# _func(i)
-	model.learn(1e5)
-	model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{1}e5")
+	for i in range(1, 10, 1):
+		_func(i)
+	# model.learn(1e5, progress_bar=True)
+	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
+	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{1}e5_multi_processing")
 	# debug
 	# log_data = ""
 	# log_name = get_debug_log_name()
@@ -281,16 +285,17 @@ def check_result():
 					]
 	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	reward_map.setTrafficLights(trafficLights)
-	for i in world.actors:
-		print(i.getID())
-	check_env(world)
-	model = SAC("MultiInputPolicy", 
-			env=world, 
-			batch_size=256, 
-			verbose=1, 
-			learning_rate=1e-5, 
-			device='cpu')
-	model = SAC.load("./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_50e5")
+	# for i in world.actors:
+	# 	print(i.getID())
+	# check_env(world)
+	# model = SAC(
+	# 		"MultiInputPolicy", 
+	# 		env=world, 
+	# 		batch_size=256, 
+	# 		verbose=1, 
+	# 		learning_rate=1e-5, 
+	# 		device='cuda')
+	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_60e5")
 	eposides = 6
 	for ep in range(eposides):
 	    obs = world.reset()
@@ -301,9 +306,9 @@ def check_result():
 	    while not done:
 	        step += 1 
 	        action, _states = model.predict(obs, deterministic=True)
-	        print("aaaaaa", action)
-	        obs, reward, done, info = env.step(action)
-	        display_in_carla(action[0])
+	        print("action = ", action)
+	        obs, reward, done, info, t = world.step(action)
+	        # display_in_carla(action[0])
 	        rewards += reward
 	# print(rewards)
 	print(action[0])
