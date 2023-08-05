@@ -140,16 +140,16 @@ def main():
 			device='cuda')
 
 	def _func(i: int):
-		# model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_{i}e4")
+		model = SAC.load(f"./straightRoadModels/080423/StraightRoad-v1_256_3e-5_cuda_{i}e6")
 		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-		# model.set_env(world)
-		model.learn(1e5, progress_bar=True)
+		model.set_env(env)
+		model.learn(1e6, progress_bar=True)
 		"""
 		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
 		"""
-		model.save(f"./straightRoadModels/080423/StraightRoad-v1_256_3e-5_cuda_{i}e5")
-
-	for i in range(1, 10, 1):
+		model.save(f"./straightRoadModels/080423/StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
+		print(f"StraightRoad-v1_256_3e-5_cuda_{i}e6")
+	for i in range(2, 3, 1):
 		_func(i)
 	# model.learn(1e5, progress_bar=True)
 	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
