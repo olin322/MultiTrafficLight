@@ -139,6 +139,7 @@ class StraightRoadEnv(gym.Env, World):
         if (seed):
             print(seed)
         info = {}
+        # return observation
         return observation, info
 
     def render(self):

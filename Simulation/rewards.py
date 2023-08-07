@@ -11,7 +11,7 @@ class RewardMap:
 	
 	def __init__(self, 
 				ego_vehicle: Vehicle,
-				accumulatedReward: int = 0, 
+				accumulatedReward: int = 1, 
 				):
 		# mapSize represents the length of the road
 		# in this 1-dimension world
@@ -90,6 +90,7 @@ class RewardMap:
 				 (self.nextLight.getLocation() < self.ego_vehicle.getLocation()):
 				if (self.nextLight.getPhase() == "red"):
 					terminated = True
+					reward -= self.accumulatedReward
 				else:
 					reward += 10 * self.lightsPassed
 					self.lightsPassed += 1

@@ -134,22 +134,22 @@ def main():
 			# "MultiInputPolicy", 
 			# env=vec_env_train, 
 			env = env,
-			batch_size=1024, 
+			batch_size=256, 
 			verbose=1, 
 			learning_rate=3e-5, 
 			device='cuda')
 
 	def _func(i: int):
-		model = SAC.load(f"./straightRoadModels/080423/StraightRoad-v1_256_3e-5_cuda_{i}e6")
+		# model = SAC.load(f"./straightRoadModels/080723/StraightRoad-v1_256_1e-5_cuda_{i}e6")
 		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-		model.set_env(env)
+		# model.set_env(env)
 		model.learn(1e6, progress_bar=True)
 		"""
 		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
 		"""
-		model.save(f"./straightRoadModels/080423/StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
-		print(f"StraightRoad-v1_256_3e-5_cuda_{i}e6")
-	for i in range(2, 3, 1):
+		model.save(f"./straightRoadModels/080723/StraightRoad-v1_256_3e-5_cuda_{i+1}e6")
+		print(f"StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
+	for i in range(0, 1, 1):
 		_func(i)
 	# model.learn(1e5, progress_bar=True)
 	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
@@ -298,7 +298,7 @@ def check_result():
 	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_60e5")
 	eposides = 6
 	for ep in range(eposides):
-	    obs = world.reset()
+	    obs = world.reset()[0]
 	    print(obs)
 	    done = False
 	    rewards = 0
@@ -338,6 +338,8 @@ main()
 # ego_vehicle = world.spawn_actor(
 #     blueprint_library.find('vehicle.lincoln.mkz_2020'), ego_vehicle_spawn_point
 # )
+
+
 # check_result()
 
 
