@@ -29,7 +29,7 @@ class TrafficLight(Actor):
 		self.updatePhase()
 	
 
-	def reset(self):
+	def reset(self, seed=None):
 		self.timer = self.timer_repeat
 		self.countdown = int(math.ceil(self.timer))
 		self.phase = "green"
@@ -71,12 +71,19 @@ class TrafficLight(Actor):
 		return self.phase
 
 	def getPhaseInFloat(self) -> float:
-		t = {
-			"green": 0,
-			"red": 1,
-			"yellow": 2
-		}
-		return float(t[self.getPhase()])
+		if (self.getPhase() == "green"):
+			return float(1)
+		if (self.getPhase() == "red"):
+			return float(2)
+		if (self.getPhase() == "yellow"):
+			return float(0)
+		return None
+		# t = {
+		# 	"green": 0,
+		# 	"red": 1,
+		# 	"yellow": 2
+		# }
+		# return float(t[self.getPhase()])
 
 	def getCountdown(self) -> int:
 		return self.countdown
