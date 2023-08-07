@@ -14,8 +14,12 @@ class StraightRoadEnv(gym.Env, World):
     """Custom Environment that follows gym interface."""
 
     metadata = {
-        "render_modes": ["human"], 
-        "render_fps": 30
+        "render_modes": [
+            "human",
+            "rgb_array",
+            "depth_array",
+        ],
+        "render_fps": 67,
     }
 
     def __init__(self, 
@@ -23,7 +27,7 @@ class StraightRoadEnv(gym.Env, World):
                 delta_t: float, 
                 rewardMap: RewardMap):
         # super().__init__() gym.env has no constructor
-        super(gym.Env, self).__init__(delta_t)
+        super().__init__(delta_t)
         self.totalTrafficLights = totalTrafficLights
         self.rewardMap = rewardMap
         self.num_envs = 1
@@ -34,7 +38,7 @@ class StraightRoadEnv(gym.Env, World):
         which are defined as parameters of constructor of Vehicle class
         max_deacceleration and max_acceleration are currently set to 2 and 2, respectively
         """
-        self.action_space = spaces.Box(low=-2.0, high=2.0, shape=(1,), dtype=np.float32)
+        self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(1,), dtype=np.float32)
 
 
         ###############################################################################################
@@ -76,19 +80,27 @@ class StraightRoadEnv(gym.Env, World):
         or 2-D array with i rows and j cols,
         and the low high values are inclusive.
         """
-        self.observation_space = spaces.Dict(
-            {
-                "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float32),
-                "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float32),
-                # "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
-                "traffic_lights_states": spaces.Box(
-                    low=np.array([[0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
-                    high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
-                    shape=(totalTrafficLights, 3,), 
-                    dtype=np.float32
-                )
-            }
-        )
+        # num_obs = self.totalTrafficLights * 3 + 2
+        self.observation_space = spaces.Box(low=0, high=10000, shape=(50,), dtype=np.float32)
+        # self.observation_space = spaces.Dict(
+        #     {
+        #         "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float64),
+        #         "ego_vehicle_speed": spaces.Box(low=-0.1, high=16.67, shape=(1,), dtype=np.float64),
+        #         # "num_of_traffic_lights_ahead": spaces.Discrete(totalTrafficLights),
+        #         "traffic_lights_states": spaces.Box(
+        #             low=-1,
+        #             high=10000,
+        #             shape=(totalTrafficLights*3, ),
+        #             dtype=np.float64
+        #         )
+        #         # "traffic_lights_states": spaces.Box(
+        #         #     low=np.array([[0, 0, 0] * totalTrafficLights]).reshape(totalTrafficLights, 3), 
+        #         #     high=np.array([[10000.0, 300, 2]] * totalTrafficLights).reshape(totalTrafficLights, 3),
+        #         #     shape=(totalTrafficLights, 3,), 
+        #         #     dtype=np.float64
+        #         # )
+        #     }
+        # )
         
     """
         GymEnv = Union[gym.Env, vec_env.VecEnv]
@@ -103,53 +115,61 @@ class StraightRoadEnv(gym.Env, World):
     def step(self, action) -> GymStepReturn: 
         self.rl_tick(action)
         observation = self._get_observation()
-        self.rewardMap.tick()
+        terminated = self.rewardMap.tick()
         reward = self.rewardMap.getStepReward() # update reward and reward map
+        if (not reward): print("reward is none")
         # unnecessary to check max_step as ev will always arrive destination
-        terminated = bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= 10000.0)
+        terminated = terminated | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= 10000.0)
         truncated = False # unnecessary to truncate anything
         info = {}
         return observation, reward, terminated, truncated, info
 
 
-    def reset(self, seed=None, options=None) -> tuple:
-            # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
+    def reset(self, seed=None, options=None):
+        # -> tuple(spaces.Tuple(spaces.Box, spaces.Box, spaces.Discrete, spaces.Box), info):
         # should re-initialize all traffic light status 
         # reset all rewards ?
         # and place the ego_vehicle to correct location ?
 
         # return value `info` is not currently used, set to None for now
-        World.reset(self)
+        for actor in self.actors:
+            actor.reset()
         self.rewardMap.reset()
         observation = self._get_observation()
+        if (seed):
+            print(seed)
         info = {}
+        # return observation
         return observation, info
 
     def render(self):
-        # not implemented in this simulation
-        # will use CARLA for demo
-        pass
+        # Return type Optional[ndarray]
+        return None
 
     def close(self):
         pass
 
-    def _get_observation(self) -> spaces.Dict:
+    def _get_observation(self) -> spaces.Box:
         # need a pointer in World class that points to ego_vehicle
         ego_vehicle = self.actors[self._get_ego_vehicle_index()]
-        lights_status = []
+        obs = []
+        obs.append(ego_vehicle.getLocation())
+        obs.append(ego_vehicle.getSpeed())
         for a in self.actors:
             if(self._find_Actor_Type(a) == "TrafficLight"):
-                lights_status.append([a.getLocation(),
-                                      a.getCountdown(),
-                                      a.getPhaseInFloat()])
-        observation = dict(
-            {
-                "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]).reshape(1,),
-                "ego_vehicle_speed": np.array([ego_vehicle.getSpeed()], ).reshape(1,),
-                # "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
-                "traffic_lights_states": np.array(lights_status).reshape(self.totalTrafficLights, 3)
-            }
-        )
+                obs.append(a.getLocation())
+                obs.append(a.getCountdown())
+                obs.append(a.getPhaseInFloat())
+
+        # observation = dict(
+        #     {
+        #         "ego_vehicle_location": np.array([ego_vehicle.getLocation(), ]),
+        #         "ego_vehicle_speed": np.array([ego_vehicle.getSpeed()], ).reshape(1,),
+        #         # "num_of_traffic_lights_ahead": self.numTrafficLightAhead(ego_vehicle),
+        #         "traffic_lights_states": np.array(obs, dtype=np.float64)#.reshape(self.totalTrafficLights, 3)
+        #     }
+        # )
+        observation = np.array(obs, dtype=np.float32)
         return observation
 
 

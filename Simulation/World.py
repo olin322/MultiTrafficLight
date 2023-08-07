@@ -90,9 +90,10 @@ class World:
                     n += 1
         return n
 
-    def reset(self) -> None:
+    def reset(self, seed=None) -> None:
         for a in self.actors:
             a.reset()
+        # print("world", seed)
         return None
 
 
@@ -131,6 +132,8 @@ class World:
                     return i
                 i += 1
             # raise error "ego vehicle not found"
+            if (not self.actors): print("actors is empty")
+            else: print("eg not found")
             return None
 
     def _update_traffic_lights(self) -> None:

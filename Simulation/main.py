@@ -17,13 +17,20 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
-from stable_baselines3 import SAC
+import gymnasium as gym
+
+from stable_baselines3 import SAC, TD3, A2C, DDPG
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
 
+# import carla
+# from carla import Actor
+# from carla import Vector3D
+# from carla import Transform, Location, Rotation
 
 
+from stable_baselines3.common.env_checker import check_env
 ### Currently the simulation runs in 1-D space/x-axis
 ### CONSTANTS
 # speed_limit = 60km/h
@@ -52,7 +59,7 @@ NUMBR_OF_LIGHTS = 16
 
 # TO-DO
 # 1. implement seed for random generator so experiment can be replicated
-# 2. try multi-pro cessing
+# 2. try multi-pro cessing # checkout conventions need to follow
 def rl_vec_straighRoad(seed: int):
 	vec_envs = gym.make("StraightRoad-v1", number_of_lights, DELTA_T, reward_map)
 	world.spawn_vehicle(ego_vehicle)
@@ -73,22 +80,22 @@ def main():
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
 	"""
-	trafficLight_1  = TrafficLight("1",  10,  "green", 10, world.get_delta_t())
-	trafficLight_2  = TrafficLight("2",  20,  "green", 47, world.get_delta_t())
-	trafficLight_3  = TrafficLight("3",  50,  "green", 61, world.get_delta_t())
-	trafficLight_4  = TrafficLight("4",  200, "green", 53, world.get_delta_t())
-	trafficLight_5  = TrafficLight("5",  250, "green", 53, world.get_delta_t())
-	trafficLight_6  = TrafficLight("6",  320, "green", 61, world.get_delta_t())
-	trafficLight_7  = TrafficLight("7",  340, "green", 67, world.get_delta_t())
-	trafficLight_8  = TrafficLight("8",  360, "green", 67, world.get_delta_t())
-	trafficLight_9  = TrafficLight("9",  380, "green", 67, world.get_delta_t())
-	trafficLight_10 = TrafficLight("10", 400, "green", 57, world.get_delta_t())
-	trafficLight_11 = TrafficLight("11", 500, "green", 57, world.get_delta_t())
-	trafficLight_12 = TrafficLight("12", 510, "green", 67, world.get_delta_t())
-	trafficLight_13 = TrafficLight("13", 600, "green", 61, world.get_delta_t())
-	trafficLight_14 = TrafficLight("14", 700, "green", 61, world.get_delta_t())
-	trafficLight_15 = TrafficLight("15", 800, "green", 61, world.get_delta_t())
-	trafficLight_16 = TrafficLight("16", 990, "green", 61, world.get_delta_t())
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
 	world.add_traffic_light(trafficLight_1)
 	world.add_traffic_light(trafficLight_2)
 	world.add_traffic_light(trafficLight_3)
@@ -112,13 +119,41 @@ def main():
 					trafficLight_9, trafficLight_10, trafficLight_11,trafficLight_12,
 					trafficLight_13, trafficLight_14, trafficLight_15,trafficLight_16,
 					]
-	reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	reward_map.setTrafficLights(trafficLights)
+	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	# env = make_vec_env(lambda: world, n_envs=1)
 	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
-	model = SAC("MultiInputPolicy", world, verbose=1, learning_rate=1e-3, device='cpu')
-	model.learn(1e5, progress_bar=True)
-	model.save("./straightRoadModels/temps/StraightRoad-v1_1e-3_1e5")
+	# env1 = gym.make("StraightRoad-v1", totalTrafficLights=16, delta_t=DELTA_T, rewardMap=reward_map)
+	# check_env(env1)
+	# check_env(world)
+	# vec_env_train = make_vec_env(env, n_envs=1024)
+	# env = SubprocVecEnv([env for _ in range(1024)])
+	env = world
+	model = SAC(
+			"MlpPolicy",
+			# "MultiInputPolicy", 
+			# env=vec_env_train, 
+			env = env,
+			batch_size=256, 
+			verbose=1, 
+			learning_rate=3e-5, 
+			device='cuda')
 
+	def _func(i: int):
+		# model = SAC.load(f"./straightRoadModels/080723/StraightRoad-v1_256_1e-5_cuda_{i}e6")
+		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
+		# model.set_env(env)
+		model.learn(1e6, progress_bar=True)
+		"""
+		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
+		"""
+		model.save(f"./straightRoadModels/080723/StraightRoad-v1_256_3e-5_cuda_{i+1}e6")
+		print(f"StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
+	for i in range(0, 1, 1):
+		_func(i)
+	# model.learn(1e5, progress_bar=True)
+	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
+	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{1}e5_multi_processing")
 	# debug
 	# log_data = ""
 	# log_name = get_debug_log_name()
@@ -197,8 +232,115 @@ def _roundup(d: float, l: int) -> str:
 		s += '0'
 	return s
 
+
+###############################################################################
+###############################################################################
+
+def check_result():
+	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
+	reward_map = RewardMap(ego_vehicle)
+	world = StraightRoadEnv(16, DELTA_T, reward_map)
+	world.spawn_vehicle(ego_vehicle)
+	"""
+	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
+	"""
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
+	world.add_traffic_light(trafficLight_1)
+	world.add_traffic_light(trafficLight_2)
+	world.add_traffic_light(trafficLight_3)
+	world.add_traffic_light(trafficLight_4)
+	world.add_traffic_light(trafficLight_5)
+	world.add_traffic_light(trafficLight_6)
+	world.add_traffic_light(trafficLight_7)
+	world.add_traffic_light(trafficLight_8)
+	world.add_traffic_light(trafficLight_9)
+	world.add_traffic_light(trafficLight_10)
+	world.add_traffic_light(trafficLight_11)
+	world.add_traffic_light(trafficLight_12)
+	world.add_traffic_light(trafficLight_13)
+	world.add_traffic_light(trafficLight_14)
+	world.add_traffic_light(trafficLight_15)
+	world.add_traffic_light(trafficLight_16)
+
+	trafficLights = [
+					trafficLight_1, trafficLight_2, trafficLight_3,trafficLight_4,
+					trafficLight_5, trafficLight_6, trafficLight_7,trafficLight_8,
+					trafficLight_9, trafficLight_10, trafficLight_11,trafficLight_12,
+					trafficLight_13, trafficLight_14, trafficLight_15,trafficLight_16,
+					]
+	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
+	reward_map.setTrafficLights(trafficLights)
+	# for i in world.actors:
+	# 	print(i.getID())
+	# check_env(world)
+	# model = SAC(
+	# 		"MultiInputPolicy", 
+	# 		env=world, 
+	# 		batch_size=256, 
+	# 		verbose=1, 
+	# 		learning_rate=1e-5, 
+	# 		device='cuda')
+	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_60e5")
+	eposides = 6
+	for ep in range(eposides):
+	    obs = world.reset()[0]
+	    print(obs)
+	    done = False
+	    rewards = 0
+	    step = 0
+	    while not done:
+	        step += 1 
+	        action, _states = model.predict(obs, deterministic=True)
+	        print("action = ", action)
+	        obs, reward, done, info, t = world.step(action)
+	        # display_in_carla(action[0])
+	        rewards += reward
+	# print(rewards)
+	print(action[0])
+
+def display_in_carla(action):
+	ego_vehicle.apply_control(
+    	carla.VehicleControl(
+    		throttle=action[0]/3, steer=0
+    	)
+    )
+	return None
+
 main()
 
+# client = carla.Client('localhost', 2000)
+# client.load_world('Town06')
+# world = client.get_world()
+# settings = world.get_settings()
+# settings.synchronous_mode = True
+# settings.fixed_delta_seconds = DELTA_T
+# world.apply_settings(settings)# level = world.get_map()
+# blueprint_library = world.get_blueprint_library()
+# ego_vehicle_spawn_point = carla.Transform(
+# 	carla.Location(x=-272, y=-18, z=0.281494), 
+# 	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
+# )
+# ego_vehicle = world.spawn_actor(
+#     blueprint_library.find('vehicle.lincoln.mkz_2020'), ego_vehicle_spawn_point
+# )
+
+
+# check_result()
 
 
 

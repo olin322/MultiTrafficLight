@@ -94,7 +94,20 @@ class Vehicle(Actor):
 		return None
 
 	def accelerateAt(self, acceleration: float) -> None:
-		self.speed = self.speed + (acceleration * self.delta_t)
+		if (acceleration >= 0):
+			# speed = acceleration * self.delta_t + self.speed
+			# if (speed < self.speedLimit):
+			# 	self.speed += speed
+			# else:
+			# 	self.speed = self.speedLimit
+			self.speed = min(self.speedLimit, (self.speed + acceleration * self.delta_t))
+		else:
+			self.speed = max(0, self.speed + acceleration * self.delta_t)
+		"""
+		the following line was WRONG
+		and probably was why training terminated early after 65K episodes
+		# self.speed = self.speed + (acceleration * self.delta_t)
+		"""
 		self.location = self.location + (self.speed * self.delta_t)
 		return None
 
@@ -154,12 +167,15 @@ class Vehicle(Actor):
 		return self.speed
 
 	@override
-	def reset(self) -> None:
-		self.mass = self.INITIAL_STATE[0]
-		self.max_acceleration = self.INITIAL_STATE[1]
-		self.max_deacceleration = self.INITIAL_STATE[2]
-		self.speed = self.INITIAL_STATE[3]
-		self.speedLimit = self.INITIAL_STATE[4]
-		self.delta_t = self.INITIAL_STATE[5]
+	def reset(self, seed=None) -> None:
+		self.location = self.INITIAL_STATE[0]
+		self.mass = self.INITIAL_STATE[1]
+		self.max_acceleration = self.INITIAL_STATE[2]
+		self.max_deacceleration = self.INITIAL_STATE[3]
+		self.delta_t = self.INITIAL_STATE[4]
+		self.speed = self.INITIAL_STATE[5]
+		self.speedLimit = self.INITIAL_STATE[6]
+		
 		self.deaccelerate_mode = False
+		# print("vehicle", seed)
 		return None
