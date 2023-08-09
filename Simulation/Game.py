@@ -7,7 +7,7 @@ import TrafficLight
 
 from Util.Utils import getClassName
 
-class World:
+class Game:
     def __init__(self, delta_t: float):
         self.delta_t = delta_t
         self.simulation_time = 0

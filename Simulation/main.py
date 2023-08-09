@@ -2,7 +2,7 @@
 # sys.path.append('~/Owen/MultiTrafficLight/MultiTrafficLight/Simulation')
 
 
-from World import World
+from Game import Game
 from Actor import Actor
 from Vehicle import Vehicle
 from rewards import RewardMap
@@ -46,9 +46,9 @@ DELTA_T = 1/HZ
 NUMBR_OF_LIGHTS = 16
 # num = 1
 
-# world = World(DELTA_T)
+# game = game(DELTA_T)
 # reward_map = RewardMap(MAP_SIZE, INITIAL_REWARD)
-# ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, world.get_delta_t())
+# ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, game.get_delta_t())
 
 
 
@@ -62,56 +62,56 @@ NUMBR_OF_LIGHTS = 16
 # 2. try multi-pro cessing # checkout conventions need to follow
 def rl_vec_straighRoad(seed: int):
 	vec_envs = gym.make("StraightRoad-v1", number_of_lights, DELTA_T, reward_map)
-	world.spawn_vehicle(ego_vehicle)
+	game.spawn_vehicle(ego_vehicle)
 	lights = creatTrafficLightList(number_of_lights=NUMBR_OF_LIGHTS, 
 									min_distance=100,
 									max_distance=500,
 									min_countDown=30,
 									max_countDown=180)
 	for light in lights:
-		world.add_traffic_light(light)
+		game.add_traffic_light(light)
 
 def main():	
 	# global frame, num
 	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
 	reward_map = RewardMap(ego_vehicle)
-	world = StraightRoadEnv(16, DELTA_T, reward_map)
-	world.spawn_vehicle(ego_vehicle)
+	game = StraightRoadEnv(16, DELTA_T, reward_map)
+	game.spawn_vehicle(ego_vehicle)
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
 	"""
-	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
-	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
-	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
-	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
-	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
-	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
-	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
-	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
-	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
-	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
-	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
-	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
-	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
-	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
-	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
-	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
-	world.add_traffic_light(trafficLight_1)
-	world.add_traffic_light(trafficLight_2)
-	world.add_traffic_light(trafficLight_3)
-	world.add_traffic_light(trafficLight_4)
-	world.add_traffic_light(trafficLight_5)
-	world.add_traffic_light(trafficLight_6)
-	world.add_traffic_light(trafficLight_7)
-	world.add_traffic_light(trafficLight_8)
-	world.add_traffic_light(trafficLight_9)
-	world.add_traffic_light(trafficLight_10)
-	world.add_traffic_light(trafficLight_11)
-	world.add_traffic_light(trafficLight_12)
-	world.add_traffic_light(trafficLight_13)
-	world.add_traffic_light(trafficLight_14)
-	world.add_traffic_light(trafficLight_15)
-	world.add_traffic_light(trafficLight_16)
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, game.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, game.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, game.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, game.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, game.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, game.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, game.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, game.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, game.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, game.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, game.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, game.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, game.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, game.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, game.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, game.get_delta_t())
+	game.add_traffic_light(trafficLight_1)
+	game.add_traffic_light(trafficLight_2)
+	game.add_traffic_light(trafficLight_3)
+	game.add_traffic_light(trafficLight_4)
+	game.add_traffic_light(trafficLight_5)
+	game.add_traffic_light(trafficLight_6)
+	game.add_traffic_light(trafficLight_7)
+	game.add_traffic_light(trafficLight_8)
+	game.add_traffic_light(trafficLight_9)
+	game.add_traffic_light(trafficLight_10)
+	game.add_traffic_light(trafficLight_11)
+	game.add_traffic_light(trafficLight_12)
+	game.add_traffic_light(trafficLight_13)
+	game.add_traffic_light(trafficLight_14)
+	game.add_traffic_light(trafficLight_15)
+	game.add_traffic_light(trafficLight_16)
 
 	trafficLights = [
 					trafficLight_1, trafficLight_2, trafficLight_3,trafficLight_4,
@@ -121,14 +121,14 @@ def main():
 					]
 	reward_map.setTrafficLights(trafficLights)
 	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
-	# env = make_vec_env(lambda: world, n_envs=1)
-	# env = VecNormalize(world, norm_obs=True, norm_reward=True, clip_obs=10.)
+	# env = make_vec_env(lambda: game, n_envs=1)
+	# env = VecNormalize(game, norm_obs=True, norm_reward=True, clip_obs=10.)
 	# env1 = gym.make("StraightRoad-v1", totalTrafficLights=16, delta_t=DELTA_T, rewardMap=reward_map)
 	# check_env(env1)
-	# check_env(world)
+	# check_env(game)
 	# vec_env_train = make_vec_env(env, n_envs=1024)
 	# env = SubprocVecEnv([env for _ in range(1024)])
-	env = world
+	env = game
 	model = SAC(
 			"MlpPolicy",
 			# "MultiInputPolicy", 
@@ -136,20 +136,20 @@ def main():
 			env = env,
 			batch_size=256, 
 			verbose=1, 
-			learning_rate=3e-5, 
+			learning_rate=1e-5, 
 			device='cuda')
 
 	def _func(i: int):
-		# model = SAC.load(f"./straightRoadModels/080723/StraightRoad-v1_256_1e-5_cuda_{i}e6")
+		model = SAC.load(f"./straightRoadModels/080923/StraightRoad-v1_256_1e-5_cuda_{i}e6")
 		# model.set_env(gym.make("StraightRoad-v1", 16, DELTA_T, reward_map))
-		# model.set_env(env)
+		model.set_env(env)
 		model.learn(1e6, progress_bar=True)
 		"""
 		naming convention: <ENV_NAME>_<BATCH_SIZE>_<LEARNING_RATE>_<EPISODES>
 		"""
-		model.save(f"./straightRoadModels/080723/StraightRoad-v1_256_3e-5_cuda_{i+1}e6")
+		model.save(f"./straightRoadModels/080923/StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
 		print(f"StraightRoad-v1_256_1e-5_cuda_{i+1}e6")
-	for i in range(0, 1, 1):
+	for i in range(2, 15, 1):
 		_func(i)
 	# model.learn(1e5, progress_bar=True)
 	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
@@ -159,12 +159,12 @@ def main():
 	# log_name = get_debug_log_name()
 	# while ((ego_vehicle.getLocation() >= 0) & 
 	# 		(ego_vehicle.getLocation() < DESTINATION)):
-	# 	print(world.getFrame())
+	# 	print(game.getFrame())
 	# 	# frame += 1
 	# 	log_debug_data(log_name)
-	# 	world.tick()
+	# 	game.tick()
 
-		# print("simulation time = ", world.get_simulation_time())
+		# print("simulation time = ", game.get_simulation_time())
 
 		# print("speed = ", ego_vehicle.getSpeed())
 		# print("light count down: ", trafficLight_1.getCountdown(), " ", trafficLight_1.getPhase())
@@ -205,19 +205,19 @@ def get_debug_log_name() -> str:
 	return("./debug_log/"+str(today)+"-"+str(current_time)+".txt")
 
 def get_debug_log_data() -> str:
-	log_data = "frame = " + str(world.getFrame()) + "\t"\
-		    + " sim time = " + _roundup(world.get_simulation_time(), 6) + "\t"\
+	log_data = "frame = " + str(game.getFrame()) + "\t"\
+		    + " sim time = " + _roundup(game.get_simulation_time(), 6) + "\t"\
 		    + " ev speed = " + _roundup(ego_vehicle.getSpeed(), 6) + "\t"\
 		    + " ev location = " + _roundup(ego_vehicle.getLocation(), 6) + "\t"\
 		    
-	if(world.find_next_light()):
-	    log_data += " countdown = " + str(world.find_next_light().getCountdown())\
-	    		+ " " + world.find_next_light().getPhase() \
-	    		+ " \tnext light location: " + _roundup(world.find_next_light().getLocation(), 6) \
-	    		+ " \treal world time stamp: " + str(datetime.utcnow() + timedelta(hours=8)) + "\n"
+	if(game.find_next_light()):
+	    log_data += " countdown = " + str(game.find_next_light().getCountdown())\
+	    		+ " " + game.find_next_light().getPhase() \
+	    		+ " \tnext light location: " + _roundup(game.find_next_light().getLocation(), 6) \
+	    		+ " \treal game time stamp: " + str(datetime.utcnow() + timedelta(hours=8)) + "\n"
 	else:
 		log_data += " vehicle passed all traffic lights"\
-				+ "\treal world time stamp: " + str(datetime.utcnow() + timedelta(hours=8))\
+				+ "\treal game time stamp: " + str(datetime.utcnow() + timedelta(hours=8))\
 				+ "\n"	
 	return log_data
 
@@ -239,43 +239,43 @@ def _roundup(d: float, l: int) -> str:
 def check_result():
 	ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, DELTA_T)
 	reward_map = RewardMap(ego_vehicle)
-	world = StraightRoadEnv(16, DELTA_T, reward_map)
-	world.spawn_vehicle(ego_vehicle)
+	game = StraightRoadEnv(16, DELTA_T, reward_map)
+	game.spawn_vehicle(ego_vehicle)
 	"""
 	trafficLight = TrafficLight(ID:str, location:float, initialPhase:str, countDown:int, DELTA_T:float)
 	"""
-	trafficLight_1  = TrafficLight("1",  100,  "green", 10, world.get_delta_t())
-	trafficLight_2  = TrafficLight("2",  200,  "green", 47, world.get_delta_t())
-	trafficLight_3  = TrafficLight("3",  500,  "green", 61, world.get_delta_t())
-	trafficLight_4  = TrafficLight("4",  2000, "green", 53, world.get_delta_t())
-	trafficLight_5  = TrafficLight("5",  2500, "green", 53, world.get_delta_t())
-	trafficLight_6  = TrafficLight("6",  3200, "green", 61, world.get_delta_t())
-	trafficLight_7  = TrafficLight("7",  3400, "green", 67, world.get_delta_t())
-	trafficLight_8  = TrafficLight("8",  3600, "green", 67, world.get_delta_t())
-	trafficLight_9  = TrafficLight("9",  3800, "green", 67, world.get_delta_t())
-	trafficLight_10 = TrafficLight("10", 4000, "green", 57, world.get_delta_t())
-	trafficLight_11 = TrafficLight("11", 5000, "green", 57, world.get_delta_t())
-	trafficLight_12 = TrafficLight("12", 5100, "green", 67, world.get_delta_t())
-	trafficLight_13 = TrafficLight("13", 6000, "green", 61, world.get_delta_t())
-	trafficLight_14 = TrafficLight("14", 7000, "green", 61, world.get_delta_t())
-	trafficLight_15 = TrafficLight("15", 8000, "green", 61, world.get_delta_t())
-	trafficLight_16 = TrafficLight("16", 9900, "green", 61, world.get_delta_t())
-	world.add_traffic_light(trafficLight_1)
-	world.add_traffic_light(trafficLight_2)
-	world.add_traffic_light(trafficLight_3)
-	world.add_traffic_light(trafficLight_4)
-	world.add_traffic_light(trafficLight_5)
-	world.add_traffic_light(trafficLight_6)
-	world.add_traffic_light(trafficLight_7)
-	world.add_traffic_light(trafficLight_8)
-	world.add_traffic_light(trafficLight_9)
-	world.add_traffic_light(trafficLight_10)
-	world.add_traffic_light(trafficLight_11)
-	world.add_traffic_light(trafficLight_12)
-	world.add_traffic_light(trafficLight_13)
-	world.add_traffic_light(trafficLight_14)
-	world.add_traffic_light(trafficLight_15)
-	world.add_traffic_light(trafficLight_16)
+	trafficLight_1  = TrafficLight("1",  100,  "green", 10, game.get_delta_t())
+	trafficLight_2  = TrafficLight("2",  200,  "green", 47, game.get_delta_t())
+	trafficLight_3  = TrafficLight("3",  500,  "green", 61, game.get_delta_t())
+	trafficLight_4  = TrafficLight("4",  2000, "green", 53, game.get_delta_t())
+	trafficLight_5  = TrafficLight("5",  2500, "green", 53, game.get_delta_t())
+	trafficLight_6  = TrafficLight("6",  3200, "green", 61, game.get_delta_t())
+	trafficLight_7  = TrafficLight("7",  3400, "green", 67, game.get_delta_t())
+	trafficLight_8  = TrafficLight("8",  3600, "green", 67, game.get_delta_t())
+	trafficLight_9  = TrafficLight("9",  3800, "green", 67, game.get_delta_t())
+	trafficLight_10 = TrafficLight("10", 4000, "green", 57, game.get_delta_t())
+	trafficLight_11 = TrafficLight("11", 5000, "green", 57, game.get_delta_t())
+	trafficLight_12 = TrafficLight("12", 5100, "green", 67, game.get_delta_t())
+	trafficLight_13 = TrafficLight("13", 6000, "green", 61, game.get_delta_t())
+	trafficLight_14 = TrafficLight("14", 7000, "green", 61, game.get_delta_t())
+	trafficLight_15 = TrafficLight("15", 8000, "green", 61, game.get_delta_t())
+	trafficLight_16 = TrafficLight("16", 9900, "green", 61, game.get_delta_t())
+	game.add_traffic_light(trafficLight_1)
+	game.add_traffic_light(trafficLight_2)
+	game.add_traffic_light(trafficLight_3)
+	game.add_traffic_light(trafficLight_4)
+	game.add_traffic_light(trafficLight_5)
+	game.add_traffic_light(trafficLight_6)
+	game.add_traffic_light(trafficLight_7)
+	game.add_traffic_light(trafficLight_8)
+	game.add_traffic_light(trafficLight_9)
+	game.add_traffic_light(trafficLight_10)
+	game.add_traffic_light(trafficLight_11)
+	game.add_traffic_light(trafficLight_12)
+	game.add_traffic_light(trafficLight_13)
+	game.add_traffic_light(trafficLight_14)
+	game.add_traffic_light(trafficLight_15)
+	game.add_traffic_light(trafficLight_16)
 
 	trafficLights = [
 					trafficLight_1, trafficLight_2, trafficLight_3,trafficLight_4,
@@ -285,12 +285,12 @@ def check_result():
 					]
 	# reward_map.updateMapInfo(MAP_SIZE, DELTA_T, trafficLights)
 	reward_map.setTrafficLights(trafficLights)
-	# for i in world.actors:
+	# for i in game.actors:
 	# 	print(i.getID())
-	# check_env(world)
+	# check_env(game)
 	# model = SAC(
 	# 		"MultiInputPolicy", 
-	# 		env=world, 
+	# 		env=game, 
 	# 		batch_size=256, 
 	# 		verbose=1, 
 	# 		learning_rate=1e-5, 
@@ -298,8 +298,8 @@ def check_result():
 	model = SAC.load(f"./straightRoadModels/test_run_1/StraightRoad-v1_256_1e-5_cuda_60e5")
 	eposides = 6
 	for ep in range(eposides):
-	    obs = world.reset()[0]
-	    print(obs)
+	    obs = game.reset()[0]
+	    # print(obs)
 	    done = False
 	    rewards = 0
 	    step = 0
@@ -307,7 +307,7 @@ def check_result():
 	        step += 1 
 	        action, _states = model.predict(obs, deterministic=True)
 	        print("action = ", action)
-	        obs, reward, done, info, t = world.step(action)
+	        obs, reward, done, info, t = game.step(action)
 	        # display_in_carla(action[0])
 	        rewards += reward
 	# print(rewards)
@@ -330,7 +330,7 @@ main()
 # settings.synchronous_mode = True
 # settings.fixed_delta_seconds = DELTA_T
 # world.apply_settings(settings)# level = world.get_map()
-# blueprint_library = world.get_blueprint_library()
+# blueprint_library = game.get_blueprint_library()
 # ego_vehicle_spawn_point = carla.Transform(
 # 	carla.Location(x=-272, y=-18, z=0.281494), 
 # 	carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)

@@ -1,7 +1,7 @@
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-from World import World
+from Game import Game
 from rewards import RewardMap
 
 from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
@@ -10,7 +10,7 @@ from gymnasium.envs.registration import register
 from overrides import override
 
 
-class StraightRoadEnv(gym.Env, World):
+class StraightRoadEnv(gym.Env, Game):
     """Custom Environment that follows gym interface."""
 
     metadata = {
@@ -150,7 +150,7 @@ class StraightRoadEnv(gym.Env, World):
         pass
 
     def _get_observation(self) -> spaces.Box:
-        # need a pointer in World class that points to ego_vehicle
+        # need a pointer in 'Game' class that points to ego_vehicle
         ego_vehicle = self.actors[self._get_ego_vehicle_index()]
         obs = []
         obs.append(ego_vehicle.getLocation())
@@ -181,5 +181,5 @@ register(
     entry_point = "envs.straightRoad:StraightRoadEnv",
     # max_episode_steps is not necessary in this env as ev 
     # will always arrive at destination
-    max_episode_steps = 1e6
+    max_episode_steps = 1.5e5
 )

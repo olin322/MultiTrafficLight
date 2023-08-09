@@ -1,5 +1,5 @@
 
-from World import World
+from Game import Game
 from Actor import Actor
 from Vehicle import Vehicle
 from TrafficLight import TrafficLight
@@ -21,7 +21,7 @@ class RewardMap:
 		self.ego_vehicle_prev_location = ego_vehicle.getLocation()
 		# default values needs to be updated
 		self.ticks = 0
-		self.mapSize = 10000
+		self.mapSize = 10001
 		self.rewardMap = [1] * self.mapSize
 		self.delta_t = 0.02
 		self.trafficLights = []

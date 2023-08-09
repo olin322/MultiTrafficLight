@@ -100,8 +100,10 @@ class Vehicle(Actor):
 			# 	self.speed += speed
 			# else:
 			# 	self.speed = self.speedLimit
+			# print(self.speedLimit)
 			self.speed = min(self.speedLimit, (self.speed + acceleration * self.delta_t))
 		else:
+			# print(self.speedLimit)
 			self.speed = max(0, self.speed + acceleration * self.delta_t)
 		"""
 		the following line was WRONG
