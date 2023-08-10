@@ -115,8 +115,9 @@ class StraightRoadEnv(gym.Env, Game):
     def step(self, action) -> GymStepReturn: 
         self.rl_tick(action)
         observation = self._get_observation()
-        terminated = self.rewardMap.tick()
+        terminated = self.rewardMap.tick(action)
         reward = self.rewardMap.getStepReward() # update reward and reward map
+        if (reward == 0): print("reward is zero")
         if (not reward): print("reward is none")
         # unnecessary to check max_step as ev will always arrive destination
         terminated = terminated | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= 10000.0)

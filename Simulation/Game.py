@@ -7,6 +7,8 @@ import TrafficLight
 
 from Util.Utils import getClassName
 
+NORMALIZATION_RATIO = 2
+
 class Game:
     def __init__(self, delta_t: float):
         self.delta_t = delta_t
@@ -56,7 +58,7 @@ class Game:
         self._update_traffic_lights()
         if (action):
             i = self._get_ego_vehicle_index()
-            self.actors[i].accelerateAt(action[0])
+            self.actors[i].accelerateAt(action[0] * NORMALIZATION_RATIO )
         return None
 
     def spawn_vehicle(self, vehicle: Actor) -> None:

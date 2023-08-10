@@ -56,13 +56,13 @@ class RewardMap:
 							self.delta_t, 
 							self.trafficLights]
 
-	def tick(self) -> bool:
+	def tick(self, action) -> bool:
 		self.ticks += 1
-		terminated = self.calcReward()
+		terminated = self.calcReward(action)
 		return terminated
 
 	# need to add rewards for passing a traffic light?
-	def calcReward(self) -> bool:
+	def calcReward(self, action) -> bool:
 		"""
 		reward coefficient
 		1 - (time passed/total time needed)
@@ -78,7 +78,7 @@ class RewardMap:
 		1. distance traveled during this step:
 			1 reward for each integer point
 		2. reward for passing a traffic light passed
-			100 for first light, 200 for second light etc,.
+			10 for first light, 20 for second light etc,.
 		"""
 		terminated = False
 		for i in range(floor(self.ego_vehicle_prev_location), 
@@ -86,16 +86,18 @@ class RewardMap:
 			reward += self.rewardMap[i] * coef
 			self.rewardMap[i] = 0
 		if (self.nextLight):
-			if (self.ego_vehicle_prev_location < self.nextLight.getLocation()) & \
-				 (self.nextLight.getLocation() < self.ego_vehicle.getLocation()):
+			if (self.ego_vehicle_prev_locationev_location < self.nextLight.getLocation()) & \
+					(self.nextLight.getLocation() < self.ego_vehicle.getLocation()):
 				if (self.nextLight.getPhase() == "red"):
 					terminated = True
-					reward -= self.accumulatedReward
+					reward -= 2000
+					print("passed red light")
 				else:
 					reward += 10 * self.lightsPassed
 					self.lightsPassed += 1
 					self.nextLight = self._find_next_light()
 		reward -= self.delta_t
+		reward -= action * 0.2 * self.delta_t
 		self.ego_vehicle_prev_location = self.ego_vehicle.getLocation()
 		self.accumulatedReward += reward
 		self.stepReward = reward
