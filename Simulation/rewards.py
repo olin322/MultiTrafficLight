@@ -28,14 +28,14 @@ class RewardMap:
 		self.lightsPassed = 1
 		self.nextLight = self._find_next_light()
 		self.stepReward = 0
-		self.initialState = [
-							self.accumulatedReward, 
-							self.ego_vehicle, 
-							self.mapSize, 
-							self.rewardMap,
-							self.delta_t, 
-							self.trafficLights
-							]
+		self.initialState = {
+							"accumulatedReward":self.accumulatedReward, 
+							"ego_vehicle":self.ego_vehicle, 
+							"mapSize":self.mapSize, 
+							"rewardMap":self.rewardMap,
+							"delta_t":self.delta_t, 
+							"trafficLights":self.trafficLights
+							}
 
 	# serves as an additional constructor
 	def updateMapInfo(self, 
@@ -48,13 +48,9 @@ class RewardMap:
 		self.trafficLights = trafficLights
 		self.nextLight = self._find_next_light()
 		self.stepReward = 0
-		self.initialState = [
-							self.accumulatedReward, 
-							self.ego_vehicle, 
-							self.mapSize, 
-							self.rewardMap,
-							self.delta_t, 
-							self.trafficLights]
+		self.initialState["mapSize"] = mapSize
+		self.initialState["delta_t"] = delta_t
+		self.initialState["trafficLights"] = trafficLights
 
 	def tick(self, action) -> bool:
 		self.ticks += 1
@@ -97,7 +93,7 @@ class RewardMap:
 					self.lightsPassed += 1
 					self.nextLight = self._find_next_light()
 		reward -= self.delta_t
-		reward -= action * 0.2 * self.delta_t
+		reward -= action * 0.02 * self.delta_t
 		self.ego_vehicle_prev_location = self.ego_vehicle.getLocation()
 		self.accumulatedReward += reward
 		self.stepReward = reward
@@ -110,14 +106,14 @@ class RewardMap:
 		return self.accumulatedReward
 
 	def reset(self, seed=None) -> None:
-		self.accumulatedReward = self.initialState[0]
-		self.ego_vehicle = self.initialState[1]
+		self.accumulatedReward = self.initialState["accumulatedReward"]
+		self.ego_vehicle = self.initialState["ego_vehicle"]
 		self.ego_vehicle_prev_location = self.ego_vehicle.getLocation()
 		self.ticks = 0
-		self.mapSize = self.initialState[2]
-		self.rewardMap = self.initialState[3]	
-		self.delta_t = self.initialState[4]
-		self.trafficLights = self.initialState[5]
+		self.mapSize = self.initialState["mapSize"]
+		self.rewardMap = self.initialState["rewardMap"]	
+		self.delta_t = self.initialState["delta_t"]
+		self.trafficLights = self.initialState["trafficLights"]
 		self.nextLight = self._find_next_light()
 		self.stepReward = 0
 		return None
@@ -136,6 +132,7 @@ class RewardMap:
 
 	def _find_next_light(self) -> TrafficLight:
 		# print(self.trafficLights)
+		nextLight = None
 		if (not self.trafficLights):
 			return None
 			nextLight = None

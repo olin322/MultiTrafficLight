@@ -80,8 +80,17 @@ class StraightRoadEnv(gym.Env, Game):
         or 2-D array with i rows and j cols,
         and the low high values are inclusive.
         """
-        # num_obs = self.totalTrafficLights * 3 + 2
-        self.observation_space = spaces.Box(low=0, high=10000, shape=(50,), dtype=np.float32)
+
+        """
+        observation_space[0]: location of ego_vehicle
+        observation_space[1]: speed of ego_vehicle
+        observation_space[2]: distance to next light
+        observation_space[3+3*i]: location of trafficLights[i]
+        observation_space[4+3*i]: countdown of trafficLights[i]
+        observation_space[5+3*i]: phase of trafficLights[i]
+        """
+        num_obs = self.totalTrafficLights * 3 + 3
+        self.observation_space = spaces.Box(low=0, high=10000, shape=(num_obs,), dtype=np.float32)
         # self.observation_space = spaces.Dict(
         #     {
         #         "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float64),
@@ -156,6 +165,11 @@ class StraightRoadEnv(gym.Env, Game):
         obs = []
         obs.append(ego_vehicle.getLocation())
         obs.append(ego_vehicle.getSpeed())
+        if (self._find_next_light()):
+            dis = self._find_next_light().getLocation() - ego_vehicle.getLocation()
+            obs.append(dis)
+        else:
+            obs.append(1)
         for a in self.actors:
             if(self._find_Actor_Type(a) == "TrafficLight"):
                 obs.append(a.getLocation())

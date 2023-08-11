@@ -150,7 +150,10 @@ def main():
 		"""
 		model.save(f"./straightRoadModels/081023/StraightRoad-v1_256_1e-6_cuda_{i+1}e6[-2,2]_newreward")
 		print(f"finished training StraightRoad-v1_256_1e-6_cuda_{i+1}e6[-2, 2]")
-	for i in range(2, 12, 1):
+		now = datetime.now()
+		current_time = now.strftime("%H:%M:%S")
+		print(current_time)
+	for i in range(12, 14, 1):
 		_func(i)
 	# model.learn(1e5, progress_bar=True)
 	# model.save(f"./straightRoadModels/test_run_2/arr_obs_StraightRoad-v1_256_1e-5_cuda_{i}e5")
