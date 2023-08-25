@@ -60,3 +60,7 @@ conda thu channels
 /Simulation/CusEnv.py
 /Simulation/temp.py
 /Simulation/SAC_StraightRoad-v1_256_1e-5_0809/
+/test/
+/MultiProcessing/__pycache__/
+/MultiProcessing/Util/__pycache__/
+/MultiProcessing/envs/__pycache__/

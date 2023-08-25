@@ -25,9 +25,15 @@ class Vehicle(Actor):
 				max_acceleration: float, max_deacceleration: float, \
 				delta_t: float, speed = 0.0, \
 				speedLimit = 16.6667):
-		self.INITIAL_STATE = [location, mass, 
-							max_acceleration, max_deacceleration,
-							delta_t, speed, speedLimit]
+		self.INITIAL_STATE = {
+							"location": location, 
+							"mass":	mass, 
+							"max_acceleration":	max_acceleration, 
+							"max_deacceleration": max_deacceleration,
+							"delta_t": delta_t,
+							"speed": speed,
+							"speedLimit": speedLimit
+							}
 		super().__init__(ID, location)
 		self.mass = mass
 		self.max_acceleration = max_acceleration
@@ -170,16 +176,16 @@ class Vehicle(Actor):
 
 	def isAtSpeedLimit(self) -> bool:
 		return self.speed == self.speedLimit
-		
+
 	@override
 	def reset(self, seed=None) -> None:
-		self.location = self.INITIAL_STATE[0]
-		self.mass = self.INITIAL_STATE[1]
-		self.max_acceleration = self.INITIAL_STATE[2]
-		self.max_deacceleration = self.INITIAL_STATE[3]
-		self.delta_t = self.INITIAL_STATE[4]
-		self.speed = self.INITIAL_STATE[5]
-		self.speedLimit = self.INITIAL_STATE[6]
+		self.location = self.INITIAL_STATE["location"]
+		self.mass = self.INITIAL_STATE["mass"]
+		self.max_acceleration = self.INITIAL_STATE["max_acceleration"]
+		self.max_deacceleration = self.INITIAL_STATE["max_deacceleration"]
+		self.delta_t = self.INITIAL_STATE["delta_t"]
+		self.speed = self.INITIAL_STATE["speed"]
+		self.speedLimit = self.INITIAL_STATE["speedLimit"]
 		
 		self.deaccelerate_mode = False
 		# print("vehicle", seed)
