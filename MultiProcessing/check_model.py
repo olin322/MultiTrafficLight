@@ -8,7 +8,7 @@ from Vehicle import Vehicle
 from rewards import RewardMap
 from TrafficLight import TrafficLight
 from envs.straightRoad import StraightRoadEnv
-from envs.SingleTrafficLightEnv import SingleTrafficLightEnv
+from envs.SimpleEnvs import SingleTrafficLightEnvMultiProc, TwoTrafficLightEnvMultiProc
 
 import matplotlib.pyplot as plt
 import random
@@ -49,7 +49,7 @@ NUMBR_OF_LIGHTS = 16
 
 def checkModel_MultiPPO():
 	# stl_vec_env = make_vec_env("SingleTrafficLightMultiProc-v1", 1024)
-	env = gym.make("SingleTrafficLightMultiProc-v1")
+	env = gym.make("TwoTrafficLightMultiProc-v1")
 	# model = PPO(
 	# 	"MlpPolicy", 
 	# 	env=env, 
@@ -60,10 +60,10 @@ def checkModel_MultiPPO():
 	# 	verbose=1, 
 	# 	device='cuda'
 	# )
-	model = PPO.load(f"./models/0824/PPO_MultiProcSingleTrafficLight-v1_1024_3e-7_cuda_4.5e9[-2,2]_1630")
+	model = PPO.load(f"./models/0828/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_3e8[-2,2]")
 	eposides = 1
 
-	file_name = f"./check_result_log/0824_PPO_MultiProcSingleTrafficLight-v1_1024_3e-7_cuda_4.5e9[-2,2]_1630"
+	file_name = f"./check_result_log/0828_PPO_PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_3e8[-2,2]"
 	f = open(file_name, "a")
 	f.write("step, action, location, speed, observation\n")
 	data = ''

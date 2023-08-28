@@ -65,11 +65,11 @@ def twoTrafficLights():
 		verbose=1, 
 		device='cuda'
 		)
-	for i in range(0, 1):
-		# model = PPO.load(f"./models/0825/PPO_MultiProcSingleTrafficLight-v1_1024_3e-6_cuda_3.3e9[-2,2]_0917")
-		# model.set_env(stl_vec_env)
-		model.learn(1e9, progress_bar=True)
-		trained = f"./models/0825/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_1e9[-2,2]"
+	for i in range(3, 52, 3):
+		model = PPO.load(f"./models/0828/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{i}e8[-2,2]")
+		model.set_env(stl_vec_env)
+		model.learn(3e8, progress_bar=True)
+		trained = f"./models/0828/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{i+3}e8[-2,2]"
 		model.save(trained)
 		print("Finished Training:", trained)
 		now = datetime.now()

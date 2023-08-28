@@ -146,4 +146,4 @@ def SingleTrafficLightMultiEnv():
 
 # subprocess.run(["tensorboard", "--logdir", "./tb_log"])
 # tensorboard --logdir ./tb_log
-SingleTrafficLightMultiEnv()
+# SingleTrafficLightMultiEnv()

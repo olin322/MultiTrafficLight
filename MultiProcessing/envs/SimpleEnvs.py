@@ -281,9 +281,12 @@ class TwoTrafficLightEnvMultiProc(gym.Env, Game):
             obs.append(-1)
         for a in self.actors:
             if(self._find_Actor_Type(a) == "TrafficLight"):
-                # obs.append(a.getLocation())
-                obs.append(a.getCountdown())
-                obs.append(a.getPhaseInFloat())
+                if(a.getLocation() < ego_vehicle.getLocation()):
+                    obs.append(-1)
+                    obs.append(-1)
+                else:
+                    obs.append(a.getCountdown())
+                    obs.append(a.getPhaseInFloat())
         observation = np.array(obs, dtype=np.float32)
         return observation
 
