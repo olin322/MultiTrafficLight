@@ -81,6 +81,33 @@ def seventeenTrafficLights():
 		current_time = now.strftime("%H:%M:%S")
 		print(current_time)
 
+def threeTrafficLights():
+	stl_vec_env = make_vec_env("ThreeTrafficLights", 1024)
+	model = PPO(
+		"MlpPolicy", 
+		env=stl_vec_env, 
+		batch_size=1024,
+		learning_rate= 3e-5, 
+		# action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
+		# tensorboard_log='./tb_log/0901',
+		verbose=1, 
+		device='cuda'
+		)
+	for i in range(30, 32, 2):
+		model_name = f"PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_27e8[-2,2]"
+		model = PPO.load("./models/0828/" + model_name)
+		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
+		print("loaded", model_name)
+		model.set_env(stl_vec_env)
+		model.learn(1e8, progress_bar=True)
+		trained = f"./models/0901/PPO_ThreeTrafficLights_2048_3e-5_deltat_0.1_{1}e8[-2,2]"
+		model.save(trained)
+		print("Finished Training:", trained)
+		now = datetime.now()
+		current_time = now.strftime("%H:%M:%S")
+		print(current_time)
+
+
 def twoTrafficLights():	
 	stl_vec_env = make_vec_env("TwoTrafficLightMultiProc-v1", 1024)
 	model = PPO(
