@@ -19,6 +19,12 @@ class TrafficLight(Actor):
 		self.delta_t = delta_t
 		self.countdown = int(math.ceil(timer))
 		self.timer_repeat = timer
+		self.INITIAL_STATE = {
+								"phase": self.phase,
+								"timer": self.timer,
+								"countdown": self.countdown,
+								"delta_t": self.delta_t
+							}
 
 	
 
@@ -30,9 +36,10 @@ class TrafficLight(Actor):
 	
 
 	def reset(self, seed=None):
-		self.timer = self.timer_repeat
-		self.countdown = int(math.ceil(self.timer))
-		self.phase = "green"
+		self.timer = self.INITIAL_STATE["timer"]
+		self.countdown = self.INITIAL_STATE["countdown"]
+		self.phase = self.INITIAL_STATE["phase"]
+		self.delta_t = self.INITIAL_STATE["delta_t"]
 
 	## TO-DO:
 	## resolve the issue during phase transition

@@ -65,3 +65,6 @@ conda thu channels
 /MultiProcessing/Util/__pycache__/
 /MultiProcessing/envs/__pycache__/
 /MultiProcessing/tb_log/
+/MultiProcessing/notes.py
+/MultiProcessing/temp_error_message
+

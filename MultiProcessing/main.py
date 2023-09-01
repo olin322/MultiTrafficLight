@@ -16,6 +16,7 @@ import math
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+from typing import Callable
 
 import gymnasium as gym
 
@@ -38,12 +39,12 @@ from stable_baselines3.common.env_checker import check_env
 
 # hyper parameter
 # frame = 0
-INITIAL_REWARD = 0
-MAP_SIZE = 1000 # m
-DESTINATION = MAP_SIZE
-HZ = 10
-DELTA_T = 1/HZ
-NUMBR_OF_LIGHTS = 16
+# INITIAL_REWARD = 0
+# MAP_SIZE = 1000 # m
+# DESTINATION = MAP_SIZE
+# HZ = 10
+# DELTA_T = 1/HZ
+# NUMBR_OF_LIGHTS = 16
 
 # TO-DO
 # 1. implement seed for random generator so experiment can be replicated
@@ -51,7 +52,34 @@ NUMBR_OF_LIGHTS = 16
 
 def main():
 	# oneTrafficLight()
-	twoTrafficLights()
+	# twoTrafficLights()
+	seventeenTrafficLights()
+
+def seventeenTrafficLights():
+	stl_vec_env = make_vec_env("SeventeenTrafficLights", 2048)
+	model = PPO(
+		"MlpPolicy", 
+		env=stl_vec_env, 
+		batch_size=2048,
+		learning_rate= 3e-5, 
+		# action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
+		tensorboard_log='./tb_log/0901',
+		verbose=1, 
+		device='cuda'
+		)
+	for i in range(30, 32, 2):
+		# model_name = f"PPO_TwoTrafficLights_1024_3e-5_deltat_0.1_{}e8[-2,2]"
+		# model = PPO.load("./models/0828/" + model_name)
+		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
+		# print("loaded", model_name)
+		# model.set_env(stl_vec_env)
+		model.learn(20e8, progress_bar=True)
+		trained = f"./models/0901/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{20}e8[-2,2]"
+		model.save(trained)
+		print("Finished Training:", trained)
+		now = datetime.now()
+		current_time = now.strftime("%H:%M:%S")
+		print(current_time)
 
 def twoTrafficLights():	
 	stl_vec_env = make_vec_env("TwoTrafficLightMultiProc-v1", 1024)
@@ -59,17 +87,35 @@ def twoTrafficLights():
 		"MlpPolicy", 
 		env=stl_vec_env, 
 		batch_size=1024,
-		learning_rate=3e-6, 
+		learning_rate= 3e-6, 
 		# action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
 		tensorboard_log='./tb_log/0825',
 		verbose=1, 
 		device='cuda'
 		)
-	for i in range(3, 52, 3):
-		model = PPO.load(f"./models/0828/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{i}e8[-2,2]")
+	for i in range(30, 32, 2):
+		model_name = f"PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{27}e8[-2,2]"
+		model = PPO.load("./models/0828/" + model_name)
+		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
+		# model.set_parameters({"param_groups":[
+		# 	{	
+		# 		'lr': 7.77e-9, 
+		# 		'betas': (0.9, 0.999), 
+		# 		'eps': 1e-05, 
+		# 		'weight_decay': 0, 
+		# 		'amsgrad': False, 
+		# 		'maximize': False, 
+		# 		'foreach': None, 
+		# 		'capturable': False, 
+		# 		'differentiable': False, 
+		# 		'fused': None, 
+		# 		'params': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+		# 	}]}, True, "cuda")
+		# print(model.get_parameters())
+		print("loaded", model_name)
 		model.set_env(stl_vec_env)
-		model.learn(3e8, progress_bar=True)
-		trained = f"./models/0828/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{i+3}e8[-2,2]"
+		model.learn(13e8, progress_bar=True)
+		trained = f"./models/0831/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_{40}e8[-2,2]"
 		model.save(trained)
 		print("Finished Training:", trained)
 		now = datetime.now()
@@ -98,6 +144,51 @@ def oneTrafficLight():
 		now = datetime.now()
 		current_time = now.strftime("%H:%M:%S")
 		print(current_time)
+
+
+def linear_decreasing_learning_rate(initial_learning_rate: float, \
+					target_learning_rate: float) -> Callable[[float], float]:
+	def _func(progress_remaining: float) -> float:
+		return (initial_learning_rate - target_learning_rate) \
+					* progress_remaining + target_learning_rate
+	return _func
+
+def piecewise_learning_rate(initial_learning_rate: float) -> Callable[[float], float]:
+	def _func(progress_remaining: float) -> float:
+		if (progress_remaining > 0.5):
+			return initial_learning_rate
+		elif (progress_remaining > 0.2):
+			return initial_learning_rate * 0.1
+		else:
+			return initial_learning_rate * 0.01
+	return _func
+
+
+
+"""
+The following does not work
+
+# Get the parameters that where saved with the model
+params = model.get_parameters()
+
+# Print the initial learning rate
+print("INITIAL LR: {}".format(params['policy.optimizer']['param_groups'][0]['lr']))
+
+# Change the learning rate
+params['policy.optimizer']['param_groups'][0]['lr'] = 0.000005
+
+# Set the parameters on the model
+model.set_parameters(params, exact_match=True)
+
+new_params = model.get_parameters()
+# Print the initial learning rate
+print("NEW LR: {}".format(new_params['policy.optimizer']['param_groups'][0]['lr']))
+
+# Start training
+model.learn(total_timesteps=1000)
+"""
+
+
 
 
 def _notes():

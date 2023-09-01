@@ -17,7 +17,7 @@ from datetime import datetime
 
 client = carla.Client('localhost', 2000)
 # load map 
-client.load_world('longandwideroad')
+client.load_world('10kmStaightRoad')
 world = client.get_world()
 settings = world.get_settings()
 

@@ -10,6 +10,7 @@ from typing import List
 class RewardMap:
 	
 	def __init__(self, 
+				mapSize: int,
 				delta_t: float,
 				ego_vehicle: Vehicle,
 				trafficLights: List[TrafficLight],
@@ -23,7 +24,7 @@ class RewardMap:
 		self.ego_vehicle_prev_location = ego_vehicle.getLocation()
 		# default values needs to be updated
 		self.ticks = 0
-		self.mapSize = 301
+		self.mapSize = mapSize
 		self.rewardMap = [1] * self.mapSize
 		self.delta_t = delta_t
 		self.trafficLights = trafficLights
