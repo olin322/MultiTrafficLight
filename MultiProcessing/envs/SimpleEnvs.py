@@ -490,7 +490,7 @@ class SeventeenTrafficLightEnvMultiProc(gym.Env, Game):
         reward = self.rewardMap.getStepReward() # update reward and reward map
         terminated = terminated \
                      | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= self.mapSize) \
-                     | bool(self.frame > 5000)
+                     | bool(self.frame > 10000)
         truncated = False # unnecessary to truncate anything
         info = {}
         return observation, reward, terminated, truncated, info
@@ -544,5 +544,5 @@ register(
     entry_point = "envs.SimpleEnvs:SeventeenTrafficLightEnvMultiProc",
     # max_episode_steps is not necessary in this env as ev 
     # will always arrive at destination
-    max_episode_steps = 1e5
+    max_episode_steps = 1e4
 )

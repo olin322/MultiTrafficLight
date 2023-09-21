@@ -49,7 +49,7 @@ from stable_baselines3.common.env_checker import check_env
 
 def checkModel_MultiPPO():
 	# stl_vec_env = make_vec_env("SingleTrafficLightMultiProc-v1", 1024)
-	env = gym.make("TwoTrafficLightMultiProc-v1")
+	env = gym.make("SeventeenTrafficLights")
 	# model = PPO(
 	# 	"MlpPolicy", 
 	# 	env=env, 
@@ -60,12 +60,12 @@ def checkModel_MultiPPO():
 	# 	verbose=1, 
 	# 	device='cuda'
 	# )
-	model = PPO.load(f"./models/0831/PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_40e8[-2,2]")
+	model = PPO.load(f"./models/0915/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{90}e8[-2,2]")
 	eposides = 1
 
-	file_name = f"./check_result_log/0831_PPO_TwoTrafficLights_1024_3e-6_deltat_0.1_40e8[-2,2]_nice_model"
-	# f = open(file_name, "a")
-	# f.write("step, action, location, speed, observation\n")
+	file_name = f"./check_result_log/0915_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{90}e8[-2,2]"
+	f = open(file_name, "a")
+	f.write("step, action, location, speed, observation\n")
 	data = ''
 	for ep in range(eposides):
 		obs = env.reset()[0]
@@ -82,6 +82,6 @@ def checkModel_MultiPPO():
 					+ str([float(f'{i:.6f}') for i in obs]) + "\n"
 			print(data)
 			rewards += reward
-	# f.write(data)
-	# f.close()
+	f.write(data)
+	f.close()
 checkModel_MultiPPO()

@@ -24,6 +24,7 @@ from stable_baselines3 import SAC, TD3, A2C, DDPG, PPO
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.noise import NormalActionNoise
+from stable_baselines3.common.callbacks import EvalCallback
 
 # import carla
 # from carla import Actor
@@ -55,6 +56,31 @@ def main():
 	# twoTrafficLights()
 	seventeenTrafficLights()
 
+
+
+# # Callback
+# eval_callback = EvalCallback(env, best_model_save_path="./logs/BestModel0419_02/",
+#                              log_path="./logs/BestModel0419_02/", eval_freq=500,
+#                              deterministic=True, render=False)
+#
+# # Train the agent and display a progress bar
+# model.learn(
+#     total_timesteps=int(7e6),
+#     tb_log_name='Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1',
+#     progress_bar=True,
+#     callback=eval_callback
+# )
+#
+# # Save the agent
+# model.save("Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1")
+# del model  # delete trained model to demonstrate loading
+#
+# Load the trained agent
+# NOTE: if you have loading issue, you can pass `print_system_info=True`
+# to compare the system on which the model was trained vs the current one
+# model = DQN.load("Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1", env=env)
+
+
 def seventeenTrafficLights():
 	stl_vec_env = make_vec_env("SeventeenTrafficLights", 2048)
 	model = PPO(
@@ -67,14 +93,17 @@ def seventeenTrafficLights():
 		verbose=1, 
 		device='cuda'
 		)
-	for i in range(30, 32, 2):
-		# model_name = f"PPO_TwoTrafficLights_1024_3e-5_deltat_0.1_{}e8[-2,2]"
-		# model = PPO.load("./models/0828/" + model_name)
+	eval_callback = EvalCallback(stl_vec_env, best_model_save_path="./models/0911/best_models/",
+                             log_path="./models/0911/best_models_log/", eval_freq=1e5,
+                             deterministic=True, render=False)
+	for i in range(0, 1):
+		model_name = f"PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{90}e8[-2,2]"
+		model = PPO.load("./models/0915/" + model_name)
 		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
 		# print("loaded", model_name)
-		# model.set_env(stl_vec_env)
-		model.learn(20e8, progress_bar=True)
-		trained = f"./models/0901/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{20}e8[-2,2]"
+		model.set_env(stl_vec_env)
+		model.learn(20e8, progress_bar=True)#, callback=eval_callback)
+		trained = f"./models/0915/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{110}e8[-2,2]"
 		model.save(trained)
 		print("Finished Training:", trained)
 		now = datetime.now()
@@ -305,3 +334,7 @@ def _notes():
 		_func(i)
 
 main()
+
+
+
+
