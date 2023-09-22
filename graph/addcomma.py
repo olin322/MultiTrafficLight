@@ -3,7 +3,8 @@ def addComma():
 	location = ""
 	l = f.readline()
 	while(l):
-		t = l + ","
+		t = l[1:].strip()
+		t += ",\n"
 		location += t
 		l = f.readline()
 	f.close()
@@ -11,4 +12,20 @@ def addComma():
 	a.writelines(location)
 	a.close()
 
-addComma()
+# addComma()
+
+def trimPrefix():
+	f = open("raw_data.py", "r")
+	location = ""
+	l = f.readline()
+	while(l):
+		t = l[15:].strip()
+		t += ",\n"
+		location += t
+		l = f.readline()
+	f.close()
+	a = open("./new_simple_location.py", "w")
+	a.writelines(location)
+	a.close()
+
+trimPrefix()
