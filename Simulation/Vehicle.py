@@ -100,8 +100,10 @@ class Vehicle(Actor):
 			# 	self.speed += speed
 			# else:
 			# 	self.speed = self.speedLimit
+			# print(self.speedLimit)
 			self.speed = min(self.speedLimit, (self.speed + acceleration * self.delta_t))
 		else:
+			# print(self.speedLimit)
 			self.speed = max(0, self.speed + acceleration * self.delta_t)
 		"""
 		the following line was WRONG
@@ -166,6 +168,9 @@ class Vehicle(Actor):
 	def getSpeed(self) -> float:
 		return self.speed
 
+	def isAtSpeedLimit(self) -> bool:
+		return self.speed == self.speedLimit
+		
 	@override
 	def reset(self, seed=None) -> None:
 		self.location = self.INITIAL_STATE[0]
