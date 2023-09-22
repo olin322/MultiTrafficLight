@@ -1,7 +1,7 @@
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-from World import World
+from Game import Game
 from rewards import RewardMap
 
 from stable_baselines3.common.type_aliases import GymObs, GymStepReturn
@@ -10,7 +10,7 @@ from gymnasium.envs.registration import register
 from overrides import override
 
 
-class StraightRoadEnv(gym.Env, World):
+class StraightRoadEnv(gym.Env, Game):
     """Custom Environment that follows gym interface."""
 
     metadata = {
@@ -80,8 +80,17 @@ class StraightRoadEnv(gym.Env, World):
         or 2-D array with i rows and j cols,
         and the low high values are inclusive.
         """
-        # num_obs = self.totalTrafficLights * 3 + 2
-        self.observation_space = spaces.Box(low=0, high=10000, shape=(50,), dtype=np.float32)
+
+        """
+        observation_space[0]: location of ego_vehicle
+        observation_space[1]: speed of ego_vehicle
+        observation_space[2]: distance to next light
+        observation_space[3+3*i]: location of trafficLights[i]
+        observation_space[4+3*i]: countdown of trafficLights[i]
+        observation_space[5+3*i]: phase of trafficLights[i]
+        """
+        num_obs = self.totalTrafficLights * 3 + 3
+        self.observation_space = spaces.Box(low=0, high=10000, shape=(num_obs,), dtype=np.float32)
         # self.observation_space = spaces.Dict(
         #     {
         #         "ego_vehicle_location": spaces.Box(low=-0.1, high=10000.0, shape=(1,), dtype=np.float64),
@@ -115,8 +124,9 @@ class StraightRoadEnv(gym.Env, World):
     def step(self, action) -> GymStepReturn: 
         self.rl_tick(action)
         observation = self._get_observation()
-        terminated = self.rewardMap.tick()
+        terminated = self.rewardMap.tick(action)
         reward = self.rewardMap.getStepReward() # update reward and reward map
+        if (reward == 0): print("reward is zero")
         if (not reward): print("reward is none")
         # unnecessary to check max_step as ev will always arrive destination
         terminated = terminated | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= 10000.0)
@@ -150,11 +160,16 @@ class StraightRoadEnv(gym.Env, World):
         pass
 
     def _get_observation(self) -> spaces.Box:
-        # need a pointer in World class that points to ego_vehicle
+        # need a pointer in 'Game' class that points to ego_vehicle
         ego_vehicle = self.actors[self._get_ego_vehicle_index()]
         obs = []
         obs.append(ego_vehicle.getLocation())
         obs.append(ego_vehicle.getSpeed())
+        if (self._find_next_light()):
+            dis = self._find_next_light().getLocation() - ego_vehicle.getLocation()
+            obs.append(dis)
+        else:
+            obs.append(1)
         for a in self.actors:
             if(self._find_Actor_Type(a) == "TrafficLight"):
                 obs.append(a.getLocation())
@@ -181,5 +196,5 @@ register(
     entry_point = "envs.straightRoad:StraightRoadEnv",
     # max_episode_steps is not necessary in this env as ev 
     # will always arrive at destination
-    max_episode_steps = 1e6
+    max_episode_steps = 1.5e5
 )
