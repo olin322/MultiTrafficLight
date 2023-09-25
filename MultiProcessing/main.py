@@ -97,13 +97,13 @@ def seventeenTrafficLights():
                              log_path="./models/0911/best_models_log/", eval_freq=1e5,
                              deterministic=True, render=False)
 	for i in range(0, 1):
-		model_name = f"PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{110}e8[-2,2]"
-		model = PPO.load("./models/0915/" + model_name)
+		model_name = f"PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{130}e8[-2,2]"
+		model = PPO.load("./models/0922/" + model_name)
 		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
 		# print("loaded", model_name)
 		model.set_env(stl_vec_env)
-		model.learn(20e8, progress_bar=True)#, callback=eval_callback)
-		trained = f"./models/0922/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{130}e8[-2,2]"
+		model.learn(10e8, progress_bar=True)#, callback=eval_callback)
+		trained = f"./models/0925/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{140}e8[-2,2]"
 		model.save(trained)
 		print("Finished Training:", trained)
 		now = datetime.now()
@@ -219,7 +219,7 @@ def piecewise_learning_rate(initial_learning_rate: float) -> Callable[[float], f
 			return initial_learning_rate * 0.01
 	return _func
 
-def simpleControl():
+
 	
 
 

@@ -1,40 +1,50 @@
-#!/usr/bin/env python
 
-import sys
-from mapinfo import MAP
-
-sys.path.append(
-    '~Owen/CarlaFromSource/carla/PythonAPI/carla/dist/carla-X.X.X-py%d.%d-linux-x86_64.egg' % (sys.version_info.major,
-                                                             sys.version_info.minor))
-
-import math
 import carla
 from carla import Actor
 from carla import Vector3D
-from datetime import date
-from datetime import datetime
-from mapinfo import MAP
+from carla import Transform, Location, Rotation
+
+# from stable_baselines3.common.env_checker import check_env
+
+# from World import World
+# from Actor import Actor
+# from Vehicle import Vehicle
+# from rewards import RewardMap
+# from TrafficLight import TrafficLight
+# from envs.straightRoad import StraightRoadEnv
+
+# import matplotlib.pyplot as plt
+# import random
+# import matplotlib.animation as animation
+# import math
+# from datetime import date
+# from datetime import datetime
+# from datetime import timedelta
+
+# import gymnasium as gym
+
+# from stable_baselines3 import SAC, TD3, A2C, DDPG
+# from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
+# from stable_baselines3.common.env_util import make_vec_env
+# from stable_baselines3.common.noise import NormalActionNoise
+
+
 
 client = carla.Client('localhost', 2000)
-# load map 
-client.generate_opendrive_world(MAP)
-# client.load_world('Town10HD_Opt')
+client.load_world('Town06')
 world = client.get_world()
 settings = world.get_settings()
-
-step = 0
-
 settings.synchronous_mode = True
 settings.fixed_delta_seconds = 0.02
 world.apply_settings(settings)# level = world.get_map()
 blueprint_library = world.get_blueprint_library()
 
 ego_vehicle_spawn_point_1 = carla.Transform(
-  carla.Location(x=-4990, y=3, z=0.2), 
+  carla.Location(x=-272, y=-18, z=0.281494), 
   carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
 )
 ego_vehicle_spawn_point_2 = carla.Transform(
-  carla.Location(x=-4990, y=-3, z=0.2), 
+  carla.Location(x=-272, y=-10, z=0.281494), 
   carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000)
 )
 
@@ -47,34 +57,17 @@ ego_vehicle_2 = world.spawn_actor(
     ego_vehicle_spawn_point_2
 )
 
-# spectator = world.get_spectator()
-# spectator_transform = ego_vehicle_1.get_transform()
-# spectator.set_transform(
-#     carla.Transform(spectator_transform.location + \
-#         carla.Location(x=0, y=0,z=30), carla.Rotation(pitch=-90)
-#     )
-# )
-
-
-
-
-
-# ego_vehicle_spawn_point = carla.Transform(carla.Location(x=-272, y=-18, z=0.281494), \
-#                                           carla.Rotation(pitch=0.000000, yaw=0.0, roll=0.000000))
-# ego_vehicle = world.spawn_actor(blueprint_library.find('vehicle.tesla.model3'), ego_vehicle_spawn_point)
-
-# settings.synchronous_mode = True # Enables synchronous mode
-# settings.fixed_delta_seconds = 0.02
-# world.apply_settings(settings)
-
 spectator = world.get_spectator()
 spectator_transform = ego_vehicle_1.get_transform()
 spectator.set_transform(
-    carla.Transform(
-        carla.Location(x=-5000, y=0,z=30), carla.Rotation(pitch=-90)
+    carla.Transform(spectator_transform.location + \
+        carla.Location(x=0, y=0,z=30), carla.Rotation(pitch=-90)
     )
 )
 
+# frame = snapshot.frame - frame_zero
+elapsed_seconds = 0
+step = 1
 while (step <= 20000):
     step += 1
     snapshot = world.get_snapshot()
@@ -103,3 +96,18 @@ while (step <= 20000):
         )
     )
     world.tick()
+    
+
+#############################################################################################
+#
+# #!/usr/bin/env python
+#
+# import sys
+#
+# sys.path.append(
+#     'PythonAPI/dist/carla-0.9.14-py3.10-linux-x86_64.egg' % (sys.version_info.major,
+#                                                              sys.version_info.minor))
+#
+# import carla
+#
+############################################################################################
