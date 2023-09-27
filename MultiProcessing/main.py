@@ -219,7 +219,6 @@ def piecewise_learning_rate(initial_learning_rate: float) -> Callable[[float], f
 			return initial_learning_rate * 0.01
 	return _func
 
-
 	
 
 
@@ -307,6 +306,23 @@ def _notes():
 	# check_env(game)
 	# vec_env_train = make_vec_env(env, n_envs=1024)
 	# env = SubprocVecEnv([env for _ in range(1024)])
+	def __func():
+		T = 1000  
+		time = torch.arange(1, T + 1, dtype=torch.float32)
+		x = torch.sin(0.01 * time) + torch.normal(0, 0.2, (T,))
+		d2l.plot(time, [x], 'time', 'x', xlim=[1, 1000], figsize=(6, 3))
+		tau = 4
+		features = torch.zeros((T - tau, tau))
+		for i in range(tau):
+		    features[:, i] = x[i: T - tau + i]
+		labels = x[tau:].reshape((-1, 1))
+
+		batch_size, n_train = 16, 600
+		# 只有前n_train个样本用于训练
+		train_iter = d2l.load_array((features[:n_train], labels[:n_train]),
+		                            batch_size, is_train=True)
+	
+
 	env = game
 	model = SAC(
 			"MlpPolicy",

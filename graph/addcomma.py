@@ -1,5 +1,6 @@
 def addComma():
-	f = open("location13b.py", "r")
+	i = 14
+	f = open(f"location{i}b_raw.py", "r")
 	location = ""
 	l = f.readline()
 	while(l):
@@ -8,7 +9,7 @@ def addComma():
 		location += t
 		l = f.readline()
 	f.close()
-	a = open("./updated_locations.py", "w")
+	a = open(f"./location{i}b.py", "w")
 	a.writelines(location)
 	a.close()
 

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from locations import locations
+from location14b import location14b
 from simpleLocations import simpleLocations
 
 def myexample():
@@ -9,7 +10,13 @@ def myexample():
 	for i in range(3306):
 		timel.append(float(i)/10) # delta_t = 10
 		l.append(locations[i]/100)
-	plt.plot(timel, l, color='orange')
+	l_14b = []
+	timel_14b = []
+	for i in range(3485):
+		timel_14b.append(float(i)/10)
+		l_14b.append(location14b[i]/100)
+	plt.plot(timel_14b, l_14b, color='orange')
+	# plt.plot(timel, l, color='orange')
 	sl = []
 	timesl = []
 	for i in range(17701):
