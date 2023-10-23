@@ -51,12 +51,12 @@ from stable_baselines3.common.env_checker import check_env
 # 1. implement seed for random generator so experiment can be replicated
 # 2. try multi-pro cessing # checkout conventions need to follow
 
-def someFun():
+def someFunc():
 	pass
 	return None
 
 def nextThreeLights():
-	pass
+	return None
 
 # # Callback
 # eval_callback = EvalCallback(env, best_model_save_path="./logs/BestModel0419_02/",
@@ -81,7 +81,7 @@ def nextThreeLights():
 # model = DQN.load("Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1", env=env)
 
 
-def seventeenTrafficLights():
+def seventeenTrafficLights(load_model_name, trained_model_name, training_iterations):
 	stl_vec_env = make_vec_env("SeventeenTrafficLights", 2048)
 	model = PPO(
 		"MlpPolicy", 
@@ -89,22 +89,23 @@ def seventeenTrafficLights():
 		batch_size=2048,
 		learning_rate= 3e-5, 
 		# action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
-		tensorboard_log='./tb_log/0901',
+		# tensorboard_log='./tb_log/1020',
 		verbose=1, 
 		device='cuda'
 		)
-	eval_callback = EvalCallback(stl_vec_env, best_model_save_path="./models/0911/best_models/",
-                             log_path="./models/0911/best_models_log/", eval_freq=1e5,
-                             deterministic=True, render=False)
+	# eval_callback = EvalCallback(stl_vec_env, best_model_save_path="./models/0911/best_models/",
+    #                          log_path="./models/0911/best_models_log/", eval_freq=1e5,
+    #                          deterministic=True, render=False)
 	for i in range(0, 1):
-		model_name = f"PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{140}e8[-2,2]"
-		model = PPO.load("./models/0925/" + model_name)
+		# model_name = f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{200}e8[-2,2]"
+		model = PPO.load(load_model_name)
 		# model = PPO.load("./models/0828/"+model_name, custom_objects={'learning_rate':7.77e-7})
 		# print("loaded", model_name)
 		model.set_env(stl_vec_env)
-		model.learn(20e8, progress_bar=True)#, callback=eval_callback)
-		trained = f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{160}e8[-2,2]"
-		model.save(trained)
+		model.tensorboard_log = './tb_log/1020'
+		model.learn(training_iterations, progress_bar=True)#, callback=eval_callback)
+		trained = f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{220}e8[-2,2]"
+		model.save(trained_model_name)
 		print("Finished Training:", trained)
 		now = datetime.now()
 		current_time = now.strftime("%H:%M:%S")
