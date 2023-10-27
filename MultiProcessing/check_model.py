@@ -60,10 +60,10 @@ def checkModel_MultiPPO():
 	# 	verbose=1, 
 	# 	device='cuda'
 	# )
-	model = PPO.load(f"./models/0925/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{140}e8[-2,2]")
+	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{200}e8[-2,2]")
 	eposides = 1
 
-	file_name = f"./check_result_log/0915_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{140}e8[-2,2]"
+	file_name = f"./check_result_log/0915_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{200}e8[-2,2]"
 	f = open(file_name, "a")
 	f.write("step, action, location, speed, observation\n")
 	data = ''
