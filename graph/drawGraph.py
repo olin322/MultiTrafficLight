@@ -1,10 +1,69 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from locations import locations
-from location14b import location14b
-from simpleLocations import simpleLocations
+
+
+
+
+def drawSeventeenTrafficLights():
+	from location24b import location24b
+	from locations_full import sl_full
+	# l = []
+	# timel = []
+	# for i in range(3306):
+	# 	timel.append(float(i)/10) # delta_t = 0.1
+	# 	l.append(locations[i]/100)
+	l_24b = []
+	timel_24b = []
+	for i in range(10001):
+		timel_24b.append(float(i)/10)
+		l_24b.append(location24b[i]/100)
+	plt.plot(timel_24b, l_24b, color='orange')
+	# plt.plot(timel, l, color='orange')
+	sl = []
+	timesl = []
+	for i in range(50515):
+		timesl.append(float(i)/50) # delta_t = 50
+		sl.append(sl_full[i]/100)
+	plt.plot(timesl, sl, color='blue')
+	# plt.scatter(time, locations)
+	light_number = [
+					'light 1  100', 
+					'light 2  200',
+					'light 3  500',
+					'light 4 2000',
+					'light 5 2500',
+					'light 6 3200',
+					'light 7 3400',
+					'light 8 3600',
+					'light 9 3800',
+					'light10 4000',
+					'light11 5000',
+					'light12 5100',
+					'light13 6000',
+					'light14 6500',
+					'light15 7000',
+					'light16 8000',
+					'light17 9900'
+					]
+	pos = [ 1,  2,  5, 20, 25, 32, 34, 36, 38, 40, 
+		   50, 51, 60, 65, 70, 80, 99]
+	pos = np.multiply(pos, 100)
+	cycle   = np.array([10, 47, 61, 53, 53, 61, 67, 67, 67, 57,
+						57, 67, 50, 61, 61, 61, 61])
+	spat = []
+	for i in range(17):
+		spat.append([])
+	print(spat)
+	plt.yticks(pos, light_number)
+
+	plt.show()
+
+drawSeventeenTrafficLights()
 
 def myexample():
+	from locations import locations
+	from simpleLocations import simpleLocations
+	
 	l = []
 	timel = []
 	for i in range(3306):
@@ -123,7 +182,7 @@ def myexample():
 
 	plt.show()
 
-myexample()
+# myexample()
 
 def example():
 	

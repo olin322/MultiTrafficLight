@@ -434,7 +434,7 @@ class SeventeenTrafficLightEnvMultiProc(gym.Env, Game):
                 ):
         super().__init__(delta_t)
         self.mapSize = mapSize
-        ego_vehicle = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, delta_t, speed=0)
+        ego_vehicle     = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, delta_t, speed=0)
         trafficLight_1  = TrafficLight("1",  100,  "green", 10, delta_t)
         trafficLight_2  = TrafficLight("2",  200,  "green", 47, delta_t)
         trafficLight_3  = TrafficLight("3",  500,  "green", 61, delta_t)
@@ -544,5 +544,5 @@ register(
     entry_point = "envs.SimpleEnvs:SeventeenTrafficLightEnvMultiProc",
     # max_episode_steps is not necessary in this env as ev 
     # will always arrive at destination
-    max_episode_steps = 1e4
+    max_episode_steps = 1.5e4
 )
