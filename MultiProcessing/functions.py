@@ -104,9 +104,8 @@ def seventeenTrafficLights(load_model_name, trained_model_name, training_iterati
 		model.set_env(stl_vec_env)
 		model.tensorboard_log = './tb_log/1020'
 		model.learn(training_iterations, progress_bar=True)#, callback=eval_callback)
-		trained = f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{220}e8[-2,2]"
 		model.save(trained_model_name)
-		print("Finished Training:", trained)
+		print("Finished Training:", trained_model_name)
 		now = datetime.now()
 		current_time = now.strftime("%H:%M:%S")
 		print(current_time)
