@@ -431,8 +431,10 @@ class SeventeenTrafficLightEnvMultiProc(gym.Env, Game):
                 totalTrafficLights=2, 
                 delta_t=0.1, 
                 mapSize=10000,
+                max_step=15000,
                 ):
         super().__init__(delta_t)
+        self.max_step=max_step
         self.mapSize = mapSize
         ego_vehicle     = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, delta_t, speed=0)
         trafficLight_1  = TrafficLight("1",  100,  "green", 10, delta_t)
@@ -490,7 +492,7 @@ class SeventeenTrafficLightEnvMultiProc(gym.Env, Game):
         reward = self.rewardMap.getStepReward() # update reward and reward map
         terminated = terminated \
                      | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= self.mapSize) \
-                     | bool(self.frame > 10000)
+                     | bool(self.frame > self.max_step)
         truncated = False # unnecessary to truncate anything
         info = {}
         return observation, reward, terminated, truncated, info

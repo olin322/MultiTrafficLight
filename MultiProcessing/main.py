@@ -6,4 +6,4 @@ def main(accumulated_epoc: int, epoc_this_run: int):
 	training_iterations = epoc_this_run * 1e8
 	seventeenTrafficLights(load_model_name, trained_model_name, training_iterations)
 
-main(accumulated_epoc=260, epoc_this_run=20)
+main(accumulated_epoc=280, epoc_this_run=20)
