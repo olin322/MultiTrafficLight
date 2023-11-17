@@ -49,7 +49,7 @@ from stable_baselines3.common.env_checker import check_env
 
 def checkModel_MultiPPO():
 	# stl_vec_env = make_vec_env("SingleTrafficLightMultiProc-v1", 1024)
-	env = gym.make("SeventeenTrafficLights")
+	env = gym.make("SeventeenTrafficLightsBase")
 	# model = PPO(
 	# 	"MlpPolicy", 
 	# 	env=env, 
@@ -60,10 +60,10 @@ def checkModel_MultiPPO():
 	# 	verbose=1, 
 	# 	device='cuda'
 	# )
-	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]")
+	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{320}e8[-2,2]")
 	eposides = 1
 
-	file_name = f"./check_result_log/1113_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]"
+	file_name = f"./check_result_log/1116_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{320}e8[-2,2]"
 	f = open(file_name, "a")
 	f.write("step, \t, action, \t, location, speed, observation\n")
 	data = ''
@@ -83,4 +83,45 @@ def checkModel_MultiPPO():
 			rewards += reward
 	f.write(data)
 	f.close()
-checkModel_MultiPPO()
+
+# checkModel_MultiPPO()
+
+
+
+def checkModel_settings(settings: str):
+	# stl_vec_env = make_vec_env("SingleTrafficLightMultiProc-v1", 1024)
+	env = gym.make(settings)
+	# model = PPO(
+	# 	"MlpPolicy", 
+	# 	env=env, 
+	# 	batch_size=1024,
+	# 	learning_rate=3e-5, 
+	# 	# action_noise=NormalActionNoise(mean=np.zeros(vec_env_train.action_space.shape[-1]), 
+	# 	tensorboard_log='./tb_log',
+	# 	verbose=1, 
+	# 	device='cuda'
+	# )
+	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]")
+	eposides = 1
+
+	file_name = f"./check_result_log/1116_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]"
+	f = open(file_name, "a")
+	f.write("step, \t, action, \t, location, speed, observation\n")
+	data = ''
+	for ep in range(eposides):
+		obs = env.reset()[0]
+		done = False
+		rewards = 0
+		step = 0
+		while not done:
+			step += 1 
+			action, _states = model.predict(obs, deterministic=True)
+			obs, reward, done, info, t = env.step(action)
+			data += str(step) + ",\t" + str(float(f'{action[0]:.6f}')) + ",\t" \
+					+ str(float(f'{obs[0]:.6f}')) + "," + str(float(f'{obs[1]:.6f}')) + "," \
+					+ str([float(f'{i:.6f}') for i in obs]) + "\n"
+			print(data)
+			rewards += reward
+	f.write(data)
+	f.close()
+checkModel_settings("SeventeenTrafficLights-v2")

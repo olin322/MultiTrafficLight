@@ -81,6 +81,30 @@ def nextThreeLights():
 # model = DQN.load("Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1", env=env)
 
 
+def seventeenTrafficLightsSettings(env_id, load_model_name, trained_model_name, training_iterations):
+	stl_vec_env = make_vec_env(env_id, 2048)
+	model = PPO(
+		"MlpPolicy", 
+		env=stl_vec_env, 
+		batch_size=2048,
+		learning_rate= 3e-5, 
+		verbose=1, 
+		device='cuda'
+		)
+	
+	for i in range(0, 1):
+		model = PPO.load(load_model_name)
+		model.set_env(stl_vec_env)
+		model.tensorboard_log = './tb_log/1020'
+		model.learn(training_iterations, progress_bar=True)#, callback=eval_callback)
+		model.save(trained_model_name)
+		print("Finished Training:", trained_model_name)
+		now = datetime.now()
+		current_time = now.strftime("%H:%M:%S")
+		print(current_time)
+
+
+
 def seventeenTrafficLights(load_model_name, trained_model_name, training_iterations):
 	stl_vec_env = make_vec_env("SeventeenTrafficLights", 2048)
 	model = PPO(
