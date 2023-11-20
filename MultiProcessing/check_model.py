@@ -19,6 +19,7 @@ from datetime import datetime
 from datetime import timedelta
 
 import gymnasium as gym
+# import gym
 
 from stable_baselines3 import SAC, TD3, A2C, DDPG, PPO
 from stable_baselines3.common.vec_env import VecNormalize, SubprocVecEnv
@@ -101,12 +102,14 @@ def checkModel_settings(settings: str):
 	# 	verbose=1, 
 	# 	device='cuda'
 	# )
-	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]")
+	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{340}e8[-2,2]", env)
+	model.set_env(env)
+	print(model.get_vec_normalize_env())
 	eposides = 1
 
-	file_name = f"./check_result_log/1116_PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{300}e8[-2,2]"
+	file_name = f"./check_result_log/1120_PPO_SeventeenTrafficLightsSettingsTwo_2048_3e-5_deltat_0.1_{340}e8[-2,2]"
 	f = open(file_name, "a")
-	f.write("step, \t, action, \t, location, speed, observation\n")
+	f.write("step,  action,  location, speed, observation\n")
 	data = ''
 	for ep in range(eposides):
 		obs = env.reset()[0]
@@ -115,13 +118,54 @@ def checkModel_settings(settings: str):
 		step = 0
 		while not done:
 			step += 1 
-			action, _states = model.predict(obs, deterministic=True)
+			action, _states = model.predict(obs)#, deterministic=True)
 			obs, reward, done, info, t = env.step(action)
-			data += str(step) + ",\t" + str(float(f'{action[0]:.6f}')) + ",\t" \
+			data += str(step) + ","+str(float(f'{action[0]:.6f}')) + ","\
 					+ str(float(f'{obs[0]:.6f}')) + "," + str(float(f'{obs[1]:.6f}')) + "," \
 					+ str([float(f'{i:.6f}') for i in obs]) + "\n"
-			print(data)
-			rewards += reward
+			# print(data)
+			# rewards += reward
+	f.write(data)
+	f.close()
+checkModel_settings("SeventeenTrafficLights-v2")
+
+
+def checkModel_tenLightsRelativeDistance(settings: str):
+	env = gym.make(settings)
+	model = PPO.load(f"./models/PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_{340}e8[-2,2]", env)
+	model.set_env(env)
+	print(model.get_vec_normalize_env())
+	eposides = 1
+
+	file_name = f"./check_result_log/1120_PPO_SeventeenTrafficLightsSettingsTwo_2048_3e-5_deltat_0.1_{340}e8[-2,2]"
+	f = open(file_name, "a")
+	f.write("step,  action,  location, speed, \
+			 distance to tl  1, tl  1 countdown, tl1 phase, \
+			 distance to tl  2, tl  2 countdown, tl1 phase, \
+			 distance to tl  3, tl  3 countdown, tl1 phase, \
+			 distance to tl  4, tl  4 countdown, tl1 phase, \
+			 distance to tl  5, tl  5 countdown, tl1 phase, \
+			 distance to tl  6, tl  6 countdown, tl1 phase, \
+			 distance to tl  7, tl  7 countdown, tl1 phase, \
+			 distance to tl  8, tl  8 countdown, tl1 phase, \
+			 distance to tl  9, tl  9 countdown, tl1 phase, \
+			 distance to tl 10, tl 10 countdown, tl1 phase, \
+			 \n")
+	data = ''
+	for ep in range(eposides):
+		obs = env.reset()[0]
+		done = False
+		rewards = 0
+		step = 0
+		while not done:
+			step += 1 
+			action, _states = model.predict(obs)#, deterministic=True)
+			obs, reward, done, info, t = env.step(action)
+			data += str(step) + ","+str(float(f'{action[0]:.6f}')) + ","\
+					+ str(float(f'{obs[0]:.6f}')) + "," + str(float(f'{obs[1]:.6f}')) + "," \
+					+ str([float(f'{i:.6f}') for i in obs]) + "\n"
+			# print(data)
+			# rewards += reward
 	f.write(data)
 	f.close()
 checkModel_settings("SeventeenTrafficLights-v2")
