@@ -1062,3 +1062,117 @@ register(
     entry_point = "envs.SimpleEnvs:tenTrafficLightsRelativeDistanceSettingsThree",
     max_episode_steps = 1e4
 )
+
+
+
+class tenTrafficLightsRelativeDistanceSettingsFourTuning(gym.Env, Game):
+    metadata = {
+        "render_modes": [
+            "human",
+            "rgb_array",
+            "depth_array",
+        ],
+        "render_fps": 67,
+    }
+
+    def __init__(self, 
+                totalTrafficLights=10, 
+                delta_t=0.1, 
+                mapSize=2100,
+                max_step=10000,
+                ):
+        super().__init__(delta_t)
+        self.max_step=max_step
+        self.mapSize = mapSize
+        ego_vehicle     = Vehicle("ego_vehicle", 0.0, 1500.0, 2, 2, delta_t, speed=0)
+        trafficLight_1  = TrafficLight("1",  100,  "green", 5, delta_t)
+        trafficLight_2  = TrafficLight("2",  200,  "green", 17, delta_t)
+        trafficLight_3  = TrafficLight("3",  250,  "green", 17, delta_t)
+        trafficLight_4  = TrafficLight("4",  280, "green", 13, delta_t)
+        trafficLight_5  = TrafficLight("5",  500, "green", 33, delta_t)
+        trafficLight_6  = TrafficLight("6",  600, "green", 61, delta_t)
+        trafficLight_7  = TrafficLight("7",  1100, "green", 67, delta_t)
+        trafficLight_8  = TrafficLight("8",  1400, "green", 67, delta_t)
+        trafficLight_9  = TrafficLight("9",  1700, "green", 67, delta_t)
+        trafficLight_10 = TrafficLight("10", 2000, "green", 57, delta_t)
+        trafficLights = []
+        trafficLights.append(trafficLight_1)
+        trafficLights.append(trafficLight_2)
+        trafficLights.append(trafficLight_3)
+        trafficLights.append(trafficLight_4)
+        trafficLights.append(trafficLight_5)
+        trafficLights.append(trafficLight_6)
+        trafficLights.append(trafficLight_7)
+        trafficLights.append(trafficLight_8)
+        trafficLights.append(trafficLight_9)
+        trafficLights.append(trafficLight_10)
+
+        self.actors.append(ego_vehicle)
+        for l in trafficLights:
+            self.actors.append(l)
+
+        rewardMap = RewardMap(mapSize, delta_t, ego_vehicle, trafficLights)
+        self.totalTrafficLights = len(trafficLights)
+        self.rewardMap = rewardMap
+        self.num_envs = 1
+        self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(1,), dtype=np.float32)
+        num_obs = self.totalTrafficLights * 3 + 2 + 5
+        self.observation_space = spaces.Box(low=0, high=10000, shape=(num_obs,), dtype=np.float32)
+       
+    def step(self, action) -> GymStepReturn: 
+        self.rl_tick(action)
+        observation = self._get_observation()
+        terminated = self.rewardMap.tick(action)
+        reward = self.rewardMap.getStepReward() # update reward and reward map
+        terminated = terminated \
+                     | bool(self.actors[self._get_ego_vehicle_index()].getLocation() >= self.mapSize) \
+                     | bool(self.frame > self.max_step)
+        truncated = False # unnecessary to truncate anything
+        info = {}
+        return observation, reward, terminated, truncated, info
+
+    @override
+    def reset(self, seed=None, options=None):
+        for actor in self.actors:
+            actor.reset()
+        self.rewardMap.reset()
+        self.frame = 0
+        self.simulation_time = 0
+        observation = self._get_observation()
+        if (seed):
+            print(seed)
+        info = {}
+        return observation, info
+
+    def render(self):
+        return None
+
+    def close(self):
+        pass
+
+    def _get_observation(self) -> spaces.Box:
+        ego_vehicle = self.actors[self._get_ego_vehicle_index()]
+        obs = []
+        obs.append(ego_vehicle.getLocation())
+        obs.append(ego_vehicle.getSpeed())
+
+        for a in self.actors:
+            if(self._find_Actor_Type(a) == "TrafficLight"):
+                if(a.getLocation() < ego_vehicle.getLocation()):
+                    obs.append(-1)
+                    obs.append(-1)
+                    obs.append(-1)
+                else:
+                    obs.append(float(f'{(a.getLocation() - ego_vehicle.getLocation()):.6f}'))
+                    obs.append(float(f'{a.getCountdown():.6f}'))
+                    obs.append(float(f'{a.getPhaseInFloat():.6f}'))
+        for k in range(5):
+            obs.append(-1)
+        observation = np.array(obs, dtype=np.float32)
+        return observation
+        
+register(
+    id = "tenTrafficLightsRelativeDistanceSettings-v4",
+    entry_point = "envs.SimpleEnvs:tenTrafficLightsRelativeDistanceSettingsFourTuning",
+    max_episode_steps = 1e4
+)

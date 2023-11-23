@@ -7,6 +7,7 @@ from Actor import Actor
 from Vehicle import Vehicle
 from rewards import RewardMap
 from TrafficLight import TrafficLight
+from envs import SimpleEnvs
 from envs.SimpleEnvs import SingleTrafficLightEnvMultiProc, TwoTrafficLightEnvMultiProc
 
 import matplotlib.pyplot as plt
@@ -79,7 +80,10 @@ def someFunc():
 # model = DQN.load("Sumo_pattern1_straight_DQN_alpha_7e-3_7M_call_1", env=env)
 
 
-def tenTrafficLightsRelativeDistanceSettings(env_id, load_model_name, trained_model_name, training_iterations):
+def tenTrafficLightsRelativeDistanceSettings(env_id, load_model_name, 
+											 trained_model_name, 
+											 training_iterations,
+											 tensorboard_log_dir = "./tb_log/1201"):
 	stl_vec_env = make_vec_env(env_id, 2048)
 	
 	model = PPO(
@@ -91,11 +95,11 @@ def tenTrafficLightsRelativeDistanceSettings(env_id, load_model_name, trained_mo
 		device='cuda'
 	)
 	if (load_model_name != None):
-		model = PPO.load(load_model_name)
-		model.set_env(stl_vec_env)
+		model = PPO.load(load_model_name, stl_vec_env)
+		# model.set_env(stl_vec_env)
 	
 	for i in range(0, 1):	
-		model.tensorboard_log = './tb_log/1201'
+		model.tensorboard_log = tensorboard_log_dir
 		model.learn(training_iterations, progress_bar=True)#, callback=eval_callback)
 		model.save(trained_model_name)
 		print("Finished Training:", trained_model_name)
