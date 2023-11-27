@@ -8,8 +8,9 @@ def main(accumulated_epoc: int, epoc_this_run: int):
 	training_iterations = epoc_this_run * 1e8
 	tenTrafficLightsRelativeDistanceSettings(env_id, load_model_name, trained_model_name, training_iterations)
 
-main(accumulated_epoc=20, epoc_this_run=20)
+main(accumulated_epoc=40, epoc_this_run=20)
 
-# ./tb_log/1201 PPO_3 PPO_tenTrafficLightsRelativeDistanceSettingsTwoV2_2048_3e-5_deltat_0.1_20e8[-2,2]
-# ./tb_log/1201 PPO_6 PPO_tenTrafficLightsRelativeDistanceSettingsTwoV2_2048_3e-5_deltat_0.1_40e8[-2,2]
-# python3 -m tensorboard.main --logdir=./tb_log/1201 port=6007
+# ./tb_log/1201 PPO_3  PPO_tenTrafficLightsRelativeDistanceSettingsTwoV2_2048_3e-5_deltat_0.1_20e8[-2,2]
+# ./tb_log/1201 PPO_6  PPO_tenTrafficLightsRelativeDistanceSettingsTwoV2_2048_3e-5_deltat_0.1_40e8[-2,2]
+# ./tb_log/1201 PPO_12 PPO_tenTrafficLightsRelativeDistanceSettingsTwoV2_2048_3e-5_delatt_0.1_60e8[-2,2]
+# python3 -m tensorboard.main --logdir=./tb_log/1201 --port=6007

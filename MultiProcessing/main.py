@@ -6,4 +6,8 @@ def main(accumulated_epoc: int, epoc_this_run: int):
 	training_iterations = epoc_this_run * 1e8
 	seventeenTrafficLights(load_model_name, trained_model_name, training_iterations)
 
-main(accumulated_epoc=340, epoc_this_run=20)
+main(accumulated_epoc=360, epoc_this_run=20)                                      
+
+
+# .tb_log/1020 PPO_13 PPO_SeventeenTrafficLights_2048_3e-5_deltat_0.1_380e8[-2,2]"
+# python3 -m tensorboard.main --logdir=./tb_log/1020 --port=6006
