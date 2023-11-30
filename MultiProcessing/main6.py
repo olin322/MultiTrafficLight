@@ -8,10 +8,11 @@ def main(accumulated_epoc: int, epoc_this_run: int):
 	training_iterations = epoc_this_run * 1e8
 	tenTrafficLightsRelativeDistanceSettings(env_id, load_model_name, trained_model_name, training_iterations)
 
-main(accumulated_epoc=20, epoc_this_run=30)
+main(accumulated_epoc=50, epoc_this_run=40)
 
 # ./tb_log/1201 PPO_8  PPO_tenTrafficLightsRelativeDistanceSettingsFourV4_2048_3e-5_deltat_0.1_20e8[-2,2]"
 # ./tb_log/1201 PPO_14 PPO_tenTrafficLightsRelativeDistanceSettingsFourV4_2048_3e-5_deltat_0.1_50e8[-2,2]"
+# ./tb_log/1201 PPO_18 PPO_tenTrafficLightsRelativeDistanceSettingsFourV4_2048_3e-5_deltat_0.1_90e8[-2,2]"
 
 
 # python3 -m tensorboard.main --logdir=./tb_log/1201 --port=6007
