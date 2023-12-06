@@ -34,7 +34,7 @@ example of pre-processed data:
 '''
 
 def retriveSimpleControlData(source_file: str, target_file: str):
-	f = open( source_file, "r")
+	f = open("./data/"+source_file, "r")
 	location = "sl_full = [\n"
 	l = f.readline()
 	while(l):
@@ -45,7 +45,7 @@ def retriveSimpleControlData(source_file: str, target_file: str):
 	f.close()
 	location = location[: -2]
 	location += "]"
-	a = open("./"+target_file+".py", "w")
+	a = open("./data/"+target_file+".py", "w")
 	a.writelines(location)
 	a.close()
 

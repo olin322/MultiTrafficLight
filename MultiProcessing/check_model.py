@@ -47,6 +47,38 @@ from stable_baselines3.common.env_checker import check_env
 # DELTA_T = 1/HZ
 # NUMBR_OF_LIGHTS = 16	
 
+def check_model(env_name: str, 
+				model_name: str, 
+				output_file_name: str, 
+				header: str,
+				output_path="./check_result_log/",
+				eposides=1,
+				):
+	env = gym.make(env_name)
+	model = PPO.load(model_name)
+	f = open(output_path+output_file_name, "a")
+	if (header):
+		f.write(header, "\n")
+	else:
+		f.write("step, action, location, speed, observation\n")
+	data = ""
+	for ep in range(eposides):
+		obs = env.reset()[0]
+		done = False
+		rewards = 0
+		step = 0
+		while not done:
+			step += 1
+			action, _states = model.predict(obs, deterministic=True)
+			obs, reward, done, info, t = env.step(action)
+			data += str(step) + "," + str(float(f'{action[0]:.6f}')) + "," \
+				 + str(float(f'{obs[0]:.6f}')) + "," + str(float(f'{obs[1]:.6f}')) + "," \
+				 + str([float(f'{i:.6f}') for i in obs]) + "\n"
+			rewards += reward
+	f.write(data)
+	f.close()
+
+
 
 def checkModel_MultiPPO():
 	# stl_vec_env = make_vec_env("SingleTrafficLightMultiProc-v1", 1024)
@@ -127,7 +159,7 @@ def checkModel_settings(settings: str):
 			# rewards += reward
 	f.write(data)
 	f.close()
-checkModel_settings("SeventeenTrafficLights-v2")
+# checkModel_settings("SeventeenTrafficLights-v2")
 
 
 def checkModel_tenLightsRelativeDistance(settings: str):
@@ -168,4 +200,4 @@ def checkModel_tenLightsRelativeDistance(settings: str):
 			# rewards += reward
 	f.write(data)
 	f.close()
-checkModel_settings("SeventeenTrafficLights-v2")
+# checkModel_settings("SeventeenTrafficLights-v2")
