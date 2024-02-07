@@ -3,7 +3,8 @@ import numpy as np
 
 
 # TO-DO
-def drawGraph():
+def drawGraph(simpleControl_file_name: str,
+			  RL_locations_file_name: str):
 	pass
 
 

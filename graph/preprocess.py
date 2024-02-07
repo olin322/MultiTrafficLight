@@ -1,4 +1,20 @@
-def addComma(i: int):
+def add_comma_end_of_line(input_filename: str, output_filename: str):
+	f = open(input_filename, "r")
+	data = ""
+	l = f.readline()
+	while(l):
+		l = l.strip()
+		l += ",\n"
+		data += l
+		l = f.readline()
+	o = open(output_filename, "w")
+	o.writelines(data)
+	o.close()
+	f.close()
+
+add_comma_end_of_line("./data/2024-01-09_raw.txt", "data/2024-01-09_locations.py")
+
+def preprocess_(i: int):
 	f = open(f"location{i}b_raw.py", "r")
 	location = ""
 	l = f.readline()
